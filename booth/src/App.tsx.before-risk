@@ -91,7 +91,7 @@ function App() {
         {step === 1 && <HomeScreen session={session} updateTheme={(value) => update('themeId', value)} next={() => setStep(2)} />}
         {step === 2 && <OrganoidScreen session={session} updateDisease={(value) => update('diseaseId', value)} updateCellModel={(value) => update('cellModelId', value)} previous={() => setStep(1)} next={() => setStep(3)} />}
         {step === 3 && <ProteinScreen diseaseName={disease.title} previous={() => setStep(2)} next={() => setStep(4)} />}
-        {step === 4 && <PredictionScreen session={session} diseaseName={disease.title} previous={() => setStep(3)} next={() => setStep(5)} />}
+        {step === 4 && <PredictionScreen diseaseName={disease.title} previous={() => setStep(3)} next={() => setStep(5)} />}
         {step === 5 && <CandidateScreen selectedId={session.selectedCandidateId} select={(value) => update('selectedCandidateId', value)} previous={() => setStep(4)} next={() => setStep(6)} />}
         {step === 6 && <ReportScreen session={session} diseaseName={disease.title} selectedCandidate={candidate} updateName={(value) => update('researcherName', value)} updateRole={(value) => update('dreamRole', value)} previous={() => setStep(5)} print={print} reset={reset} />}
       </Shell>
@@ -201,7 +201,7 @@ function OrganoidScreen({ session, updateDisease, updateCellModel, previous, nex
   );
 }
 
-function ProteinScreen({ diseaseName, previous, next }: { session: ResearchSession; diseaseName: string; previous: () => void; next: () => void }) {
+function ProteinScreen({ diseaseName, previous, next }: { diseaseName: string; previous: () => void; next: () => void }) {
   return (
     <div className="screen screen--protein">
       <div className="content-with-summary">
@@ -224,7 +224,7 @@ function ProteinScreen({ diseaseName, previous, next }: { session: ResearchSessi
   );
 }
 
-function PredictionScreen({ session, diseaseName, previous, next }: { session: ResearchSession; diseaseName: string; previous: () => void; next: () => void }) {
+function PredictionScreen({ diseaseName, previous, next }: { diseaseName: string; previous: () => void; next: () => void }) {
   return (
     <div className="screen screen--prediction">
       <div className="prediction-grid">
