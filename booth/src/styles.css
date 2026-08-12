@@ -123,7 +123,11 @@ button { cursor: pointer; }
 .science-orb--organoid { filter: saturate(1.15); }
 .qr { display: grid; grid-template-columns: repeat(17, 1fr); width: 100px; height: 100px; padding: 7px; border: 1px solid #d8e2f0; border-radius: 8px; background: white; }
 .qr span { background: white; }
-.qr span.on { background: #071733; }
+.qr span.on {
+  background: #071733;
+  -webkit-print-color-adjust: exact;
+  print-color-adjust: exact;
+}
 .page-intro { display: flex; align-items: center; justify-content: space-between; min-height: 112px; padding: 18px 28px; background: linear-gradient(90deg, #fff 60%, #eef4ff); }
 .page-intro h1 { margin: 7px 0 5px; font-size: 23px; }
 .page-intro p { margin: 0; color: var(--muted); font-size: 12px; }
