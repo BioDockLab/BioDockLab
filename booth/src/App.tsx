@@ -19,6 +19,7 @@ import {
   Network,
   Printer,
   ScanLine,
+  ShieldCheck,
   Sparkles,
   Target,
   UserRound,
@@ -233,33 +234,57 @@ function PredictionScreen({ session, diseaseName, previous, next }: { session: R
         <section className="panel structure-card structure-card--wide"><header><h2>AI 예측 구조 <small>(AlphaFold 개념 체험)</small></h2><span className="confidence-badge"><strong>92</strong>/100</span></header><ProteinArt uncertain /><Progress label="예측 구조 커버리지" value={98} /><dl><div><dt>기반</dt><dd>AI 기반 구조 예측 개념</dd></div><div><dt>낮은 신뢰도</dt><dd>유연한 말단·루프 영역</dd></div></dl><p>예측 구조는 실험 구조를 대체하는 정답이 아니며, 영역별 신뢰도를 함께 해석해야 합니다.</p></section>
       </div>
       <section className="panel ai-analysis-result">
-        <header className="section-header">
-          <div>
-            <h2>AI 분석 결과</h2>
-            <p>선택한 샘플과 분석 결과를 바탕으로 체험용 AI 분석 결과를 제공합니다.</p>
-          </div>
-        </header>
+  <header className="section-header">
+    <div>
+      <h2>AI 분석 결과</h2>
+      <p>선택한 샘플과 분석 결과를 바탕으로 체험용 AI 분석 결과를 제공합니다.</p>
+    </div>
+  </header>
 
-        <div className="ai-analysis-metrics">
-          <div className="ai-metric">
-            <span>위험도</span>
-            <strong>중간</strong>
-            <small>AI 분석 기준</small>
-          </div>
+  <div className="ai-analysis-metrics"> 
+  <div className="ai-metric">
+    <div className="ai-metric-label">
+  <ShieldCheck />
+  <span>위험도</span>
+</div> 
+    <strong>중간</strong>
 
-          <div className="ai-metric">
-            <span>우선순위</span>
-            <strong>높음</strong>
-            <small>추가 분석 권장</small>
-          </div>
+    <div className="ai-progress">
+      <div className="ai-progress__bar" style={{ width: '62%' }} />
+    </div>
 
-          <div className="ai-metric">
-            <span>추천 연구 분야</span>
-            <strong>표적 단백질 분석</strong>
-            <small>EGFR 기반 분석</small>
-          </div>
-        </div>
-      </section>
+    <small>AI 분석 기준 · 62%</small>
+  </div>
+
+    <div className="ai-metric ai-metric--priority">
+  <div className="ai-metric-label">
+  <Target />
+  <span>우선순위</span>
+</div>
+  <strong>높음</strong>
+
+  <div className="ai-progress">
+    <div className="ai-progress__bar" style={{ width: '86%' }} />
+  </div>
+
+  <small>추가 분석 권장 · 86%</small>
+</div>
+
+    <div className="ai-metric ai-metric--research">
+  <div className="ai-metric-label">
+  <Beaker />
+  <span>추천 연구 분야</span>
+</div>
+  <strong>표적 단백질 분석</strong>
+
+  <div className="ai-progress">
+    <div className="ai-progress__bar" style={{ width: '92%' }} />
+  </div>
+
+  <small>EGFR 기반 분석 · 92%</small>
+</div>
+  </div>
+</section>
       <div className="prediction-lower">
         <section className="panel explainer"><h2>AI는 어떻게 단백질 구조를 예측할까요?</h2><p>아미노산 서열과 알려진 구조 패턴을 활용해 3차원 좌표와 영역별 신뢰도를 예측하는 개념을 체험합니다.</p><div className="concept-flow"><span><ScanLine />서열 입력</span><ArrowRight /><span><Network />패턴 학습</span><ArrowRight /><span><Atom />3D 좌표 예측</span><ArrowRight /><span><BarChart3 />신뢰도 확인</span></div></section>
         <aside className="panel research-note"><h2>연구 메모</h2><p><Brain /> 선택 질환 <strong>{diseaseName}</strong></p><p><Microscope /> 샘플 종류 <strong>{session.cellModelId === '2d-cell' ? '2D 세포 모델' : '3D 오가노이드'}</strong></p><p><Target /> 단백질 표적 <strong>EGFR</strong></p><NavButtons previous={previous} next={next} nextLabel="후보물질 비교" /></aside>
