@@ -56,3 +56,22 @@ npm run dev
 ## 중요 경계
 
 현재 수치와 후보물질 데이터는 **UI 개발용 예시 데이터**입니다. 교수 자문과 데이터 출처 검증을 거치기 전에는 실제 과학 데이터처럼 소개하면 안 됩니다.
+
+## CellScope 모드
+
+기본 실행은 하드웨어가 없어도 동작하는 오프라인 데모 모드입니다.
+
+```text
+http://localhost:5173/?cellscope=demo
+```
+
+라즈베리파이 로컬 API가 준비되면 장비 모드로 전환합니다.
+
+```text
+http://localhost:5173/?cellscope=device
+```
+
+장비 API 계약:
+
+- `GET /api/cellscope/sample`
+- `POST /api/cellscope/analyze`

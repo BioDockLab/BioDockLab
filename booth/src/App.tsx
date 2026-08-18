@@ -31,6 +31,7 @@ import { Brand } from './components/Brand';
 import { ChemicalSketch, ProteinArt, QrPlaceholder, ScienceOrb } from './components/ScienceArt';
 import { Shell } from './components/Shell';
 import { PrintOutputs } from './components/PrintOutputs';
+import { CellScopeExperience } from './components/CellScopeExperience';
 import type { CellModelId, DiseaseId, ResearchSession, ThemeId } from './types';
 
 const createSessionId = () => {
@@ -120,9 +121,11 @@ function HomeScreen({ session, updateTheme, next }: { session: ResearchSession; 
         <div className="hero-panel__action">
           <div className="dna-hero"><Dna /></div>
           <button type="button" className="button button--hero" onClick={next}>연구 시작하기 <ArrowRight /></button>
-          <small>약 7–10분 · 교육용 시뮬레이션</small>
+          <small>약 3–4분 · 교육용 시뮬레이션</small>
         </div>
       </section>
+
+      <CellScopeExperience />
 
       <div className="home-grid">
         <section className="panel theme-panel">
@@ -194,7 +197,7 @@ function OrganoidScreen({ session, updateDisease, updateCellModel, previous, nex
           <SummaryItem icon={<Brain />} label="질환"><strong>{selectedDisease.title}</strong><span>{selectedDisease.titleEn}</span></SummaryItem>
           <SummaryItem icon={<Atom />} label="세포 모델"><strong>{session.cellModelId === '3d-organoid' ? '3D 뇌 오가노이드 모델' : '2D 세포 모델'}</strong><span>선택됨</span></SummaryItem>
           <SummaryItem icon={<Target />} label="오가노이드 목적"><strong>질환 모델링과 연구 질문 탐색</strong><span>후보물질의 구조적 특징을 비교합니다.</span></SummaryItem>
-          <SummaryItem icon={<Clock3 />} label="예상 체험 시간"><strong>약 7–10분</strong><span>전체 체험 기준</span></SummaryItem>
+          <SummaryItem icon={<Clock3 />} label="예상 체험 시간"><strong>약 3–4분</strong><span>전체 체험 기준</span></SummaryItem>
           <div className="tip-card"><Sparkles /><strong>연구 팁</strong><p>오가노이드는 실제 장기 전체가 아니라 일부 특성을 모사하는 연구 모델입니다.</p></div>
         </aside>
       </div>
@@ -202,7 +205,7 @@ function OrganoidScreen({ session, updateDisease, updateCellModel, previous, nex
   );
 }
 
-function ProteinScreen({ diseaseName, previous, next }: { session: ResearchSession; diseaseName: string; previous: () => void; next: () => void }) {
+function ProteinScreen({ diseaseName, previous, next }: { diseaseName: string; previous: () => void; next: () => void }) {
   return (
     <div className="screen screen--protein">
       <div className="content-with-summary">
