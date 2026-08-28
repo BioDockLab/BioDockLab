@@ -252,7 +252,7 @@ function PredictionScreen({ session, diseaseName, previous, next }: { session: R
   <ShieldCheck />
   <span>위험도</span>
 </div> 
-    <strong>중간</strong>
+    <strong>{aiAnalysis.riskLabel}</strong>
 
     <div className="ai-progress">
       <div className="ai-progress__bar" style={{ width: `${aiAnalysis.riskScore}%` }} />
@@ -266,7 +266,7 @@ function PredictionScreen({ session, diseaseName, previous, next }: { session: R
   <Target />
   <span>우선순위</span>
 </div>
-  <strong>높음</strong>
+  <strong>{aiAnalysis.priorityLabel}</strong>
 
   <div className="ai-progress">
     <div className="ai-progress__bar" style={{ width: `${aiAnalysis.priorityScore}%` }} />
@@ -280,7 +280,7 @@ function PredictionScreen({ session, diseaseName, previous, next }: { session: R
   <Beaker />
   <span>추천 연구 분야</span>
 </div>
-  <strong>표적 단백질 분석</strong>
+  <strong>{aiAnalysis.researchLabel}</strong>
 
   <div className="ai-progress">
     <div className="ai-progress__bar" style={{ width: `${aiAnalysis.researchScore}%` }} />
