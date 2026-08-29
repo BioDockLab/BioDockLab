@@ -39,6 +39,16 @@ export type CellScopeHealth = {
   service?: string;
 };
 
+export type CellScopeLedState =
+  | 'idle'
+  | 'checking-device'
+  | 'waiting-for-sample'
+  | 'sample-detected'
+  | 'capturing'
+  | 'analyzing'
+  | 'complete'
+  | 'error';
+
 export const BOOTH_SAMPLE: CellScopeSample = {
   id: 'ORG-BRAIN-001',
   markerId: 'BDL-GBM-001',
@@ -81,6 +91,30 @@ export class CellScopeClient {
 
   getBaseUrl() {
     return this.baseUrl;
+  }
+
+  async setLedState(state: CellScopeLedState): Promise<void> {
+    if (this.mode === 'demo') {
+      console.info(`[CellScope LED] ${state}`);
+      return;
+    }
+
+    const response = await fetchWithTimeout(
+      `${this.baseUrl}/api/cellscope/led`,
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Accept: 'application/json',
+        },
+        body: JSON.stringify({ state }),
+      },
+      1500,
+    );
+
+    if (!response.ok) {
+      throw new Error(`LED 상태 변경 실패 (HTTP ${response.status})`);
+    }
   }
 
   async health(): Promise<CellScopeHealth> {

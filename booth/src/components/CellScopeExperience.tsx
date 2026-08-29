@@ -21,6 +21,7 @@ const statusText: Record<CellScopeStatus, string> = {
 
 export function CellScopeExperience() {
   const client = useMemo(() => createCellScopeClient(), []);
+
   const [status, setStatus] = useState<CellScopeStatus>('idle');
   const [sample, setSample] = useState<CellScopeSample | null>(null);
   const [analysis, setAnalysis] = useState<CellScopeAnalysis | null>(null);
@@ -59,6 +60,7 @@ export function CellScopeExperience() {
       setStatus('analyzing');
 
       const result = await client.analyze(detected);
+
       setAnalysis(result);
       setStatus('complete');
     } catch (error) {
@@ -74,9 +76,23 @@ export function CellScopeExperience() {
     }
   };
 
+  const reset = () => {
+    setStatus('idle');
+    setSample(null);
+    setAnalysis(null);
+    setHealth(null);
+    setErrorMessage(null);
+  };
+
   const busy = !['idle', 'complete', 'error'].includes(status);
 
-    useEffect(() => {
+  useEffect(() => {
+    void client.setLedState(status).catch((error) => {
+      console.warn('[CellScope LED]', error);
+    });
+  }, [client, status]);
+
+  useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
       if (event.key === 'Enter' && !busy) {
         event.preventDefault();
@@ -85,12 +101,7 @@ export function CellScopeExperience() {
 
       if (event.key === 'Escape' && !busy) {
         event.preventDefault();
-
-        setStatus('idle');
-        setSample(null);
-        setAnalysis(null);
-        setHealth(null);
-        setErrorMessage(null);
+        reset();
       }
     };
 
@@ -112,7 +123,8 @@ export function CellScopeExperience() {
     <section className="panel cellscope-panel">
       <div className="cellscope-panel__intro">
         <span className="eyebrow">
-          <Camera /> BIO AI CELLSCOPE
+          <Camera />
+          BIO AI CELLSCOPE
         </span>
 
         <h2>샘플을 넣고 AI 연구를 시작해 보세요.</h2>
@@ -140,6 +152,7 @@ export function CellScopeExperience() {
           disabled={busy}
         >
           <Cpu />
+
           {busy
             ? '분석 중…'
             : status === 'error'
@@ -158,8 +171,11 @@ export function CellScopeExperience() {
         {status === 'error' && (
           <div className="cellscope-empty">
             <ScanLine />
+
             <strong>CellScope 연결 오류</strong>
+
             <p>{errorMessage}</p>
+
             <small>
               {client.getMode() === 'device'
                 ? `API: ${client.getBaseUrl()}`
@@ -171,8 +187,12 @@ export function CellScopeExperience() {
         {!sample && status !== 'error' && (
           <div className="cellscope-empty">
             <Sparkles />
+
             <strong>오늘의 연구 미션</strong>
-            <p>뇌 오가노이드를 관찰하고 교모세포종 연구 흐름을 따라갑니다.</p>
+
+            <p>
+              뇌 오가노이드를 관찰하고 교모세포종 연구 흐름을 따라갑니다.
+            </p>
           </div>
         )}
 
@@ -180,7 +200,9 @@ export function CellScopeExperience() {
           <>
             <div className="cellscope-sample">
               <span>인식 샘플</span>
+
               <strong>{sample.label}</strong>
+
               <small>
                 {sample.id} · Marker {sample.markerId}
               </small>
@@ -202,10 +224,12 @@ export function CellScopeExperience() {
                     label="형태 특징"
                     value={analysis.morphologyScore}
                   />
+
                   <Metric
                     label="3D 구조"
                     value={analysis.structureScore}
                   />
+
                   <Metric
                     label="세포 분포"
                     value={analysis.distributionScore}
@@ -213,6 +237,7 @@ export function CellScopeExperience() {
                 </div>
 
                 <p>{analysis.observation}</p>
+
                 <em>{analysis.nextStep}</em>
               </div>
             )}
@@ -223,10 +248,17 @@ export function CellScopeExperience() {
   );
 }
 
-function Metric({ label, value }: { label: string; value: number }) {
+function Metric({
+  label,
+  value,
+}: {
+  label: string;
+  value: number;
+}) {
   return (
     <div>
       <span>{label}</span>
+
       <strong>{value}</strong>
 
       <i>
