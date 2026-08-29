@@ -262,7 +262,7 @@ MOCK_CAMERA_IMAGE = create_mock_camera_svg()
 
 
 class CellScopeMockHandler(BaseHTTPRequestHandler):
-    server_version = "CellScopeMock/1.1"
+    server_version = "CellScopeMock/1.2"
 
     def log_message(
         self,
@@ -368,9 +368,7 @@ class CellScopeMockHandler(BaseHTTPRequestHandler):
 
     def do_OPTIONS(self) -> None:
         self.send_response(204)
-
         self._send_cors_headers()
-
         self.end_headers()
 
     def do_GET(self) -> None:
@@ -403,11 +401,9 @@ class CellScopeMockHandler(BaseHTTPRequestHandler):
             return
 
         if path == MOCK_IMAGE_PATH:
-            device_state["lastCaptureAt"] = utc_now()
-
             print(
                 "[CellScope Camera] "
-                "Serving mock Camera Module 3 image"
+                "Serving latest mock Camera Module 3 image"
             )
 
             self._send_image(
@@ -472,6 +468,62 @@ class CellScopeMockHandler(BaseHTTPRequestHandler):
             )
             return
 
+        if path == "/api/cellscope/capture":
+            sample = body.get("sample")
+
+            if not isinstance(sample, dict):
+                self._send_json(
+                    400,
+                    {
+                        "ok": False,
+                        "error": "sample is required",
+                    },
+                )
+                return
+
+            sample_id = sample.get(
+                "id",
+                "UNKNOWN",
+            )
+
+            print(
+                "[CellScope Camera] "
+                f"Capturing sample {sample_id}"
+            )
+
+            if not device_state["camera"]:
+                self._send_json(
+                    503,
+                    {
+                        "ok": False,
+                        "error": "camera unavailable",
+                    },
+                )
+                return
+
+            # 실제 Camera Module 3 촬영 지연을 흉내냄
+            time.sleep(0.75)
+
+            captured_at = utc_now()
+            device_state["lastCaptureAt"] = captured_at
+
+            print(
+                "[CellScope Camera] "
+                f"Capture complete: {sample_id}"
+            )
+
+            self._send_json(
+                200,
+                {
+                    "sampleId": sample_id,
+                    "capturedAt": captured_at,
+                    "imageUrl": MOCK_IMAGE_URL,
+                    "imageLabel": "Mock Camera Module 3 이미지",
+                    "source": "CellScope Mock Camera Module 3",
+                },
+            )
+            return
+
         if path == "/api/cellscope/analyze":
             sample = body.get("sample")
 
@@ -495,7 +547,10 @@ class CellScopeMockHandler(BaseHTTPRequestHandler):
                 f"Analyzing sample {sample_id}"
             )
 
-            device_state["lastCaptureAt"] = utc_now()
+            captured_at = (
+                device_state["lastCaptureAt"]
+                or utc_now()
+            )
 
             # 실제 Pi 이미지 분석 지연을 흉내냄
             time.sleep(1.0)
@@ -504,8 +559,7 @@ class CellScopeMockHandler(BaseHTTPRequestHandler):
                 200,
                 {
                     "sampleId": sample_id,
-                    "capturedAt":
-                        device_state["lastCaptureAt"],
+                    "capturedAt": captured_at,
                     "morphologyScore": 84,
                     "structureScore": 89,
                     "distributionScore": 81,
@@ -565,6 +619,9 @@ def main() -> None:
     )
     print(
         " GET  /api/cellscope/image/latest"
+    )
+    print(
+        " POST /api/cellscope/capture"
     )
     print(
         " POST /api/cellscope/analyze"
