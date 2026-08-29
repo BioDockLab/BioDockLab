@@ -1,12 +1,16 @@
-# BioDockLab Evidence Package
+# Evidence
 
-Evidence to keep:
+This directory contains supporting evidence for BioDockLab.
 
-- Git commit history
-- Proprietary notice
-- Screenshots by role
-- Smoke test result
-- Demo runbook
-- QA checklist
-- Security docs
-- Role matrix docs
+## Included
+
+- Award materials
+- Presentation materials
+- Validation records
+- Expert feedback references
+- Screenshots
+- System concept sketches
+
+## Purpose
+
+The purpose of these materials is to document the validation process of BioDockLab beyond source code.

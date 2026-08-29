@@ -1,0 +1,141 @@
+import { Camera, CheckCircle2, Cpu, ScanLine, Sparkles } from 'lucide-react';
+import { useMemo, useState } from 'react';
+import {
+  createCellScopeClient,
+  type CellScopeAnalysis,
+  type CellScopeSample,
+  type CellScopeStatus,
+} from '../cellscope/device';
+
+const statusText: Record<CellScopeStatus, string> = {
+  idle: '체험 준비 완료',
+  'waiting-for-sample': '샘플 카트리지를 확인하고 있습니다',
+  'sample-detected': '샘플을 인식했습니다',
+  capturing: '카메라 이미지를 준비하고 있습니다',
+  analyzing: '형태와 분포 특징을 분석하고 있습니다',
+  complete: '분석이 완료되었습니다',
+  error: '장비 연결을 확인해 주세요',
+};
+
+export function CellScopeExperience() {
+  const client = useMemo(() => createCellScopeClient(), []);
+  const [status, setStatus] = useState<CellScopeStatus>('idle');
+  const [sample, setSample] = useState<CellScopeSample | null>(null);
+  const [analysis, setAnalysis] = useState<CellScopeAnalysis | null>(null);
+
+  const start = async () => {
+    try {
+      setAnalysis(null);
+      setSample(null);
+      setStatus('waiting-for-sample');
+
+      const detected = await client.detectSample();
+      setSample(detected);
+      setStatus('sample-detected');
+
+      await new Promise((resolve) => window.setTimeout(resolve, 350));
+      setStatus('capturing');
+
+      await new Promise((resolve) => window.setTimeout(resolve, 450));
+      setStatus('analyzing');
+
+      const result = await client.analyze(detected);
+      setAnalysis(result);
+      setStatus('complete');
+    } catch (error) {
+      console.error(error);
+      setStatus('error');
+    }
+  };
+
+  const busy = !['idle', 'complete', 'error'].includes(status);
+
+  return (
+    <section className="panel cellscope-panel">
+      <div className="cellscope-panel__intro">
+        <span className="eyebrow">
+          <Camera /> BIO AI CELLSCOPE
+        </span>
+        <h2>샘플을 넣고 AI 연구를 시작해 보세요.</h2>
+        <p>
+          교육용 카트리지를 인식하면 뇌 오가노이드 이미지를 불러와 형태와
+          분포 특징을 시각화합니다.
+        </p>
+
+        <div className="cellscope-device">
+          <div className={`cellscope-device__ring is-${status}`}>
+            <ScanLine />
+          </div>
+          <div>
+            <strong>{statusText[status]}</strong>
+            <span>
+              {client.getMode() === 'device'
+                ? 'Raspberry Pi 연결 모드'
+                : '오프라인 데모 모드'}
+            </span>
+          </div>
+        </div>
+
+        <button
+          type="button"
+          className="button button--primary cellscope-start"
+          onClick={start}
+          disabled={busy}
+        >
+          <Cpu /> {busy ? '분석 중…' : analysis ? '다시 스캔' : 'CellScope 스캔 시작'}
+        </button>
+      </div>
+
+      <div className="cellscope-panel__result">
+        {!sample && (
+          <div className="cellscope-empty">
+            <Sparkles />
+            <strong>오늘의 연구 미션</strong>
+            <p>뇌 오가노이드를 관찰하고 교모세포종 연구 흐름을 따라갑니다.</p>
+          </div>
+        )}
+
+        {sample && (
+          <>
+            <div className="cellscope-sample">
+              <span>인식 샘플</span>
+              <strong>{sample.label}</strong>
+              <small>{sample.id} · Marker {sample.markerId}</small>
+            </div>
+
+            {analysis && (
+              <div className="cellscope-analysis">
+                <header>
+                  <CheckCircle2 />
+                  <div>
+                    <strong>교육용 이미지 분석 완료</strong>
+                    <small>진단·약효 판정 기능이 아닙니다.</small>
+                  </div>
+                </header>
+                <div className="cellscope-metrics">
+                  <Metric label="형태 특징" value={analysis.morphologyScore} />
+                  <Metric label="3D 구조" value={analysis.structureScore} />
+                  <Metric label="세포 분포" value={analysis.distributionScore} />
+                </div>
+                <p>{analysis.observation}</p>
+                <em>{analysis.nextStep}</em>
+              </div>
+            )}
+          </>
+        )}
+      </div>
+    </section>
+  );
+}
+
+function Metric({ label, value }: { label: string; value: number }) {
+  return (
+    <div>
+      <span>{label}</span>
+      <strong>{value}</strong>
+      <i>
+        <b style={{ width: `${value}%` }} />
+      </i>
+    </div>
+  );
+}

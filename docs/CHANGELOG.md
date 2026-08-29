@@ -91,3 +91,9 @@
 - Added Protein Atlas extension planning document.
 - Positioned Protein Atlas as education/research extension material.
 - Separated research/education concept material from core implementation screenshots.
+
+## v0.17-implementation-progress
+
+- Added implementation progress tracker.
+- Linked roadmap documents from README.
+- Prepared GitHub issue roadmap for BioDockLab MVP and pilot planning.
