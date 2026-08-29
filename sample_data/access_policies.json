@@ -1,0 +1,9 @@
+{
+  "nurse": [
+    "dashboard",
+    "nurse",
+    "patient_limited",
+    "reports_limited",
+    "consent_status"
+  ]
+}

@@ -64,6 +64,8 @@ def main():
         ("doctor", "Doctor", "doctor", True),
         ("doctor", "Doctor", "security", False),
         ("pharmacist", "Pharmacist", "prescription", True),
+        ("nurse", "Nurse", "nurse", True),
+        ("nurse", "Nurse", "security", False),
         ("pharmacist", "Pharmacist", "security", False),
         ("admin_staff", "AdminStaff", "admin", True),
         ("admin_staff", "AdminStaff", "prescription", False),

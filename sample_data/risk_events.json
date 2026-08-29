@@ -6,5 +6,645 @@
     "description": "원무 역할 사용자가 처방 상세 데이터 화면에 접근하려 했습니다.",
     "status": "needs_review",
     "recommended_action": "접근 사유 확인 및 권한 정책 점검"
+  },
+  {
+    "id": "RISK-002",
+    "severity": "high",
+    "title": "권한 없는 화면 접근 시도",
+    "description": "Patient(patient) tried to access research_lab for patient PT-2025-0520-0017",
+    "status": "needs_review",
+    "recommended_action": "접근권한, 접근 사유, 반복 열람 여부 확인"
+  },
+  {
+    "id": "RISK-003",
+    "severity": "high",
+    "title": "권한 없는 화면 접근 시도",
+    "description": "Doctor(doctor) tried to access security for patient PT-2025-0520-0017",
+    "status": "needs_review",
+    "recommended_action": "접근권한, 접근 사유, 반복 열람 여부 확인"
+  },
+  {
+    "id": "RISK-004",
+    "severity": "high",
+    "title": "권한 없는 화면 접근 시도",
+    "description": "Pharmacist(pharmacist) tried to access security for patient PT-2025-0520-0017",
+    "status": "needs_review",
+    "recommended_action": "접근권한, 접근 사유, 반복 열람 여부 확인"
+  },
+  {
+    "id": "RISK-005",
+    "severity": "high",
+    "title": "권한 없는 화면 접근 시도",
+    "description": "AdminStaff(admin_staff) tried to access prescription for patient PT-2025-0520-0017",
+    "status": "needs_review",
+    "recommended_action": "접근권한, 접근 사유, 반복 열람 여부 확인"
+  },
+  {
+    "id": "RISK-006",
+    "severity": "high",
+    "title": "권한 없는 화면 접근 시도",
+    "description": "Researcher(researcher) tried to access patient for patient PT-2025-0520-0017",
+    "status": "needs_review",
+    "recommended_action": "접근권한, 접근 사유, 반복 열람 여부 확인"
+  },
+  {
+    "id": "RISK-007",
+    "severity": "high",
+    "title": "권한 없는 화면 접근 시도",
+    "description": "Security(security) tried to access prescription for patient PT-2025-0520-0017",
+    "status": "needs_review",
+    "recommended_action": "접근권한, 접근 사유, 반복 열람 여부 확인"
+  },
+  {
+    "id": "RISK-008",
+    "severity": "high",
+    "title": "권한 없는 화면 접근 시도",
+    "description": "Patient(patient) tried to access research_lab for patient PT-2025-0520-0017",
+    "status": "needs_review",
+    "recommended_action": "접근권한, 접근 사유, 반복 열람 여부 확인"
+  },
+  {
+    "id": "RISK-009",
+    "severity": "high",
+    "title": "권한 없는 화면 접근 시도",
+    "description": "Doctor(doctor) tried to access security for patient PT-2025-0520-0017",
+    "status": "needs_review",
+    "recommended_action": "접근권한, 접근 사유, 반복 열람 여부 확인"
+  },
+  {
+    "id": "RISK-010",
+    "severity": "high",
+    "title": "권한 없는 화면 접근 시도",
+    "description": "Pharmacist(pharmacist) tried to access security for patient PT-2025-0520-0017",
+    "status": "needs_review",
+    "recommended_action": "접근권한, 접근 사유, 반복 열람 여부 확인"
+  },
+  {
+    "id": "RISK-011",
+    "severity": "high",
+    "title": "권한 없는 화면 접근 시도",
+    "description": "AdminStaff(admin_staff) tried to access prescription for patient PT-2025-0520-0017",
+    "status": "needs_review",
+    "recommended_action": "접근권한, 접근 사유, 반복 열람 여부 확인"
+  },
+  {
+    "id": "RISK-012",
+    "severity": "high",
+    "title": "권한 없는 화면 접근 시도",
+    "description": "Researcher(researcher) tried to access patient for patient PT-2025-0520-0017",
+    "status": "needs_review",
+    "recommended_action": "접근권한, 접근 사유, 반복 열람 여부 확인"
+  },
+  {
+    "id": "RISK-013",
+    "severity": "high",
+    "title": "권한 없는 화면 접근 시도",
+    "description": "Security(security) tried to access prescription for patient PT-2025-0520-0017",
+    "status": "needs_review",
+    "recommended_action": "접근권한, 접근 사유, 반복 열람 여부 확인"
+  },
+  {
+    "id": "RISK-014",
+    "severity": "high",
+    "title": "권한 없는 화면 접근 시도",
+    "description": "Patient(patient) tried to access research_lab for patient PT-2025-0520-0017",
+    "status": "needs_review",
+    "recommended_action": "접근권한, 접근 사유, 반복 열람 여부 확인"
+  },
+  {
+    "id": "RISK-015",
+    "severity": "high",
+    "title": "권한 없는 화면 접근 시도",
+    "description": "Doctor(doctor) tried to access security for patient PT-2025-0520-0017",
+    "status": "needs_review",
+    "recommended_action": "접근권한, 접근 사유, 반복 열람 여부 확인"
+  },
+  {
+    "id": "RISK-016",
+    "severity": "high",
+    "title": "권한 없는 화면 접근 시도",
+    "description": "Pharmacist(pharmacist) tried to access security for patient PT-2025-0520-0017",
+    "status": "needs_review",
+    "recommended_action": "접근권한, 접근 사유, 반복 열람 여부 확인"
+  },
+  {
+    "id": "RISK-017",
+    "severity": "high",
+    "title": "권한 없는 화면 접근 시도",
+    "description": "AdminStaff(admin_staff) tried to access prescription for patient PT-2025-0520-0017",
+    "status": "needs_review",
+    "recommended_action": "접근권한, 접근 사유, 반복 열람 여부 확인"
+  },
+  {
+    "id": "RISK-018",
+    "severity": "high",
+    "title": "권한 없는 화면 접근 시도",
+    "description": "Researcher(researcher) tried to access patient for patient PT-2025-0520-0017",
+    "status": "needs_review",
+    "recommended_action": "접근권한, 접근 사유, 반복 열람 여부 확인"
+  },
+  {
+    "id": "RISK-019",
+    "severity": "high",
+    "title": "권한 없는 화면 접근 시도",
+    "description": "Security(security) tried to access prescription for patient PT-2025-0520-0017",
+    "status": "needs_review",
+    "recommended_action": "접근권한, 접근 사유, 반복 열람 여부 확인"
+  },
+  {
+    "id": "RISK-020",
+    "severity": "high",
+    "title": "권한 없는 화면 접근 시도",
+    "description": "Patient(patient) tried to access research_lab for patient PT-2025-0520-0017",
+    "status": "needs_review",
+    "recommended_action": "접근권한, 접근 사유, 반복 열람 여부 확인"
+  },
+  {
+    "id": "RISK-021",
+    "severity": "high",
+    "title": "권한 없는 화면 접근 시도",
+    "description": "Doctor(doctor) tried to access security for patient PT-2025-0520-0017",
+    "status": "needs_review",
+    "recommended_action": "접근권한, 접근 사유, 반복 열람 여부 확인"
+  },
+  {
+    "id": "RISK-022",
+    "severity": "high",
+    "title": "권한 없는 화면 접근 시도",
+    "description": "Pharmacist(pharmacist) tried to access security for patient PT-2025-0520-0017",
+    "status": "needs_review",
+    "recommended_action": "접근권한, 접근 사유, 반복 열람 여부 확인"
+  },
+  {
+    "id": "RISK-023",
+    "severity": "high",
+    "title": "권한 없는 화면 접근 시도",
+    "description": "AdminStaff(admin_staff) tried to access prescription for patient PT-2025-0520-0017",
+    "status": "needs_review",
+    "recommended_action": "접근권한, 접근 사유, 반복 열람 여부 확인"
+  },
+  {
+    "id": "RISK-024",
+    "severity": "high",
+    "title": "권한 없는 화면 접근 시도",
+    "description": "Researcher(researcher) tried to access patient for patient PT-2025-0520-0017",
+    "status": "needs_review",
+    "recommended_action": "접근권한, 접근 사유, 반복 열람 여부 확인"
+  },
+  {
+    "id": "RISK-025",
+    "severity": "high",
+    "title": "권한 없는 화면 접근 시도",
+    "description": "Security(security) tried to access prescription for patient PT-2025-0520-0017",
+    "status": "needs_review",
+    "recommended_action": "접근권한, 접근 사유, 반복 열람 여부 확인"
+  },
+  {
+    "id": "RISK-026",
+    "severity": "high",
+    "title": "권한 없는 화면 접근 시도",
+    "description": "Patient(patient) tried to access research_lab for patient PT-2025-0520-0017",
+    "status": "needs_review",
+    "recommended_action": "접근권한, 접근 사유, 반복 열람 여부 확인"
+  },
+  {
+    "id": "RISK-027",
+    "severity": "high",
+    "title": "권한 없는 화면 접근 시도",
+    "description": "Doctor(doctor) tried to access security for patient PT-2025-0520-0017",
+    "status": "needs_review",
+    "recommended_action": "접근권한, 접근 사유, 반복 열람 여부 확인"
+  },
+  {
+    "id": "RISK-028",
+    "severity": "high",
+    "title": "권한 없는 화면 접근 시도",
+    "description": "Nurse(nurse) tried to access nurse for patient PT-2025-0520-0017",
+    "status": "needs_review",
+    "recommended_action": "접근권한, 접근 사유, 반복 열람 여부 확인"
+  },
+  {
+    "id": "RISK-029",
+    "severity": "high",
+    "title": "권한 없는 화면 접근 시도",
+    "description": "Nurse(nurse) tried to access security for patient PT-2025-0520-0017",
+    "status": "needs_review",
+    "recommended_action": "접근권한, 접근 사유, 반복 열람 여부 확인"
+  },
+  {
+    "id": "RISK-030",
+    "severity": "high",
+    "title": "권한 없는 화면 접근 시도",
+    "description": "Pharmacist(pharmacist) tried to access security for patient PT-2025-0520-0017",
+    "status": "needs_review",
+    "recommended_action": "접근권한, 접근 사유, 반복 열람 여부 확인"
+  },
+  {
+    "id": "RISK-031",
+    "severity": "high",
+    "title": "권한 없는 화면 접근 시도",
+    "description": "AdminStaff(admin_staff) tried to access prescription for patient PT-2025-0520-0017",
+    "status": "needs_review",
+    "recommended_action": "접근권한, 접근 사유, 반복 열람 여부 확인"
+  },
+  {
+    "id": "RISK-032",
+    "severity": "high",
+    "title": "권한 없는 화면 접근 시도",
+    "description": "Researcher(researcher) tried to access patient for patient PT-2025-0520-0017",
+    "status": "needs_review",
+    "recommended_action": "접근권한, 접근 사유, 반복 열람 여부 확인"
+  },
+  {
+    "id": "RISK-033",
+    "severity": "high",
+    "title": "권한 없는 화면 접근 시도",
+    "description": "Security(security) tried to access prescription for patient PT-2025-0520-0017",
+    "status": "needs_review",
+    "recommended_action": "접근권한, 접근 사유, 반복 열람 여부 확인"
+  },
+  {
+    "id": "RISK-034",
+    "severity": "high",
+    "title": "권한 없는 화면 접근 시도",
+    "description": "정다은 간호사(nurse) tried to access dashboard for patient PT-2025-0520-0017",
+    "status": "needs_review",
+    "recommended_action": "접근권한, 접근 사유, 반복 열람 여부 확인"
+  },
+  {
+    "id": "RISK-035",
+    "severity": "high",
+    "title": "권한 없는 화면 접근 시도",
+    "description": "Patient(patient) tried to access research_lab for patient PT-2025-0520-0017",
+    "status": "needs_review",
+    "recommended_action": "접근권한, 접근 사유, 반복 열람 여부 확인"
+  },
+  {
+    "id": "RISK-036",
+    "severity": "high",
+    "title": "권한 없는 화면 접근 시도",
+    "description": "Doctor(doctor) tried to access security for patient PT-2025-0520-0017",
+    "status": "needs_review",
+    "recommended_action": "접근권한, 접근 사유, 반복 열람 여부 확인"
+  },
+  {
+    "id": "RISK-037",
+    "severity": "high",
+    "title": "권한 없는 화면 접근 시도",
+    "description": "Nurse(nurse) tried to access nurse for patient PT-2025-0520-0017",
+    "status": "needs_review",
+    "recommended_action": "접근권한, 접근 사유, 반복 열람 여부 확인"
+  },
+  {
+    "id": "RISK-038",
+    "severity": "high",
+    "title": "권한 없는 화면 접근 시도",
+    "description": "Nurse(nurse) tried to access security for patient PT-2025-0520-0017",
+    "status": "needs_review",
+    "recommended_action": "접근권한, 접근 사유, 반복 열람 여부 확인"
+  },
+  {
+    "id": "RISK-039",
+    "severity": "high",
+    "title": "권한 없는 화면 접근 시도",
+    "description": "Pharmacist(pharmacist) tried to access security for patient PT-2025-0520-0017",
+    "status": "needs_review",
+    "recommended_action": "접근권한, 접근 사유, 반복 열람 여부 확인"
+  },
+  {
+    "id": "RISK-040",
+    "severity": "high",
+    "title": "권한 없는 화면 접근 시도",
+    "description": "AdminStaff(admin_staff) tried to access prescription for patient PT-2025-0520-0017",
+    "status": "needs_review",
+    "recommended_action": "접근권한, 접근 사유, 반복 열람 여부 확인"
+  },
+  {
+    "id": "RISK-041",
+    "severity": "high",
+    "title": "권한 없는 화면 접근 시도",
+    "description": "Researcher(researcher) tried to access patient for patient PT-2025-0520-0017",
+    "status": "needs_review",
+    "recommended_action": "접근권한, 접근 사유, 반복 열람 여부 확인"
+  },
+  {
+    "id": "RISK-042",
+    "severity": "high",
+    "title": "권한 없는 화면 접근 시도",
+    "description": "Security(security) tried to access prescription for patient PT-2025-0520-0017",
+    "status": "needs_review",
+    "recommended_action": "접근권한, 접근 사유, 반복 열람 여부 확인"
+  },
+  {
+    "id": "RISK-043",
+    "severity": "high",
+    "title": "권한 없는 화면 접근 시도",
+    "description": "간호학과 검토자 A(nurse) tried to access dashboard for patient PT-2025-0520-0017",
+    "status": "needs_review",
+    "recommended_action": "접근권한, 접근 사유, 반복 열람 여부 확인"
+  },
+  {
+    "id": "RISK-044",
+    "severity": "high",
+    "title": "권한 없는 화면 접근 시도",
+    "description": "Patient(patient) tried to access research_lab for patient PT-2025-0520-0017",
+    "status": "needs_review",
+    "recommended_action": "접근권한, 접근 사유, 반복 열람 여부 확인"
+  },
+  {
+    "id": "RISK-045",
+    "severity": "high",
+    "title": "권한 없는 화면 접근 시도",
+    "description": "Doctor(doctor) tried to access security for patient PT-2025-0520-0017",
+    "status": "needs_review",
+    "recommended_action": "접근권한, 접근 사유, 반복 열람 여부 확인"
+  },
+  {
+    "id": "RISK-046",
+    "severity": "high",
+    "title": "권한 없는 화면 접근 시도",
+    "description": "Nurse(nurse) tried to access nurse for patient PT-2025-0520-0017",
+    "status": "needs_review",
+    "recommended_action": "접근권한, 접근 사유, 반복 열람 여부 확인"
+  },
+  {
+    "id": "RISK-047",
+    "severity": "high",
+    "title": "권한 없는 화면 접근 시도",
+    "description": "Nurse(nurse) tried to access security for patient PT-2025-0520-0017",
+    "status": "needs_review",
+    "recommended_action": "접근권한, 접근 사유, 반복 열람 여부 확인"
+  },
+  {
+    "id": "RISK-048",
+    "severity": "high",
+    "title": "권한 없는 화면 접근 시도",
+    "description": "Pharmacist(pharmacist) tried to access security for patient PT-2025-0520-0017",
+    "status": "needs_review",
+    "recommended_action": "접근권한, 접근 사유, 반복 열람 여부 확인"
+  },
+  {
+    "id": "RISK-049",
+    "severity": "high",
+    "title": "권한 없는 화면 접근 시도",
+    "description": "AdminStaff(admin_staff) tried to access prescription for patient PT-2025-0520-0017",
+    "status": "needs_review",
+    "recommended_action": "접근권한, 접근 사유, 반복 열람 여부 확인"
+  },
+  {
+    "id": "RISK-050",
+    "severity": "high",
+    "title": "권한 없는 화면 접근 시도",
+    "description": "Researcher(researcher) tried to access patient for patient PT-2025-0520-0017",
+    "status": "needs_review",
+    "recommended_action": "접근권한, 접근 사유, 반복 열람 여부 확인"
+  },
+  {
+    "id": "RISK-051",
+    "severity": "high",
+    "title": "권한 없는 화면 접근 시도",
+    "description": "Security(security) tried to access prescription for patient PT-2025-0520-0017",
+    "status": "needs_review",
+    "recommended_action": "접근권한, 접근 사유, 반복 열람 여부 확인"
+  },
+  {
+    "id": "RISK-052",
+    "severity": "high",
+    "title": "권한 없는 화면 접근 시도",
+    "description": "Patient(patient) tried to access research_lab for patient PT-2025-0520-0017",
+    "status": "needs_review",
+    "recommended_action": "접근권한, 접근 사유, 반복 열람 여부 확인"
+  },
+  {
+    "id": "RISK-053",
+    "severity": "high",
+    "title": "권한 없는 화면 접근 시도",
+    "description": "Doctor(doctor) tried to access security for patient PT-2025-0520-0017",
+    "status": "needs_review",
+    "recommended_action": "접근권한, 접근 사유, 반복 열람 여부 확인"
+  },
+  {
+    "id": "RISK-054",
+    "severity": "high",
+    "title": "권한 없는 화면 접근 시도",
+    "description": "Nurse(nurse) tried to access nurse for patient PT-2025-0520-0017",
+    "status": "needs_review",
+    "recommended_action": "접근권한, 접근 사유, 반복 열람 여부 확인"
+  },
+  {
+    "id": "RISK-055",
+    "severity": "high",
+    "title": "권한 없는 화면 접근 시도",
+    "description": "Nurse(nurse) tried to access security for patient PT-2025-0520-0017",
+    "status": "needs_review",
+    "recommended_action": "접근권한, 접근 사유, 반복 열람 여부 확인"
+  },
+  {
+    "id": "RISK-056",
+    "severity": "high",
+    "title": "권한 없는 화면 접근 시도",
+    "description": "Pharmacist(pharmacist) tried to access security for patient PT-2025-0520-0017",
+    "status": "needs_review",
+    "recommended_action": "접근권한, 접근 사유, 반복 열람 여부 확인"
+  },
+  {
+    "id": "RISK-057",
+    "severity": "high",
+    "title": "권한 없는 화면 접근 시도",
+    "description": "AdminStaff(admin_staff) tried to access prescription for patient PT-2025-0520-0017",
+    "status": "needs_review",
+    "recommended_action": "접근권한, 접근 사유, 반복 열람 여부 확인"
+  },
+  {
+    "id": "RISK-058",
+    "severity": "high",
+    "title": "권한 없는 화면 접근 시도",
+    "description": "Researcher(researcher) tried to access patient for patient PT-2025-0520-0017",
+    "status": "needs_review",
+    "recommended_action": "접근권한, 접근 사유, 반복 열람 여부 확인"
+  },
+  {
+    "id": "RISK-059",
+    "severity": "high",
+    "title": "권한 없는 화면 접근 시도",
+    "description": "Security(security) tried to access prescription for patient PT-2025-0520-0017",
+    "status": "needs_review",
+    "recommended_action": "접근권한, 접근 사유, 반복 열람 여부 확인"
+  },
+  {
+    "id": "RISK-060",
+    "severity": "high",
+    "title": "권한 없는 화면 접근 시도",
+    "description": "간호학과 검토자 A(nurse) tried to access nurse for patient PT-2025-0520-0017",
+    "status": "needs_review",
+    "recommended_action": "접근권한, 접근 사유, 반복 열람 여부 확인"
+  },
+  {
+    "id": "RISK-061",
+    "severity": "high",
+    "title": "권한 없는 화면 접근 시도",
+    "description": "간호학과 검토자 A(nurse) tried to access nurse for patient PT-2025-0520-0017",
+    "status": "needs_review",
+    "recommended_action": "접근권한, 접근 사유, 반복 열람 여부 확인"
+  },
+  {
+    "id": "RISK-062",
+    "severity": "high",
+    "title": "권한 없는 화면 접근 시도",
+    "description": "환자 사용자(patient) tried to access security for patient PT-2025-0520-0017",
+    "status": "needs_review",
+    "recommended_action": "접근권한, 접근 사유, 반복 열람 여부 확인"
+  },
+  {
+    "id": "RISK-063",
+    "severity": "high",
+    "title": "권한 없는 화면 접근 시도",
+    "description": "환자 사용자(patient) tried to access security for patient PT-2025-0520-0017",
+    "status": "needs_review",
+    "recommended_action": "접근권한, 접근 사유, 반복 열람 여부 확인"
+  },
+  {
+    "id": "RISK-064",
+    "severity": "high",
+    "title": "권한 없는 화면 접근 시도",
+    "description": "간호학과 검토자 A(nurse) tried to access dashboard for patient PT-2025-0520-0017",
+    "status": "needs_review",
+    "recommended_action": "접근권한, 접근 사유, 반복 열람 여부 확인"
+  },
+  {
+    "id": "RISK-065",
+    "severity": "high",
+    "title": "권한 없는 화면 접근 시도",
+    "description": "간호학과 검토자 A(nurse) tried to access dashboard for patient PT-2025-0520-0017",
+    "status": "needs_review",
+    "recommended_action": "접근권한, 접근 사유, 반복 열람 여부 확인"
+  },
+  {
+    "id": "RISK-066",
+    "severity": "high",
+    "title": "권한 없는 화면 접근 시도",
+    "description": "Patient(patient) tried to access research_lab for patient PT-2025-0520-0017",
+    "status": "needs_review",
+    "recommended_action": "접근권한, 접근 사유, 반복 열람 여부 확인"
+  },
+  {
+    "id": "RISK-067",
+    "severity": "high",
+    "title": "권한 없는 화면 접근 시도",
+    "description": "Doctor(doctor) tried to access security for patient PT-2025-0520-0017",
+    "status": "needs_review",
+    "recommended_action": "접근권한, 접근 사유, 반복 열람 여부 확인"
+  },
+  {
+    "id": "RISK-068",
+    "severity": "high",
+    "title": "권한 없는 화면 접근 시도",
+    "description": "Nurse(nurse) tried to access nurse for patient PT-2025-0520-0017",
+    "status": "needs_review",
+    "recommended_action": "접근권한, 접근 사유, 반복 열람 여부 확인"
+  },
+  {
+    "id": "RISK-069",
+    "severity": "high",
+    "title": "권한 없는 화면 접근 시도",
+    "description": "Nurse(nurse) tried to access security for patient PT-2025-0520-0017",
+    "status": "needs_review",
+    "recommended_action": "접근권한, 접근 사유, 반복 열람 여부 확인"
+  },
+  {
+    "id": "RISK-070",
+    "severity": "high",
+    "title": "권한 없는 화면 접근 시도",
+    "description": "Pharmacist(pharmacist) tried to access security for patient PT-2025-0520-0017",
+    "status": "needs_review",
+    "recommended_action": "접근권한, 접근 사유, 반복 열람 여부 확인"
+  },
+  {
+    "id": "RISK-071",
+    "severity": "high",
+    "title": "권한 없는 화면 접근 시도",
+    "description": "AdminStaff(admin_staff) tried to access prescription for patient PT-2025-0520-0017",
+    "status": "needs_review",
+    "recommended_action": "접근권한, 접근 사유, 반복 열람 여부 확인"
+  },
+  {
+    "id": "RISK-072",
+    "severity": "high",
+    "title": "권한 없는 화면 접근 시도",
+    "description": "Researcher(researcher) tried to access patient for patient PT-2025-0520-0017",
+    "status": "needs_review",
+    "recommended_action": "접근권한, 접근 사유, 반복 열람 여부 확인"
+  },
+  {
+    "id": "RISK-073",
+    "severity": "high",
+    "title": "권한 없는 화면 접근 시도",
+    "description": "Security(security) tried to access prescription for patient PT-2025-0520-0017",
+    "status": "needs_review",
+    "recommended_action": "접근권한, 접근 사유, 반복 열람 여부 확인"
+  },
+  {
+    "id": "RISK-074",
+    "severity": "high",
+    "title": "권한 없는 화면 접근 시도",
+    "description": "간호학과 검토자 A(nurse) tried to access nurse for patient PT-2025-0520-0017",
+    "status": "needs_review",
+    "recommended_action": "접근권한, 접근 사유, 반복 열람 여부 확인"
+  },
+  {
+    "id": "RISK-075",
+    "severity": "high",
+    "title": "권한 없는 화면 접근 시도",
+    "description": "간호학과 검토자 A(nurse) tried to access nurse for patient PT-2025-0520-0017",
+    "status": "needs_review",
+    "recommended_action": "접근권한, 접근 사유, 반복 열람 여부 확인"
+  },
+  {
+    "id": "RISK-076",
+    "severity": "high",
+    "title": "권한 없는 화면 접근 시도",
+    "description": "간호학과 검토자 A(nurse) tried to access nurse for patient PT-2025-0520-0017",
+    "status": "needs_review",
+    "recommended_action": "접근권한, 접근 사유, 반복 열람 여부 확인"
+  },
+  {
+    "id": "RISK-077",
+    "severity": "high",
+    "title": "권한 없는 화면 접근 시도",
+    "description": "간호학과 검토자 A(nurse) tried to access nurse for patient PT-2025-0520-0017",
+    "status": "needs_review",
+    "recommended_action": "접근권한, 접근 사유, 반복 열람 여부 확인"
+  },
+  {
+    "id": "RISK-078",
+    "severity": "high",
+    "title": "권한 없는 화면 접근 시도",
+    "description": "환자 사용자(patient) tried to access security for patient PT-2025-0520-0017",
+    "status": "needs_review",
+    "recommended_action": "접근권한, 접근 사유, 반복 열람 여부 확인"
+  },
+  {
+    "id": "RISK-079",
+    "severity": "high",
+    "title": "권한 없는 화면 접근 시도",
+    "description": "환자 사용자(patient) tried to access security for patient PT-2025-0520-0017",
+    "status": "needs_review",
+    "recommended_action": "접근권한, 접근 사유, 반복 열람 여부 확인"
+  },
+  {
+    "id": "RISK-080",
+    "severity": "high",
+    "title": "권한 없는 화면 접근 시도",
+    "description": "간호학과 검토자 A(nurse) tried to access dashboard for patient PT-2025-0520-0017",
+    "status": "needs_review",
+    "recommended_action": "접근권한, 접근 사유, 반복 열람 여부 확인"
+  },
+  {
+    "id": "RISK-081",
+    "severity": "high",
+    "title": "권한 없는 화면 접근 시도",
+    "description": "간호학과 검토자 A(nurse) tried to access dashboard for patient PT-2025-0520-0017",
+    "status": "needs_review",
+    "recommended_action": "접근권한, 접근 사유, 반복 열람 여부 확인"
   }
 ]

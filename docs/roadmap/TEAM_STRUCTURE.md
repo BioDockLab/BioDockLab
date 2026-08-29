@@ -36,7 +36,7 @@ BioDockLab은 단순 웹앱이 아니라 의료·바이오 데이터, 역할 기
 
 ## 2.2 Clinical Workflow Advisor
 
-추천 인원:
+모집 인원:
 
 - 간호학과 학생
 - 간호사
@@ -54,6 +54,9 @@ BioDockLab은 단순 웹앱이 아니라 의료·바이오 데이터, 역할 기
 ---
 
 ## 2.3 Frontend Developer
+
+모집 인원:
+- 디자인학과 학생
 
 역할:
 
@@ -103,7 +106,7 @@ BioDockLab은 단순 웹앱이 아니라 의료·바이오 데이터, 역할 기
 
 ## 2.5 Bio / Research Advisor
 
-추천 인원:
+모집 인원:
 
 - 생명공학
 - 화학공학

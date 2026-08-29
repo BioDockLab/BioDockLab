@@ -8,5 +8,2805 @@
     "patient_id": null,
     "allowed": true,
     "reason": "seed log"
+  },
+  {
+    "timestamp": "2026-05-17T00:55:18",
+    "actor": "Patient",
+    "role": "patient",
+    "action": "ACCESS_CHECK",
+    "resource": "patient",
+    "patient_id": "PT-2025-0520-0017",
+    "allowed": true,
+    "reason": "smoke test"
+  },
+  {
+    "timestamp": "2026-05-17T00:55:18",
+    "actor": "Patient",
+    "role": "patient",
+    "action": "ACCESS_CHECK",
+    "resource": "research_lab",
+    "patient_id": "PT-2025-0520-0017",
+    "allowed": false,
+    "reason": "smoke test"
+  },
+  {
+    "timestamp": "2026-05-17T00:55:18",
+    "actor": "Doctor",
+    "role": "doctor",
+    "action": "ACCESS_CHECK",
+    "resource": "doctor",
+    "patient_id": "PT-2025-0520-0017",
+    "allowed": true,
+    "reason": "smoke test"
+  },
+  {
+    "timestamp": "2026-05-17T00:55:18",
+    "actor": "Doctor",
+    "role": "doctor",
+    "action": "ACCESS_CHECK",
+    "resource": "security",
+    "patient_id": "PT-2025-0520-0017",
+    "allowed": false,
+    "reason": "smoke test"
+  },
+  {
+    "timestamp": "2026-05-17T00:55:18",
+    "actor": "Pharmacist",
+    "role": "pharmacist",
+    "action": "ACCESS_CHECK",
+    "resource": "prescription",
+    "patient_id": "PT-2025-0520-0017",
+    "allowed": true,
+    "reason": "smoke test"
+  },
+  {
+    "timestamp": "2026-05-17T00:55:18",
+    "actor": "Pharmacist",
+    "role": "pharmacist",
+    "action": "ACCESS_CHECK",
+    "resource": "security",
+    "patient_id": "PT-2025-0520-0017",
+    "allowed": false,
+    "reason": "smoke test"
+  },
+  {
+    "timestamp": "2026-05-17T00:55:18",
+    "actor": "AdminStaff",
+    "role": "admin_staff",
+    "action": "ACCESS_CHECK",
+    "resource": "admin",
+    "patient_id": "PT-2025-0520-0017",
+    "allowed": true,
+    "reason": "smoke test"
+  },
+  {
+    "timestamp": "2026-05-17T00:55:18",
+    "actor": "AdminStaff",
+    "role": "admin_staff",
+    "action": "ACCESS_CHECK",
+    "resource": "prescription",
+    "patient_id": "PT-2025-0520-0017",
+    "allowed": false,
+    "reason": "smoke test"
+  },
+  {
+    "timestamp": "2026-05-17T00:55:18",
+    "actor": "Researcher",
+    "role": "researcher",
+    "action": "ACCESS_CHECK",
+    "resource": "research_lab",
+    "patient_id": "PT-2025-0520-0017",
+    "allowed": true,
+    "reason": "smoke test"
+  },
+  {
+    "timestamp": "2026-05-17T00:55:18",
+    "actor": "Researcher",
+    "role": "researcher",
+    "action": "ACCESS_CHECK",
+    "resource": "patient",
+    "patient_id": "PT-2025-0520-0017",
+    "allowed": false,
+    "reason": "smoke test"
+  },
+  {
+    "timestamp": "2026-05-17T00:55:18",
+    "actor": "Security",
+    "role": "security",
+    "action": "ACCESS_CHECK",
+    "resource": "security",
+    "patient_id": "PT-2025-0520-0017",
+    "allowed": true,
+    "reason": "smoke test"
+  },
+  {
+    "timestamp": "2026-05-17T00:55:18",
+    "actor": "Security",
+    "role": "security",
+    "action": "ACCESS_CHECK",
+    "resource": "prescription",
+    "patient_id": "PT-2025-0520-0017",
+    "allowed": false,
+    "reason": "smoke test"
+  },
+  {
+    "timestamp": "2026-05-17T00:55:18",
+    "actor": "PlatformAdmin",
+    "role": "super_admin",
+    "action": "ACCESS_CHECK",
+    "resource": "security",
+    "patient_id": "PT-2025-0520-0017",
+    "allowed": true,
+    "reason": "smoke test"
+  },
+  {
+    "timestamp": "2026-05-17T00:55:18",
+    "actor": "PlatformAdmin",
+    "role": "super_admin",
+    "action": "ACCESS_CHECK",
+    "resource": "patient",
+    "patient_id": "PT-2025-0520-0017",
+    "allowed": true,
+    "reason": "smoke test"
+  },
+  {
+    "timestamp": "2026-05-17T00:55:18",
+    "actor": "BioSecurityArchitect",
+    "role": "bio_security_architect",
+    "action": "ACCESS_CHECK",
+    "resource": "security",
+    "patient_id": "PT-2025-0520-0017",
+    "allowed": true,
+    "reason": "smoke test"
+  },
+  {
+    "timestamp": "2026-05-17T00:55:18",
+    "actor": "VirtualLabDeveloper",
+    "role": "virtual_lab_developer",
+    "action": "ACCESS_CHECK",
+    "resource": "research_lab",
+    "patient_id": "PT-2025-0520-0017",
+    "allowed": true,
+    "reason": "smoke test"
+  },
+  {
+    "timestamp": "2026-05-17T00:55:18",
+    "actor": "Security",
+    "role": "security",
+    "action": "VIEW_AUDIT_LOGS",
+    "resource": "audit_logs",
+    "patient_id": null,
+    "allowed": true,
+    "reason": "security center"
+  },
+  {
+    "timestamp": "2026-05-17T00:55:31",
+    "actor": "환자 사용자",
+    "role": "patient",
+    "action": "ACCESS_CHECK",
+    "resource": "dashboard",
+    "patient_id": "PT-2025-0520-0017",
+    "allowed": true,
+    "reason": "clinical_v3 navigation"
+  },
+  {
+    "timestamp": "2026-05-17T00:55:31",
+    "actor": "환자 사용자",
+    "role": "patient",
+    "action": "ACCESS_CHECK",
+    "resource": "dashboard",
+    "patient_id": "PT-2025-0520-0017",
+    "allowed": true,
+    "reason": "clinical_v3 navigation"
+  },
+  {
+    "timestamp": "2026-05-17T00:55:32",
+    "actor": "환자 사용자",
+    "role": "patient",
+    "action": "ACCESS_CHECK",
+    "resource": "dashboard",
+    "patient_id": "PT-2025-0520-0017",
+    "allowed": true,
+    "reason": "clinical_v3 navigation"
+  },
+  {
+    "timestamp": "2026-05-17T00:57:18",
+    "actor": "Patient",
+    "role": "patient",
+    "action": "ACCESS_CHECK",
+    "resource": "patient",
+    "patient_id": "PT-2025-0520-0017",
+    "allowed": true,
+    "reason": "smoke test"
+  },
+  {
+    "timestamp": "2026-05-17T00:57:18",
+    "actor": "Patient",
+    "role": "patient",
+    "action": "ACCESS_CHECK",
+    "resource": "research_lab",
+    "patient_id": "PT-2025-0520-0017",
+    "allowed": false,
+    "reason": "smoke test"
+  },
+  {
+    "timestamp": "2026-05-17T00:57:18",
+    "actor": "Doctor",
+    "role": "doctor",
+    "action": "ACCESS_CHECK",
+    "resource": "doctor",
+    "patient_id": "PT-2025-0520-0017",
+    "allowed": true,
+    "reason": "smoke test"
+  },
+  {
+    "timestamp": "2026-05-17T00:57:18",
+    "actor": "Doctor",
+    "role": "doctor",
+    "action": "ACCESS_CHECK",
+    "resource": "security",
+    "patient_id": "PT-2025-0520-0017",
+    "allowed": false,
+    "reason": "smoke test"
+  },
+  {
+    "timestamp": "2026-05-17T00:57:18",
+    "actor": "Pharmacist",
+    "role": "pharmacist",
+    "action": "ACCESS_CHECK",
+    "resource": "prescription",
+    "patient_id": "PT-2025-0520-0017",
+    "allowed": true,
+    "reason": "smoke test"
+  },
+  {
+    "timestamp": "2026-05-17T00:57:18",
+    "actor": "Pharmacist",
+    "role": "pharmacist",
+    "action": "ACCESS_CHECK",
+    "resource": "security",
+    "patient_id": "PT-2025-0520-0017",
+    "allowed": false,
+    "reason": "smoke test"
+  },
+  {
+    "timestamp": "2026-05-17T00:57:18",
+    "actor": "AdminStaff",
+    "role": "admin_staff",
+    "action": "ACCESS_CHECK",
+    "resource": "admin",
+    "patient_id": "PT-2025-0520-0017",
+    "allowed": true,
+    "reason": "smoke test"
+  },
+  {
+    "timestamp": "2026-05-17T00:57:18",
+    "actor": "AdminStaff",
+    "role": "admin_staff",
+    "action": "ACCESS_CHECK",
+    "resource": "prescription",
+    "patient_id": "PT-2025-0520-0017",
+    "allowed": false,
+    "reason": "smoke test"
+  },
+  {
+    "timestamp": "2026-05-17T00:57:18",
+    "actor": "Researcher",
+    "role": "researcher",
+    "action": "ACCESS_CHECK",
+    "resource": "research_lab",
+    "patient_id": "PT-2025-0520-0017",
+    "allowed": true,
+    "reason": "smoke test"
+  },
+  {
+    "timestamp": "2026-05-17T00:57:18",
+    "actor": "Researcher",
+    "role": "researcher",
+    "action": "ACCESS_CHECK",
+    "resource": "patient",
+    "patient_id": "PT-2025-0520-0017",
+    "allowed": false,
+    "reason": "smoke test"
+  },
+  {
+    "timestamp": "2026-05-17T00:57:18",
+    "actor": "Security",
+    "role": "security",
+    "action": "ACCESS_CHECK",
+    "resource": "security",
+    "patient_id": "PT-2025-0520-0017",
+    "allowed": true,
+    "reason": "smoke test"
+  },
+  {
+    "timestamp": "2026-05-17T00:57:18",
+    "actor": "Security",
+    "role": "security",
+    "action": "ACCESS_CHECK",
+    "resource": "prescription",
+    "patient_id": "PT-2025-0520-0017",
+    "allowed": false,
+    "reason": "smoke test"
+  },
+  {
+    "timestamp": "2026-05-17T00:57:18",
+    "actor": "PlatformAdmin",
+    "role": "super_admin",
+    "action": "ACCESS_CHECK",
+    "resource": "security",
+    "patient_id": "PT-2025-0520-0017",
+    "allowed": true,
+    "reason": "smoke test"
+  },
+  {
+    "timestamp": "2026-05-17T00:57:18",
+    "actor": "PlatformAdmin",
+    "role": "super_admin",
+    "action": "ACCESS_CHECK",
+    "resource": "patient",
+    "patient_id": "PT-2025-0520-0017",
+    "allowed": true,
+    "reason": "smoke test"
+  },
+  {
+    "timestamp": "2026-05-17T00:57:18",
+    "actor": "BioSecurityArchitect",
+    "role": "bio_security_architect",
+    "action": "ACCESS_CHECK",
+    "resource": "security",
+    "patient_id": "PT-2025-0520-0017",
+    "allowed": true,
+    "reason": "smoke test"
+  },
+  {
+    "timestamp": "2026-05-17T00:57:18",
+    "actor": "VirtualLabDeveloper",
+    "role": "virtual_lab_developer",
+    "action": "ACCESS_CHECK",
+    "resource": "research_lab",
+    "patient_id": "PT-2025-0520-0017",
+    "allowed": true,
+    "reason": "smoke test"
+  },
+  {
+    "timestamp": "2026-05-17T00:57:18",
+    "actor": "Security",
+    "role": "security",
+    "action": "VIEW_AUDIT_LOGS",
+    "resource": "audit_logs",
+    "patient_id": null,
+    "allowed": true,
+    "reason": "security center"
+  },
+  {
+    "timestamp": "2026-05-17T00:59:13",
+    "actor": "Patient",
+    "role": "patient",
+    "action": "ACCESS_CHECK",
+    "resource": "patient",
+    "patient_id": "PT-2025-0520-0017",
+    "allowed": true,
+    "reason": "smoke test"
+  },
+  {
+    "timestamp": "2026-05-17T00:59:13",
+    "actor": "Patient",
+    "role": "patient",
+    "action": "ACCESS_CHECK",
+    "resource": "research_lab",
+    "patient_id": "PT-2025-0520-0017",
+    "allowed": false,
+    "reason": "smoke test"
+  },
+  {
+    "timestamp": "2026-05-17T00:59:13",
+    "actor": "Doctor",
+    "role": "doctor",
+    "action": "ACCESS_CHECK",
+    "resource": "doctor",
+    "patient_id": "PT-2025-0520-0017",
+    "allowed": true,
+    "reason": "smoke test"
+  },
+  {
+    "timestamp": "2026-05-17T00:59:13",
+    "actor": "Doctor",
+    "role": "doctor",
+    "action": "ACCESS_CHECK",
+    "resource": "security",
+    "patient_id": "PT-2025-0520-0017",
+    "allowed": false,
+    "reason": "smoke test"
+  },
+  {
+    "timestamp": "2026-05-17T00:59:13",
+    "actor": "Pharmacist",
+    "role": "pharmacist",
+    "action": "ACCESS_CHECK",
+    "resource": "prescription",
+    "patient_id": "PT-2025-0520-0017",
+    "allowed": true,
+    "reason": "smoke test"
+  },
+  {
+    "timestamp": "2026-05-17T00:59:13",
+    "actor": "Pharmacist",
+    "role": "pharmacist",
+    "action": "ACCESS_CHECK",
+    "resource": "security",
+    "patient_id": "PT-2025-0520-0017",
+    "allowed": false,
+    "reason": "smoke test"
+  },
+  {
+    "timestamp": "2026-05-17T00:59:13",
+    "actor": "AdminStaff",
+    "role": "admin_staff",
+    "action": "ACCESS_CHECK",
+    "resource": "admin",
+    "patient_id": "PT-2025-0520-0017",
+    "allowed": true,
+    "reason": "smoke test"
+  },
+  {
+    "timestamp": "2026-05-17T00:59:13",
+    "actor": "AdminStaff",
+    "role": "admin_staff",
+    "action": "ACCESS_CHECK",
+    "resource": "prescription",
+    "patient_id": "PT-2025-0520-0017",
+    "allowed": false,
+    "reason": "smoke test"
+  },
+  {
+    "timestamp": "2026-05-17T00:59:13",
+    "actor": "Researcher",
+    "role": "researcher",
+    "action": "ACCESS_CHECK",
+    "resource": "research_lab",
+    "patient_id": "PT-2025-0520-0017",
+    "allowed": true,
+    "reason": "smoke test"
+  },
+  {
+    "timestamp": "2026-05-17T00:59:13",
+    "actor": "Researcher",
+    "role": "researcher",
+    "action": "ACCESS_CHECK",
+    "resource": "patient",
+    "patient_id": "PT-2025-0520-0017",
+    "allowed": false,
+    "reason": "smoke test"
+  },
+  {
+    "timestamp": "2026-05-17T00:59:13",
+    "actor": "Security",
+    "role": "security",
+    "action": "ACCESS_CHECK",
+    "resource": "security",
+    "patient_id": "PT-2025-0520-0017",
+    "allowed": true,
+    "reason": "smoke test"
+  },
+  {
+    "timestamp": "2026-05-17T00:59:13",
+    "actor": "Security",
+    "role": "security",
+    "action": "ACCESS_CHECK",
+    "resource": "prescription",
+    "patient_id": "PT-2025-0520-0017",
+    "allowed": false,
+    "reason": "smoke test"
+  },
+  {
+    "timestamp": "2026-05-17T00:59:13",
+    "actor": "PlatformAdmin",
+    "role": "super_admin",
+    "action": "ACCESS_CHECK",
+    "resource": "security",
+    "patient_id": "PT-2025-0520-0017",
+    "allowed": true,
+    "reason": "smoke test"
+  },
+  {
+    "timestamp": "2026-05-17T00:59:13",
+    "actor": "PlatformAdmin",
+    "role": "super_admin",
+    "action": "ACCESS_CHECK",
+    "resource": "patient",
+    "patient_id": "PT-2025-0520-0017",
+    "allowed": true,
+    "reason": "smoke test"
+  },
+  {
+    "timestamp": "2026-05-17T00:59:13",
+    "actor": "BioSecurityArchitect",
+    "role": "bio_security_architect",
+    "action": "ACCESS_CHECK",
+    "resource": "security",
+    "patient_id": "PT-2025-0520-0017",
+    "allowed": true,
+    "reason": "smoke test"
+  },
+  {
+    "timestamp": "2026-05-17T00:59:13",
+    "actor": "VirtualLabDeveloper",
+    "role": "virtual_lab_developer",
+    "action": "ACCESS_CHECK",
+    "resource": "research_lab",
+    "patient_id": "PT-2025-0520-0017",
+    "allowed": true,
+    "reason": "smoke test"
+  },
+  {
+    "timestamp": "2026-05-17T00:59:13",
+    "actor": "Security",
+    "role": "security",
+    "action": "VIEW_AUDIT_LOGS",
+    "resource": "audit_logs",
+    "patient_id": null,
+    "allowed": true,
+    "reason": "security center"
+  },
+  {
+    "timestamp": "2026-05-17T00:59:45",
+    "actor": "이영준 관리자",
+    "role": "super_admin",
+    "action": "ACCESS_CHECK",
+    "resource": "dashboard",
+    "patient_id": "PT-2025-0520-0017",
+    "allowed": true,
+    "reason": "clinical_v3 navigation"
+  },
+  {
+    "timestamp": "2026-05-17T01:00:01",
+    "actor": "이영준 관리자",
+    "role": "super_admin",
+    "action": "ACCESS_CHECK",
+    "resource": "patient",
+    "patient_id": "PT-2025-0520-0017",
+    "allowed": true,
+    "reason": "clinical_v3 navigation"
+  },
+  {
+    "timestamp": "2026-05-17T01:00:02",
+    "actor": "이영준 관리자",
+    "role": "super_admin",
+    "action": "ACCESS_CHECK",
+    "resource": "doctor",
+    "patient_id": "PT-2025-0520-0017",
+    "allowed": true,
+    "reason": "clinical_v3 navigation"
+  },
+  {
+    "timestamp": "2026-05-17T01:00:02",
+    "actor": "이영준 관리자",
+    "role": "super_admin",
+    "action": "ACCESS_CHECK",
+    "resource": "dashboard",
+    "patient_id": "PT-2025-0520-0017",
+    "allowed": true,
+    "reason": "role workspace open"
+  },
+  {
+    "timestamp": "2026-05-17T01:00:03",
+    "actor": "이영준 관리자",
+    "role": "super_admin",
+    "action": "ACCESS_CHECK",
+    "resource": "data_hub",
+    "patient_id": "PT-2025-0520-0017",
+    "allowed": true,
+    "reason": "clinical_v3 navigation"
+  },
+  {
+    "timestamp": "2026-05-17T01:00:03",
+    "actor": "이영준 관리자",
+    "role": "super_admin",
+    "action": "ACCESS_CHECK",
+    "resource": "dashboard",
+    "patient_id": "PT-2025-0520-0017",
+    "allowed": true,
+    "reason": "role workspace open"
+  },
+  {
+    "timestamp": "2026-05-17T01:00:07",
+    "actor": "이영준 관리자",
+    "role": "super_admin",
+    "action": "ACCESS_CHECK",
+    "resource": "prescription",
+    "patient_id": "PT-2025-0520-0017",
+    "allowed": true,
+    "reason": "clinical_v3 navigation"
+  },
+  {
+    "timestamp": "2026-05-17T01:00:09",
+    "actor": "이영준 관리자",
+    "role": "super_admin",
+    "action": "ACCESS_CHECK",
+    "resource": "dashboard",
+    "patient_id": "PT-2025-0520-0017",
+    "allowed": true,
+    "reason": "role workspace open"
+  },
+  {
+    "timestamp": "2026-05-17T01:00:10",
+    "actor": "이영준 관리자",
+    "role": "super_admin",
+    "action": "ACCESS_CHECK",
+    "resource": "dashboard",
+    "patient_id": "PT-2025-0520-0017",
+    "allowed": true,
+    "reason": "clinical_v3 navigation"
+  },
+  {
+    "timestamp": "2026-05-17T01:00:11",
+    "actor": "이영준 관리자",
+    "role": "super_admin",
+    "action": "ACCESS_CHECK",
+    "resource": "data_hub",
+    "patient_id": "PT-2025-0520-0017",
+    "allowed": true,
+    "reason": "clinical_v3 navigation"
+  },
+  {
+    "timestamp": "2026-05-17T01:00:12",
+    "actor": "이영준 관리자",
+    "role": "super_admin",
+    "action": "ACCESS_CHECK",
+    "resource": "security",
+    "patient_id": "PT-2025-0520-0017",
+    "allowed": true,
+    "reason": "clinical_v3 navigation"
+  },
+  {
+    "timestamp": "2026-05-17T01:00:12",
+    "actor": "보안관리자",
+    "role": "security",
+    "action": "VIEW_AUDIT_LOGS",
+    "resource": "audit_logs",
+    "patient_id": null,
+    "allowed": true,
+    "reason": "security center"
+  },
+  {
+    "timestamp": "2026-05-17T01:00:12",
+    "actor": "보안관리자",
+    "role": "security",
+    "action": "VIEW_RISK_EVENTS",
+    "resource": "risk_events",
+    "patient_id": null,
+    "allowed": true,
+    "reason": "security center"
+  },
+  {
+    "timestamp": "2026-05-17T01:00:12",
+    "actor": "이영준 관리자",
+    "role": "super_admin",
+    "action": "ACCESS_CHECK",
+    "resource": "admin",
+    "patient_id": "PT-2025-0520-0017",
+    "allowed": true,
+    "reason": "clinical_v3 navigation"
+  },
+  {
+    "timestamp": "2026-05-17T01:00:14",
+    "actor": "이영준 관리자",
+    "role": "super_admin",
+    "action": "ACCESS_CHECK",
+    "resource": "prescription",
+    "patient_id": "PT-2025-0520-0017",
+    "allowed": true,
+    "reason": "clinical_v3 navigation"
+  },
+  {
+    "timestamp": "2026-05-17T01:00:15",
+    "actor": "이영준 관리자",
+    "role": "super_admin",
+    "action": "ACCESS_CHECK",
+    "resource": "research_lab",
+    "patient_id": "PT-2025-0520-0017",
+    "allowed": true,
+    "reason": "clinical_v3 navigation"
+  },
+  {
+    "timestamp": "2026-05-17T01:00:16",
+    "actor": "이영준 관리자",
+    "role": "super_admin",
+    "action": "ACCESS_CHECK",
+    "resource": "doctor",
+    "patient_id": "PT-2025-0520-0017",
+    "allowed": true,
+    "reason": "clinical_v3 navigation"
+  },
+  {
+    "timestamp": "2026-05-17T01:00:17",
+    "actor": "이영준 관리자",
+    "role": "super_admin",
+    "action": "ACCESS_CHECK",
+    "resource": "data_hub",
+    "patient_id": "PT-2025-0520-0017",
+    "allowed": true,
+    "reason": "clinical_v3 navigation"
+  },
+  {
+    "timestamp": "2026-05-17T01:00:18",
+    "actor": "이영준 관리자",
+    "role": "super_admin",
+    "action": "ACCESS_CHECK",
+    "resource": "dashboard",
+    "patient_id": "PT-2025-0520-0017",
+    "allowed": true,
+    "reason": "role workspace open"
+  },
+  {
+    "timestamp": "2026-05-17T01:00:22",
+    "actor": "이영준 관리자",
+    "role": "super_admin",
+    "action": "ACCESS_CHECK",
+    "resource": "dashboard",
+    "patient_id": "PT-2025-0520-0017",
+    "allowed": true,
+    "reason": "clinical_v3 navigation"
+  },
+  {
+    "timestamp": "2026-05-17T01:02:13",
+    "actor": "Patient",
+    "role": "patient",
+    "action": "ACCESS_CHECK",
+    "resource": "patient",
+    "patient_id": "PT-2025-0520-0017",
+    "allowed": true,
+    "reason": "smoke test"
+  },
+  {
+    "timestamp": "2026-05-17T01:02:13",
+    "actor": "Patient",
+    "role": "patient",
+    "action": "ACCESS_CHECK",
+    "resource": "research_lab",
+    "patient_id": "PT-2025-0520-0017",
+    "allowed": false,
+    "reason": "smoke test"
+  },
+  {
+    "timestamp": "2026-05-17T01:02:13",
+    "actor": "Doctor",
+    "role": "doctor",
+    "action": "ACCESS_CHECK",
+    "resource": "doctor",
+    "patient_id": "PT-2025-0520-0017",
+    "allowed": true,
+    "reason": "smoke test"
+  },
+  {
+    "timestamp": "2026-05-17T01:02:13",
+    "actor": "Doctor",
+    "role": "doctor",
+    "action": "ACCESS_CHECK",
+    "resource": "security",
+    "patient_id": "PT-2025-0520-0017",
+    "allowed": false,
+    "reason": "smoke test"
+  },
+  {
+    "timestamp": "2026-05-17T01:02:13",
+    "actor": "Pharmacist",
+    "role": "pharmacist",
+    "action": "ACCESS_CHECK",
+    "resource": "prescription",
+    "patient_id": "PT-2025-0520-0017",
+    "allowed": true,
+    "reason": "smoke test"
+  },
+  {
+    "timestamp": "2026-05-17T01:02:13",
+    "actor": "Pharmacist",
+    "role": "pharmacist",
+    "action": "ACCESS_CHECK",
+    "resource": "security",
+    "patient_id": "PT-2025-0520-0017",
+    "allowed": false,
+    "reason": "smoke test"
+  },
+  {
+    "timestamp": "2026-05-17T01:02:13",
+    "actor": "AdminStaff",
+    "role": "admin_staff",
+    "action": "ACCESS_CHECK",
+    "resource": "admin",
+    "patient_id": "PT-2025-0520-0017",
+    "allowed": true,
+    "reason": "smoke test"
+  },
+  {
+    "timestamp": "2026-05-17T01:02:13",
+    "actor": "AdminStaff",
+    "role": "admin_staff",
+    "action": "ACCESS_CHECK",
+    "resource": "prescription",
+    "patient_id": "PT-2025-0520-0017",
+    "allowed": false,
+    "reason": "smoke test"
+  },
+  {
+    "timestamp": "2026-05-17T01:02:13",
+    "actor": "Researcher",
+    "role": "researcher",
+    "action": "ACCESS_CHECK",
+    "resource": "research_lab",
+    "patient_id": "PT-2025-0520-0017",
+    "allowed": true,
+    "reason": "smoke test"
+  },
+  {
+    "timestamp": "2026-05-17T01:02:13",
+    "actor": "Researcher",
+    "role": "researcher",
+    "action": "ACCESS_CHECK",
+    "resource": "patient",
+    "patient_id": "PT-2025-0520-0017",
+    "allowed": false,
+    "reason": "smoke test"
+  },
+  {
+    "timestamp": "2026-05-17T01:02:13",
+    "actor": "Security",
+    "role": "security",
+    "action": "ACCESS_CHECK",
+    "resource": "security",
+    "patient_id": "PT-2025-0520-0017",
+    "allowed": true,
+    "reason": "smoke test"
+  },
+  {
+    "timestamp": "2026-05-17T01:02:13",
+    "actor": "Security",
+    "role": "security",
+    "action": "ACCESS_CHECK",
+    "resource": "prescription",
+    "patient_id": "PT-2025-0520-0017",
+    "allowed": false,
+    "reason": "smoke test"
+  },
+  {
+    "timestamp": "2026-05-17T01:02:13",
+    "actor": "PlatformAdmin",
+    "role": "super_admin",
+    "action": "ACCESS_CHECK",
+    "resource": "security",
+    "patient_id": "PT-2025-0520-0017",
+    "allowed": true,
+    "reason": "smoke test"
+  },
+  {
+    "timestamp": "2026-05-17T01:02:13",
+    "actor": "PlatformAdmin",
+    "role": "super_admin",
+    "action": "ACCESS_CHECK",
+    "resource": "patient",
+    "patient_id": "PT-2025-0520-0017",
+    "allowed": true,
+    "reason": "smoke test"
+  },
+  {
+    "timestamp": "2026-05-17T01:02:13",
+    "actor": "BioSecurityArchitect",
+    "role": "bio_security_architect",
+    "action": "ACCESS_CHECK",
+    "resource": "security",
+    "patient_id": "PT-2025-0520-0017",
+    "allowed": true,
+    "reason": "smoke test"
+  },
+  {
+    "timestamp": "2026-05-17T01:02:13",
+    "actor": "VirtualLabDeveloper",
+    "role": "virtual_lab_developer",
+    "action": "ACCESS_CHECK",
+    "resource": "research_lab",
+    "patient_id": "PT-2025-0520-0017",
+    "allowed": true,
+    "reason": "smoke test"
+  },
+  {
+    "timestamp": "2026-05-17T01:02:13",
+    "actor": "Security",
+    "role": "security",
+    "action": "VIEW_AUDIT_LOGS",
+    "resource": "audit_logs",
+    "patient_id": null,
+    "allowed": true,
+    "reason": "security center"
+  },
+  {
+    "timestamp": "2026-05-17T01:10:43",
+    "actor": "Patient",
+    "role": "patient",
+    "action": "ACCESS_CHECK",
+    "resource": "patient",
+    "patient_id": "PT-2025-0520-0017",
+    "allowed": true,
+    "reason": "smoke test"
+  },
+  {
+    "timestamp": "2026-05-17T01:10:43",
+    "actor": "Patient",
+    "role": "patient",
+    "action": "ACCESS_CHECK",
+    "resource": "research_lab",
+    "patient_id": "PT-2025-0520-0017",
+    "allowed": false,
+    "reason": "smoke test"
+  },
+  {
+    "timestamp": "2026-05-17T01:10:43",
+    "actor": "Doctor",
+    "role": "doctor",
+    "action": "ACCESS_CHECK",
+    "resource": "doctor",
+    "patient_id": "PT-2025-0520-0017",
+    "allowed": true,
+    "reason": "smoke test"
+  },
+  {
+    "timestamp": "2026-05-17T01:10:43",
+    "actor": "Doctor",
+    "role": "doctor",
+    "action": "ACCESS_CHECK",
+    "resource": "security",
+    "patient_id": "PT-2025-0520-0017",
+    "allowed": false,
+    "reason": "smoke test"
+  },
+  {
+    "timestamp": "2026-05-17T01:10:43",
+    "actor": "Pharmacist",
+    "role": "pharmacist",
+    "action": "ACCESS_CHECK",
+    "resource": "prescription",
+    "patient_id": "PT-2025-0520-0017",
+    "allowed": true,
+    "reason": "smoke test"
+  },
+  {
+    "timestamp": "2026-05-17T01:10:43",
+    "actor": "Nurse",
+    "role": "nurse",
+    "action": "ACCESS_CHECK",
+    "resource": "nurse",
+    "patient_id": "PT-2025-0520-0017",
+    "allowed": false,
+    "reason": "smoke test"
+  },
+  {
+    "timestamp": "2026-05-17T01:10:43",
+    "actor": "Nurse",
+    "role": "nurse",
+    "action": "ACCESS_CHECK",
+    "resource": "security",
+    "patient_id": "PT-2025-0520-0017",
+    "allowed": false,
+    "reason": "smoke test"
+  },
+  {
+    "timestamp": "2026-05-17T01:10:43",
+    "actor": "Pharmacist",
+    "role": "pharmacist",
+    "action": "ACCESS_CHECK",
+    "resource": "security",
+    "patient_id": "PT-2025-0520-0017",
+    "allowed": false,
+    "reason": "smoke test"
+  },
+  {
+    "timestamp": "2026-05-17T01:10:43",
+    "actor": "AdminStaff",
+    "role": "admin_staff",
+    "action": "ACCESS_CHECK",
+    "resource": "admin",
+    "patient_id": "PT-2025-0520-0017",
+    "allowed": true,
+    "reason": "smoke test"
+  },
+  {
+    "timestamp": "2026-05-17T01:10:43",
+    "actor": "AdminStaff",
+    "role": "admin_staff",
+    "action": "ACCESS_CHECK",
+    "resource": "prescription",
+    "patient_id": "PT-2025-0520-0017",
+    "allowed": false,
+    "reason": "smoke test"
+  },
+  {
+    "timestamp": "2026-05-17T01:10:43",
+    "actor": "Researcher",
+    "role": "researcher",
+    "action": "ACCESS_CHECK",
+    "resource": "research_lab",
+    "patient_id": "PT-2025-0520-0017",
+    "allowed": true,
+    "reason": "smoke test"
+  },
+  {
+    "timestamp": "2026-05-17T01:10:43",
+    "actor": "Researcher",
+    "role": "researcher",
+    "action": "ACCESS_CHECK",
+    "resource": "patient",
+    "patient_id": "PT-2025-0520-0017",
+    "allowed": false,
+    "reason": "smoke test"
+  },
+  {
+    "timestamp": "2026-05-17T01:10:43",
+    "actor": "Security",
+    "role": "security",
+    "action": "ACCESS_CHECK",
+    "resource": "security",
+    "patient_id": "PT-2025-0520-0017",
+    "allowed": true,
+    "reason": "smoke test"
+  },
+  {
+    "timestamp": "2026-05-17T01:10:43",
+    "actor": "Security",
+    "role": "security",
+    "action": "ACCESS_CHECK",
+    "resource": "prescription",
+    "patient_id": "PT-2025-0520-0017",
+    "allowed": false,
+    "reason": "smoke test"
+  },
+  {
+    "timestamp": "2026-05-17T01:10:43",
+    "actor": "PlatformAdmin",
+    "role": "super_admin",
+    "action": "ACCESS_CHECK",
+    "resource": "security",
+    "patient_id": "PT-2025-0520-0017",
+    "allowed": true,
+    "reason": "smoke test"
+  },
+  {
+    "timestamp": "2026-05-17T01:10:43",
+    "actor": "PlatformAdmin",
+    "role": "super_admin",
+    "action": "ACCESS_CHECK",
+    "resource": "patient",
+    "patient_id": "PT-2025-0520-0017",
+    "allowed": true,
+    "reason": "smoke test"
+  },
+  {
+    "timestamp": "2026-05-17T01:10:43",
+    "actor": "BioSecurityArchitect",
+    "role": "bio_security_architect",
+    "action": "ACCESS_CHECK",
+    "resource": "security",
+    "patient_id": "PT-2025-0520-0017",
+    "allowed": true,
+    "reason": "smoke test"
+  },
+  {
+    "timestamp": "2026-05-17T01:10:43",
+    "actor": "VirtualLabDeveloper",
+    "role": "virtual_lab_developer",
+    "action": "ACCESS_CHECK",
+    "resource": "research_lab",
+    "patient_id": "PT-2025-0520-0017",
+    "allowed": true,
+    "reason": "smoke test"
+  },
+  {
+    "timestamp": "2026-05-17T01:10:43",
+    "actor": "Security",
+    "role": "security",
+    "action": "VIEW_AUDIT_LOGS",
+    "resource": "audit_logs",
+    "patient_id": null,
+    "allowed": true,
+    "reason": "security center"
+  },
+  {
+    "timestamp": "2026-05-17T01:11:11",
+    "actor": "이영준 관리자",
+    "role": "super_admin",
+    "action": "ACCESS_CHECK",
+    "resource": "dashboard",
+    "patient_id": "PT-2025-0520-0017",
+    "allowed": true,
+    "reason": "clinical_v3 navigation"
+  },
+  {
+    "timestamp": "2026-05-17T01:11:28",
+    "actor": "정다은 간호사",
+    "role": "nurse",
+    "action": "ACCESS_CHECK",
+    "resource": "dashboard",
+    "patient_id": "PT-2025-0520-0017",
+    "allowed": false,
+    "reason": "clinical_v3 navigation"
+  },
+  {
+    "timestamp": "2026-05-17T01:13:21",
+    "actor": "Patient",
+    "role": "patient",
+    "action": "ACCESS_CHECK",
+    "resource": "patient",
+    "patient_id": "PT-2025-0520-0017",
+    "allowed": true,
+    "reason": "smoke test"
+  },
+  {
+    "timestamp": "2026-05-17T01:13:21",
+    "actor": "Patient",
+    "role": "patient",
+    "action": "ACCESS_CHECK",
+    "resource": "research_lab",
+    "patient_id": "PT-2025-0520-0017",
+    "allowed": false,
+    "reason": "smoke test"
+  },
+  {
+    "timestamp": "2026-05-17T01:13:21",
+    "actor": "Doctor",
+    "role": "doctor",
+    "action": "ACCESS_CHECK",
+    "resource": "doctor",
+    "patient_id": "PT-2025-0520-0017",
+    "allowed": true,
+    "reason": "smoke test"
+  },
+  {
+    "timestamp": "2026-05-17T01:13:21",
+    "actor": "Doctor",
+    "role": "doctor",
+    "action": "ACCESS_CHECK",
+    "resource": "security",
+    "patient_id": "PT-2025-0520-0017",
+    "allowed": false,
+    "reason": "smoke test"
+  },
+  {
+    "timestamp": "2026-05-17T01:13:21",
+    "actor": "Pharmacist",
+    "role": "pharmacist",
+    "action": "ACCESS_CHECK",
+    "resource": "prescription",
+    "patient_id": "PT-2025-0520-0017",
+    "allowed": true,
+    "reason": "smoke test"
+  },
+  {
+    "timestamp": "2026-05-17T01:13:21",
+    "actor": "Nurse",
+    "role": "nurse",
+    "action": "ACCESS_CHECK",
+    "resource": "nurse",
+    "patient_id": "PT-2025-0520-0017",
+    "allowed": false,
+    "reason": "smoke test"
+  },
+  {
+    "timestamp": "2026-05-17T01:13:21",
+    "actor": "Nurse",
+    "role": "nurse",
+    "action": "ACCESS_CHECK",
+    "resource": "security",
+    "patient_id": "PT-2025-0520-0017",
+    "allowed": false,
+    "reason": "smoke test"
+  },
+  {
+    "timestamp": "2026-05-17T01:13:21",
+    "actor": "Pharmacist",
+    "role": "pharmacist",
+    "action": "ACCESS_CHECK",
+    "resource": "security",
+    "patient_id": "PT-2025-0520-0017",
+    "allowed": false,
+    "reason": "smoke test"
+  },
+  {
+    "timestamp": "2026-05-17T01:13:21",
+    "actor": "AdminStaff",
+    "role": "admin_staff",
+    "action": "ACCESS_CHECK",
+    "resource": "admin",
+    "patient_id": "PT-2025-0520-0017",
+    "allowed": true,
+    "reason": "smoke test"
+  },
+  {
+    "timestamp": "2026-05-17T01:13:21",
+    "actor": "AdminStaff",
+    "role": "admin_staff",
+    "action": "ACCESS_CHECK",
+    "resource": "prescription",
+    "patient_id": "PT-2025-0520-0017",
+    "allowed": false,
+    "reason": "smoke test"
+  },
+  {
+    "timestamp": "2026-05-17T01:13:21",
+    "actor": "Researcher",
+    "role": "researcher",
+    "action": "ACCESS_CHECK",
+    "resource": "research_lab",
+    "patient_id": "PT-2025-0520-0017",
+    "allowed": true,
+    "reason": "smoke test"
+  },
+  {
+    "timestamp": "2026-05-17T01:13:21",
+    "actor": "Researcher",
+    "role": "researcher",
+    "action": "ACCESS_CHECK",
+    "resource": "patient",
+    "patient_id": "PT-2025-0520-0017",
+    "allowed": false,
+    "reason": "smoke test"
+  },
+  {
+    "timestamp": "2026-05-17T01:13:21",
+    "actor": "Security",
+    "role": "security",
+    "action": "ACCESS_CHECK",
+    "resource": "security",
+    "patient_id": "PT-2025-0520-0017",
+    "allowed": true,
+    "reason": "smoke test"
+  },
+  {
+    "timestamp": "2026-05-17T01:13:21",
+    "actor": "Security",
+    "role": "security",
+    "action": "ACCESS_CHECK",
+    "resource": "prescription",
+    "patient_id": "PT-2025-0520-0017",
+    "allowed": false,
+    "reason": "smoke test"
+  },
+  {
+    "timestamp": "2026-05-17T01:13:21",
+    "actor": "PlatformAdmin",
+    "role": "super_admin",
+    "action": "ACCESS_CHECK",
+    "resource": "security",
+    "patient_id": "PT-2025-0520-0017",
+    "allowed": true,
+    "reason": "smoke test"
+  },
+  {
+    "timestamp": "2026-05-17T01:13:21",
+    "actor": "PlatformAdmin",
+    "role": "super_admin",
+    "action": "ACCESS_CHECK",
+    "resource": "patient",
+    "patient_id": "PT-2025-0520-0017",
+    "allowed": true,
+    "reason": "smoke test"
+  },
+  {
+    "timestamp": "2026-05-17T01:13:21",
+    "actor": "BioSecurityArchitect",
+    "role": "bio_security_architect",
+    "action": "ACCESS_CHECK",
+    "resource": "security",
+    "patient_id": "PT-2025-0520-0017",
+    "allowed": true,
+    "reason": "smoke test"
+  },
+  {
+    "timestamp": "2026-05-17T01:13:21",
+    "actor": "VirtualLabDeveloper",
+    "role": "virtual_lab_developer",
+    "action": "ACCESS_CHECK",
+    "resource": "research_lab",
+    "patient_id": "PT-2025-0520-0017",
+    "allowed": true,
+    "reason": "smoke test"
+  },
+  {
+    "timestamp": "2026-05-17T01:13:21",
+    "actor": "Security",
+    "role": "security",
+    "action": "VIEW_AUDIT_LOGS",
+    "resource": "audit_logs",
+    "patient_id": null,
+    "allowed": true,
+    "reason": "security center"
+  },
+  {
+    "timestamp": "2026-05-17T01:13:30",
+    "actor": "간호학과 검토자 A",
+    "role": "nurse",
+    "action": "ACCESS_CHECK",
+    "resource": "dashboard",
+    "patient_id": "PT-2025-0520-0017",
+    "allowed": false,
+    "reason": "clinical_v3 navigation"
+  },
+  {
+    "timestamp": "2026-05-17T01:15:41",
+    "actor": "Patient",
+    "role": "patient",
+    "action": "ACCESS_CHECK",
+    "resource": "patient",
+    "patient_id": "PT-2025-0520-0017",
+    "allowed": true,
+    "reason": "smoke test"
+  },
+  {
+    "timestamp": "2026-05-17T01:15:41",
+    "actor": "Patient",
+    "role": "patient",
+    "action": "ACCESS_CHECK",
+    "resource": "research_lab",
+    "patient_id": "PT-2025-0520-0017",
+    "allowed": false,
+    "reason": "smoke test"
+  },
+  {
+    "timestamp": "2026-05-17T01:15:41",
+    "actor": "Doctor",
+    "role": "doctor",
+    "action": "ACCESS_CHECK",
+    "resource": "doctor",
+    "patient_id": "PT-2025-0520-0017",
+    "allowed": true,
+    "reason": "smoke test"
+  },
+  {
+    "timestamp": "2026-05-17T01:15:41",
+    "actor": "Doctor",
+    "role": "doctor",
+    "action": "ACCESS_CHECK",
+    "resource": "security",
+    "patient_id": "PT-2025-0520-0017",
+    "allowed": false,
+    "reason": "smoke test"
+  },
+  {
+    "timestamp": "2026-05-17T01:15:41",
+    "actor": "Pharmacist",
+    "role": "pharmacist",
+    "action": "ACCESS_CHECK",
+    "resource": "prescription",
+    "patient_id": "PT-2025-0520-0017",
+    "allowed": true,
+    "reason": "smoke test"
+  },
+  {
+    "timestamp": "2026-05-17T01:15:41",
+    "actor": "Nurse",
+    "role": "nurse",
+    "action": "ACCESS_CHECK",
+    "resource": "nurse",
+    "patient_id": "PT-2025-0520-0017",
+    "allowed": false,
+    "reason": "smoke test"
+  },
+  {
+    "timestamp": "2026-05-17T01:15:41",
+    "actor": "Nurse",
+    "role": "nurse",
+    "action": "ACCESS_CHECK",
+    "resource": "security",
+    "patient_id": "PT-2025-0520-0017",
+    "allowed": false,
+    "reason": "smoke test"
+  },
+  {
+    "timestamp": "2026-05-17T01:15:41",
+    "actor": "Pharmacist",
+    "role": "pharmacist",
+    "action": "ACCESS_CHECK",
+    "resource": "security",
+    "patient_id": "PT-2025-0520-0017",
+    "allowed": false,
+    "reason": "smoke test"
+  },
+  {
+    "timestamp": "2026-05-17T01:15:41",
+    "actor": "AdminStaff",
+    "role": "admin_staff",
+    "action": "ACCESS_CHECK",
+    "resource": "admin",
+    "patient_id": "PT-2025-0520-0017",
+    "allowed": true,
+    "reason": "smoke test"
+  },
+  {
+    "timestamp": "2026-05-17T01:15:41",
+    "actor": "AdminStaff",
+    "role": "admin_staff",
+    "action": "ACCESS_CHECK",
+    "resource": "prescription",
+    "patient_id": "PT-2025-0520-0017",
+    "allowed": false,
+    "reason": "smoke test"
+  },
+  {
+    "timestamp": "2026-05-17T01:15:41",
+    "actor": "Researcher",
+    "role": "researcher",
+    "action": "ACCESS_CHECK",
+    "resource": "research_lab",
+    "patient_id": "PT-2025-0520-0017",
+    "allowed": true,
+    "reason": "smoke test"
+  },
+  {
+    "timestamp": "2026-05-17T01:15:41",
+    "actor": "Researcher",
+    "role": "researcher",
+    "action": "ACCESS_CHECK",
+    "resource": "patient",
+    "patient_id": "PT-2025-0520-0017",
+    "allowed": false,
+    "reason": "smoke test"
+  },
+  {
+    "timestamp": "2026-05-17T01:15:41",
+    "actor": "Security",
+    "role": "security",
+    "action": "ACCESS_CHECK",
+    "resource": "security",
+    "patient_id": "PT-2025-0520-0017",
+    "allowed": true,
+    "reason": "smoke test"
+  },
+  {
+    "timestamp": "2026-05-17T01:15:41",
+    "actor": "Security",
+    "role": "security",
+    "action": "ACCESS_CHECK",
+    "resource": "prescription",
+    "patient_id": "PT-2025-0520-0017",
+    "allowed": false,
+    "reason": "smoke test"
+  },
+  {
+    "timestamp": "2026-05-17T01:15:41",
+    "actor": "PlatformAdmin",
+    "role": "super_admin",
+    "action": "ACCESS_CHECK",
+    "resource": "security",
+    "patient_id": "PT-2025-0520-0017",
+    "allowed": true,
+    "reason": "smoke test"
+  },
+  {
+    "timestamp": "2026-05-17T01:15:41",
+    "actor": "PlatformAdmin",
+    "role": "super_admin",
+    "action": "ACCESS_CHECK",
+    "resource": "patient",
+    "patient_id": "PT-2025-0520-0017",
+    "allowed": true,
+    "reason": "smoke test"
+  },
+  {
+    "timestamp": "2026-05-17T01:15:41",
+    "actor": "BioSecurityArchitect",
+    "role": "bio_security_architect",
+    "action": "ACCESS_CHECK",
+    "resource": "security",
+    "patient_id": "PT-2025-0520-0017",
+    "allowed": true,
+    "reason": "smoke test"
+  },
+  {
+    "timestamp": "2026-05-17T01:15:41",
+    "actor": "VirtualLabDeveloper",
+    "role": "virtual_lab_developer",
+    "action": "ACCESS_CHECK",
+    "resource": "research_lab",
+    "patient_id": "PT-2025-0520-0017",
+    "allowed": true,
+    "reason": "smoke test"
+  },
+  {
+    "timestamp": "2026-05-17T01:15:41",
+    "actor": "Security",
+    "role": "security",
+    "action": "VIEW_AUDIT_LOGS",
+    "resource": "audit_logs",
+    "patient_id": null,
+    "allowed": true,
+    "reason": "security center"
+  },
+  {
+    "timestamp": "2026-05-17T01:18:10",
+    "actor": "Patient",
+    "role": "patient",
+    "action": "ACCESS_CHECK",
+    "resource": "patient",
+    "patient_id": "PT-2025-0520-0017",
+    "allowed": true,
+    "reason": "smoke test"
+  },
+  {
+    "timestamp": "2026-05-17T01:18:10",
+    "actor": "Patient",
+    "role": "patient",
+    "action": "ACCESS_CHECK",
+    "resource": "research_lab",
+    "patient_id": "PT-2025-0520-0017",
+    "allowed": false,
+    "reason": "smoke test"
+  },
+  {
+    "timestamp": "2026-05-17T01:18:10",
+    "actor": "Doctor",
+    "role": "doctor",
+    "action": "ACCESS_CHECK",
+    "resource": "doctor",
+    "patient_id": "PT-2025-0520-0017",
+    "allowed": true,
+    "reason": "smoke test"
+  },
+  {
+    "timestamp": "2026-05-17T01:18:10",
+    "actor": "Doctor",
+    "role": "doctor",
+    "action": "ACCESS_CHECK",
+    "resource": "security",
+    "patient_id": "PT-2025-0520-0017",
+    "allowed": false,
+    "reason": "smoke test"
+  },
+  {
+    "timestamp": "2026-05-17T01:18:10",
+    "actor": "Pharmacist",
+    "role": "pharmacist",
+    "action": "ACCESS_CHECK",
+    "resource": "prescription",
+    "patient_id": "PT-2025-0520-0017",
+    "allowed": true,
+    "reason": "smoke test"
+  },
+  {
+    "timestamp": "2026-05-17T01:18:10",
+    "actor": "Nurse",
+    "role": "nurse",
+    "action": "ACCESS_CHECK",
+    "resource": "nurse",
+    "patient_id": "PT-2025-0520-0017",
+    "allowed": false,
+    "reason": "smoke test"
+  },
+  {
+    "timestamp": "2026-05-17T01:18:10",
+    "actor": "Nurse",
+    "role": "nurse",
+    "action": "ACCESS_CHECK",
+    "resource": "security",
+    "patient_id": "PT-2025-0520-0017",
+    "allowed": false,
+    "reason": "smoke test"
+  },
+  {
+    "timestamp": "2026-05-17T01:18:10",
+    "actor": "Pharmacist",
+    "role": "pharmacist",
+    "action": "ACCESS_CHECK",
+    "resource": "security",
+    "patient_id": "PT-2025-0520-0017",
+    "allowed": false,
+    "reason": "smoke test"
+  },
+  {
+    "timestamp": "2026-05-17T01:18:10",
+    "actor": "AdminStaff",
+    "role": "admin_staff",
+    "action": "ACCESS_CHECK",
+    "resource": "admin",
+    "patient_id": "PT-2025-0520-0017",
+    "allowed": true,
+    "reason": "smoke test"
+  },
+  {
+    "timestamp": "2026-05-17T01:18:10",
+    "actor": "AdminStaff",
+    "role": "admin_staff",
+    "action": "ACCESS_CHECK",
+    "resource": "prescription",
+    "patient_id": "PT-2025-0520-0017",
+    "allowed": false,
+    "reason": "smoke test"
+  },
+  {
+    "timestamp": "2026-05-17T01:18:10",
+    "actor": "Researcher",
+    "role": "researcher",
+    "action": "ACCESS_CHECK",
+    "resource": "research_lab",
+    "patient_id": "PT-2025-0520-0017",
+    "allowed": true,
+    "reason": "smoke test"
+  },
+  {
+    "timestamp": "2026-05-17T01:18:10",
+    "actor": "Researcher",
+    "role": "researcher",
+    "action": "ACCESS_CHECK",
+    "resource": "patient",
+    "patient_id": "PT-2025-0520-0017",
+    "allowed": false,
+    "reason": "smoke test"
+  },
+  {
+    "timestamp": "2026-05-17T01:18:10",
+    "actor": "Security",
+    "role": "security",
+    "action": "ACCESS_CHECK",
+    "resource": "security",
+    "patient_id": "PT-2025-0520-0017",
+    "allowed": true,
+    "reason": "smoke test"
+  },
+  {
+    "timestamp": "2026-05-17T01:18:10",
+    "actor": "Security",
+    "role": "security",
+    "action": "ACCESS_CHECK",
+    "resource": "prescription",
+    "patient_id": "PT-2025-0520-0017",
+    "allowed": false,
+    "reason": "smoke test"
+  },
+  {
+    "timestamp": "2026-05-17T01:18:10",
+    "actor": "PlatformAdmin",
+    "role": "super_admin",
+    "action": "ACCESS_CHECK",
+    "resource": "security",
+    "patient_id": "PT-2025-0520-0017",
+    "allowed": true,
+    "reason": "smoke test"
+  },
+  {
+    "timestamp": "2026-05-17T01:18:10",
+    "actor": "PlatformAdmin",
+    "role": "super_admin",
+    "action": "ACCESS_CHECK",
+    "resource": "patient",
+    "patient_id": "PT-2025-0520-0017",
+    "allowed": true,
+    "reason": "smoke test"
+  },
+  {
+    "timestamp": "2026-05-17T01:18:10",
+    "actor": "BioSecurityArchitect",
+    "role": "bio_security_architect",
+    "action": "ACCESS_CHECK",
+    "resource": "security",
+    "patient_id": "PT-2025-0520-0017",
+    "allowed": true,
+    "reason": "smoke test"
+  },
+  {
+    "timestamp": "2026-05-17T01:18:10",
+    "actor": "VirtualLabDeveloper",
+    "role": "virtual_lab_developer",
+    "action": "ACCESS_CHECK",
+    "resource": "research_lab",
+    "patient_id": "PT-2025-0520-0017",
+    "allowed": true,
+    "reason": "smoke test"
+  },
+  {
+    "timestamp": "2026-05-17T01:18:10",
+    "actor": "Security",
+    "role": "security",
+    "action": "VIEW_AUDIT_LOGS",
+    "resource": "audit_logs",
+    "patient_id": null,
+    "allowed": true,
+    "reason": "security center"
+  },
+  {
+    "timestamp": "2026-05-17T01:25:37",
+    "actor": "환자 사용자",
+    "role": "patient",
+    "action": "ACCESS_CHECK",
+    "resource": "patient",
+    "patient_id": "PT-2025-0520-0017",
+    "allowed": true,
+    "reason": "clinical_v3 navigation"
+  },
+  {
+    "timestamp": "2026-05-17T01:25:37",
+    "actor": "환자 사용자",
+    "role": "patient",
+    "action": "ACCESS_CHECK",
+    "resource": "patient",
+    "patient_id": "PT-2025-0520-0017",
+    "allowed": true,
+    "reason": "clinical_v3 navigation"
+  },
+  {
+    "timestamp": "2026-05-17T01:25:44",
+    "actor": "환자 사용자",
+    "role": "patient",
+    "action": "ACCESS_CHECK",
+    "resource": "dashboard",
+    "patient_id": "PT-2025-0520-0017",
+    "allowed": true,
+    "reason": "clinical_v3 navigation"
+  },
+  {
+    "timestamp": "2026-05-17T01:25:45",
+    "actor": "간호학과 검토자 A",
+    "role": "nurse",
+    "action": "ACCESS_CHECK",
+    "resource": "nurse",
+    "patient_id": "PT-2025-0520-0017",
+    "allowed": false,
+    "reason": "clinical_v3 navigation"
+  },
+  {
+    "timestamp": "2026-05-17T01:25:45",
+    "actor": "간호학과 검토자 A",
+    "role": "nurse",
+    "action": "ACCESS_CHECK",
+    "resource": "nurse",
+    "patient_id": "PT-2025-0520-0017",
+    "allowed": false,
+    "reason": "clinical_v3 navigation"
+  },
+  {
+    "timestamp": "2026-05-17T01:25:52",
+    "actor": "김서연 박사",
+    "role": "researcher",
+    "action": "ACCESS_CHECK",
+    "resource": "research_lab",
+    "patient_id": "PT-2025-0520-0017",
+    "allowed": true,
+    "reason": "clinical_v3 navigation"
+  },
+  {
+    "timestamp": "2026-05-17T01:25:53",
+    "actor": "김서연 박사",
+    "role": "researcher",
+    "action": "ACCESS_CHECK",
+    "resource": "research_lab",
+    "patient_id": "PT-2025-0520-0017",
+    "allowed": true,
+    "reason": "clinical_v3 navigation"
+  },
+  {
+    "timestamp": "2026-05-17T01:26:00",
+    "actor": "김서연 박사",
+    "role": "researcher",
+    "action": "ACCESS_CHECK",
+    "resource": "dashboard",
+    "patient_id": "PT-2025-0520-0017",
+    "allowed": true,
+    "reason": "clinical_v3 navigation"
+  },
+  {
+    "timestamp": "2026-05-17T01:26:00",
+    "actor": "보안관리자",
+    "role": "security",
+    "action": "ACCESS_CHECK",
+    "resource": "security",
+    "patient_id": "PT-2025-0520-0017",
+    "allowed": true,
+    "reason": "clinical_v3 navigation"
+  },
+  {
+    "timestamp": "2026-05-17T01:26:00",
+    "actor": "보안관리자",
+    "role": "security",
+    "action": "VIEW_AUDIT_LOGS",
+    "resource": "audit_logs",
+    "patient_id": null,
+    "allowed": true,
+    "reason": "security center"
+  },
+  {
+    "timestamp": "2026-05-17T01:26:00",
+    "actor": "보안관리자",
+    "role": "security",
+    "action": "VIEW_RISK_EVENTS",
+    "resource": "risk_events",
+    "patient_id": null,
+    "allowed": true,
+    "reason": "security center"
+  },
+  {
+    "timestamp": "2026-05-17T01:26:01",
+    "actor": "보안관리자",
+    "role": "security",
+    "action": "ACCESS_CHECK",
+    "resource": "security",
+    "patient_id": "PT-2025-0520-0017",
+    "allowed": true,
+    "reason": "clinical_v3 navigation"
+  },
+  {
+    "timestamp": "2026-05-17T01:26:01",
+    "actor": "보안관리자",
+    "role": "security",
+    "action": "VIEW_AUDIT_LOGS",
+    "resource": "audit_logs",
+    "patient_id": null,
+    "allowed": true,
+    "reason": "security center"
+  },
+  {
+    "timestamp": "2026-05-17T01:26:01",
+    "actor": "보안관리자",
+    "role": "security",
+    "action": "VIEW_RISK_EVENTS",
+    "resource": "risk_events",
+    "patient_id": null,
+    "allowed": true,
+    "reason": "security center"
+  },
+  {
+    "timestamp": "2026-05-17T01:26:07",
+    "actor": "보안관리자",
+    "role": "security",
+    "action": "ACCESS_CHECK",
+    "resource": "dashboard",
+    "patient_id": "PT-2025-0520-0017",
+    "allowed": true,
+    "reason": "clinical_v3 navigation"
+  },
+  {
+    "timestamp": "2026-05-17T01:26:07",
+    "actor": "이영준 관리자",
+    "role": "super_admin",
+    "action": "ACCESS_CHECK",
+    "resource": "security",
+    "patient_id": null,
+    "allowed": true,
+    "reason": "platform admin console open"
+  },
+  {
+    "timestamp": "2026-05-17T01:26:08",
+    "actor": "이영준 관리자",
+    "role": "super_admin",
+    "action": "ACCESS_CHECK",
+    "resource": "security",
+    "patient_id": null,
+    "allowed": true,
+    "reason": "platform admin console open"
+  },
+  {
+    "timestamp": "2026-05-17T01:26:18",
+    "actor": "이영준 관리자",
+    "role": "super_admin",
+    "action": "ACCESS_CHECK",
+    "resource": "dashboard",
+    "patient_id": "PT-2025-0520-0017",
+    "allowed": true,
+    "reason": "clinical_v3 navigation"
+  },
+  {
+    "timestamp": "2026-05-17T01:26:18",
+    "actor": "이준호 의사",
+    "role": "doctor",
+    "action": "ACCESS_CHECK",
+    "resource": "doctor",
+    "patient_id": "PT-2025-0520-0017",
+    "allowed": true,
+    "reason": "clinical_v3 navigation"
+  },
+  {
+    "timestamp": "2026-05-17T01:26:19",
+    "actor": "이준호 의사",
+    "role": "doctor",
+    "action": "ACCESS_CHECK",
+    "resource": "doctor",
+    "patient_id": "PT-2025-0520-0017",
+    "allowed": true,
+    "reason": "clinical_v3 navigation"
+  },
+  {
+    "timestamp": "2026-05-17T01:26:50",
+    "actor": "이준호 의사",
+    "role": "doctor",
+    "action": "ACCESS_CHECK",
+    "resource": "dashboard",
+    "patient_id": "PT-2025-0520-0017",
+    "allowed": true,
+    "reason": "clinical_v3 navigation"
+  },
+  {
+    "timestamp": "2026-05-17T01:26:50",
+    "actor": "박민지 약사",
+    "role": "pharmacist",
+    "action": "ACCESS_CHECK",
+    "resource": "prescription",
+    "patient_id": "PT-2025-0520-0017",
+    "allowed": true,
+    "reason": "clinical_v3 navigation"
+  },
+  {
+    "timestamp": "2026-05-17T01:26:51",
+    "actor": "박민지 약사",
+    "role": "pharmacist",
+    "action": "ACCESS_CHECK",
+    "resource": "prescription",
+    "patient_id": "PT-2025-0520-0017",
+    "allowed": true,
+    "reason": "clinical_v3 navigation"
+  },
+  {
+    "timestamp": "2026-05-17T01:27:10",
+    "actor": "박민지 약사",
+    "role": "pharmacist",
+    "action": "ACCESS_CHECK",
+    "resource": "dashboard",
+    "patient_id": "PT-2025-0520-0017",
+    "allowed": true,
+    "reason": "clinical_v3 navigation"
+  },
+  {
+    "timestamp": "2026-05-17T01:27:10",
+    "actor": "최하늘 원무",
+    "role": "admin_staff",
+    "action": "ACCESS_CHECK",
+    "resource": "admin",
+    "patient_id": "PT-2025-0520-0017",
+    "allowed": true,
+    "reason": "clinical_v3 navigation"
+  },
+  {
+    "timestamp": "2026-05-17T01:27:11",
+    "actor": "최하늘 원무",
+    "role": "admin_staff",
+    "action": "ACCESS_CHECK",
+    "resource": "admin",
+    "patient_id": "PT-2025-0520-0017",
+    "allowed": true,
+    "reason": "clinical_v3 navigation"
+  },
+  {
+    "timestamp": "2026-05-17T01:27:19",
+    "actor": "최하늘 원무",
+    "role": "admin_staff",
+    "action": "ACCESS_CHECK",
+    "resource": "dashboard",
+    "patient_id": "PT-2025-0520-0017",
+    "allowed": true,
+    "reason": "clinical_v3 navigation"
+  },
+  {
+    "timestamp": "2026-05-17T01:27:19",
+    "actor": "환자 사용자",
+    "role": "patient",
+    "action": "ACCESS_CHECK",
+    "resource": "security",
+    "patient_id": "PT-2025-0520-0017",
+    "allowed": false,
+    "reason": "clinical_v3 navigation"
+  },
+  {
+    "timestamp": "2026-05-17T01:27:19",
+    "actor": "보안관리자",
+    "role": "security",
+    "action": "VIEW_AUDIT_LOGS",
+    "resource": "audit_logs",
+    "patient_id": null,
+    "allowed": true,
+    "reason": "security center"
+  },
+  {
+    "timestamp": "2026-05-17T01:27:19",
+    "actor": "보안관리자",
+    "role": "security",
+    "action": "VIEW_RISK_EVENTS",
+    "resource": "risk_events",
+    "patient_id": null,
+    "allowed": true,
+    "reason": "security center"
+  },
+  {
+    "timestamp": "2026-05-17T01:27:20",
+    "actor": "환자 사용자",
+    "role": "patient",
+    "action": "ACCESS_CHECK",
+    "resource": "security",
+    "patient_id": "PT-2025-0520-0017",
+    "allowed": false,
+    "reason": "clinical_v3 navigation"
+  },
+  {
+    "timestamp": "2026-05-17T01:27:20",
+    "actor": "보안관리자",
+    "role": "security",
+    "action": "VIEW_AUDIT_LOGS",
+    "resource": "audit_logs",
+    "patient_id": null,
+    "allowed": true,
+    "reason": "security center"
+  },
+  {
+    "timestamp": "2026-05-17T01:27:20",
+    "actor": "보안관리자",
+    "role": "security",
+    "action": "VIEW_RISK_EVENTS",
+    "resource": "risk_events",
+    "patient_id": null,
+    "allowed": true,
+    "reason": "security center"
+  },
+  {
+    "timestamp": "2026-05-17T01:27:39",
+    "actor": "환자 사용자",
+    "role": "patient",
+    "action": "ACCESS_CHECK",
+    "resource": "dashboard",
+    "patient_id": "PT-2025-0520-0017",
+    "allowed": true,
+    "reason": "clinical_v3 navigation"
+  },
+  {
+    "timestamp": "2026-05-17T01:27:39",
+    "actor": "간호학과 검토자 A",
+    "role": "nurse",
+    "action": "ACCESS_CHECK",
+    "resource": "dashboard",
+    "patient_id": "PT-2025-0520-0017",
+    "allowed": false,
+    "reason": "role workspace open"
+  },
+  {
+    "timestamp": "2026-05-17T01:27:40",
+    "actor": "간호학과 검토자 A",
+    "role": "nurse",
+    "action": "ACCESS_CHECK",
+    "resource": "dashboard",
+    "patient_id": "PT-2025-0520-0017",
+    "allowed": false,
+    "reason": "role workspace open"
+  },
+  {
+    "timestamp": "2026-05-17T01:28:00",
+    "actor": "바이오 보안 아키텍트",
+    "role": "bio_security_architect",
+    "action": "ACCESS_CHECK",
+    "resource": "dashboard",
+    "patient_id": "PT-2025-0520-0017",
+    "allowed": true,
+    "reason": "role workspace open"
+  },
+  {
+    "timestamp": "2026-05-17T01:28:00",
+    "actor": "바이오 보안 아키텍트",
+    "role": "bio_security_architect",
+    "action": "ACCESS_CHECK",
+    "resource": "dashboard",
+    "patient_id": "PT-2025-0520-0017",
+    "allowed": true,
+    "reason": "role workspace open"
+  },
+  {
+    "timestamp": "2026-05-17T01:28:53",
+    "actor": "Patient",
+    "role": "patient",
+    "action": "ACCESS_CHECK",
+    "resource": "patient",
+    "patient_id": "PT-2025-0520-0017",
+    "allowed": true,
+    "reason": "smoke test"
+  },
+  {
+    "timestamp": "2026-05-17T01:28:53",
+    "actor": "Patient",
+    "role": "patient",
+    "action": "ACCESS_CHECK",
+    "resource": "research_lab",
+    "patient_id": "PT-2025-0520-0017",
+    "allowed": false,
+    "reason": "smoke test"
+  },
+  {
+    "timestamp": "2026-05-17T01:28:53",
+    "actor": "Doctor",
+    "role": "doctor",
+    "action": "ACCESS_CHECK",
+    "resource": "doctor",
+    "patient_id": "PT-2025-0520-0017",
+    "allowed": true,
+    "reason": "smoke test"
+  },
+  {
+    "timestamp": "2026-05-17T01:28:53",
+    "actor": "Doctor",
+    "role": "doctor",
+    "action": "ACCESS_CHECK",
+    "resource": "security",
+    "patient_id": "PT-2025-0520-0017",
+    "allowed": false,
+    "reason": "smoke test"
+  },
+  {
+    "timestamp": "2026-05-17T01:28:53",
+    "actor": "Pharmacist",
+    "role": "pharmacist",
+    "action": "ACCESS_CHECK",
+    "resource": "prescription",
+    "patient_id": "PT-2025-0520-0017",
+    "allowed": true,
+    "reason": "smoke test"
+  },
+  {
+    "timestamp": "2026-05-17T01:28:53",
+    "actor": "Nurse",
+    "role": "nurse",
+    "action": "ACCESS_CHECK",
+    "resource": "nurse",
+    "patient_id": "PT-2025-0520-0017",
+    "allowed": false,
+    "reason": "smoke test"
+  },
+  {
+    "timestamp": "2026-05-17T01:28:53",
+    "actor": "Nurse",
+    "role": "nurse",
+    "action": "ACCESS_CHECK",
+    "resource": "security",
+    "patient_id": "PT-2025-0520-0017",
+    "allowed": false,
+    "reason": "smoke test"
+  },
+  {
+    "timestamp": "2026-05-17T01:28:53",
+    "actor": "Pharmacist",
+    "role": "pharmacist",
+    "action": "ACCESS_CHECK",
+    "resource": "security",
+    "patient_id": "PT-2025-0520-0017",
+    "allowed": false,
+    "reason": "smoke test"
+  },
+  {
+    "timestamp": "2026-05-17T01:28:53",
+    "actor": "AdminStaff",
+    "role": "admin_staff",
+    "action": "ACCESS_CHECK",
+    "resource": "admin",
+    "patient_id": "PT-2025-0520-0017",
+    "allowed": true,
+    "reason": "smoke test"
+  },
+  {
+    "timestamp": "2026-05-17T01:28:53",
+    "actor": "AdminStaff",
+    "role": "admin_staff",
+    "action": "ACCESS_CHECK",
+    "resource": "prescription",
+    "patient_id": "PT-2025-0520-0017",
+    "allowed": false,
+    "reason": "smoke test"
+  },
+  {
+    "timestamp": "2026-05-17T01:28:53",
+    "actor": "Researcher",
+    "role": "researcher",
+    "action": "ACCESS_CHECK",
+    "resource": "research_lab",
+    "patient_id": "PT-2025-0520-0017",
+    "allowed": true,
+    "reason": "smoke test"
+  },
+  {
+    "timestamp": "2026-05-17T01:28:53",
+    "actor": "Researcher",
+    "role": "researcher",
+    "action": "ACCESS_CHECK",
+    "resource": "patient",
+    "patient_id": "PT-2025-0520-0017",
+    "allowed": false,
+    "reason": "smoke test"
+  },
+  {
+    "timestamp": "2026-05-17T01:28:53",
+    "actor": "Security",
+    "role": "security",
+    "action": "ACCESS_CHECK",
+    "resource": "security",
+    "patient_id": "PT-2025-0520-0017",
+    "allowed": true,
+    "reason": "smoke test"
+  },
+  {
+    "timestamp": "2026-05-17T01:28:53",
+    "actor": "Security",
+    "role": "security",
+    "action": "ACCESS_CHECK",
+    "resource": "prescription",
+    "patient_id": "PT-2025-0520-0017",
+    "allowed": false,
+    "reason": "smoke test"
+  },
+  {
+    "timestamp": "2026-05-17T01:28:53",
+    "actor": "PlatformAdmin",
+    "role": "super_admin",
+    "action": "ACCESS_CHECK",
+    "resource": "security",
+    "patient_id": "PT-2025-0520-0017",
+    "allowed": true,
+    "reason": "smoke test"
+  },
+  {
+    "timestamp": "2026-05-17T01:28:53",
+    "actor": "PlatformAdmin",
+    "role": "super_admin",
+    "action": "ACCESS_CHECK",
+    "resource": "patient",
+    "patient_id": "PT-2025-0520-0017",
+    "allowed": true,
+    "reason": "smoke test"
+  },
+  {
+    "timestamp": "2026-05-17T01:28:53",
+    "actor": "BioSecurityArchitect",
+    "role": "bio_security_architect",
+    "action": "ACCESS_CHECK",
+    "resource": "security",
+    "patient_id": "PT-2025-0520-0017",
+    "allowed": true,
+    "reason": "smoke test"
+  },
+  {
+    "timestamp": "2026-05-17T01:28:53",
+    "actor": "VirtualLabDeveloper",
+    "role": "virtual_lab_developer",
+    "action": "ACCESS_CHECK",
+    "resource": "research_lab",
+    "patient_id": "PT-2025-0520-0017",
+    "allowed": true,
+    "reason": "smoke test"
+  },
+  {
+    "timestamp": "2026-05-17T01:28:53",
+    "actor": "Security",
+    "role": "security",
+    "action": "VIEW_AUDIT_LOGS",
+    "resource": "audit_logs",
+    "patient_id": null,
+    "allowed": true,
+    "reason": "security center"
+  },
+  {
+    "timestamp": "2026-05-17T01:29:05",
+    "actor": "바이오 보안 아키텍트",
+    "role": "bio_security_architect",
+    "action": "ACCESS_CHECK",
+    "resource": "dashboard",
+    "patient_id": "PT-2025-0520-0017",
+    "allowed": true,
+    "reason": "clinical_v3 navigation"
+  },
+  {
+    "timestamp": "2026-05-17T01:29:06",
+    "actor": "최하늘 원무",
+    "role": "admin_staff",
+    "action": "ACCESS_CHECK",
+    "resource": "admin",
+    "patient_id": "PT-2025-0520-0017",
+    "allowed": true,
+    "reason": "clinical_v3 navigation"
+  },
+  {
+    "timestamp": "2026-05-17T01:29:06",
+    "actor": "최하늘 원무",
+    "role": "admin_staff",
+    "action": "ACCESS_CHECK",
+    "resource": "admin",
+    "patient_id": "PT-2025-0520-0017",
+    "allowed": true,
+    "reason": "clinical_v3 navigation"
+  },
+  {
+    "timestamp": "2026-05-17T02:34:35",
+    "actor": "최하늘 원무",
+    "role": "admin_staff",
+    "action": "ACCESS_CHECK",
+    "resource": "dashboard",
+    "patient_id": "PT-2025-0520-0017",
+    "allowed": true,
+    "reason": "clinical_v3 navigation"
+  },
+  {
+    "timestamp": "2026-05-17T02:35:11",
+    "actor": "환자 사용자",
+    "role": "patient",
+    "action": "ACCESS_CHECK",
+    "resource": "patient",
+    "patient_id": "PT-2025-0520-0017",
+    "allowed": true,
+    "reason": "clinical_v3 navigation"
+  },
+  {
+    "timestamp": "2026-05-17T02:35:11",
+    "actor": "환자 사용자",
+    "role": "patient",
+    "action": "ACCESS_CHECK",
+    "resource": "patient",
+    "patient_id": "PT-2025-0520-0017",
+    "allowed": true,
+    "reason": "clinical_v3 navigation"
+  },
+  {
+    "timestamp": "2026-05-17T02:35:17",
+    "actor": "환자 사용자",
+    "role": "patient",
+    "action": "ACCESS_CHECK",
+    "resource": "dashboard",
+    "patient_id": "PT-2025-0520-0017",
+    "allowed": true,
+    "reason": "clinical_v3 navigation"
+  },
+  {
+    "timestamp": "2026-05-17T02:35:17",
+    "actor": "간호학과 검토자 A",
+    "role": "nurse",
+    "action": "ACCESS_CHECK",
+    "resource": "nurse",
+    "patient_id": "PT-2025-0520-0017",
+    "allowed": false,
+    "reason": "clinical_v3 navigation"
+  },
+  {
+    "timestamp": "2026-05-17T02:35:18",
+    "actor": "간호학과 검토자 A",
+    "role": "nurse",
+    "action": "ACCESS_CHECK",
+    "resource": "nurse",
+    "patient_id": "PT-2025-0520-0017",
+    "allowed": false,
+    "reason": "clinical_v3 navigation"
+  },
+  {
+    "timestamp": "2026-05-17T02:35:43",
+    "actor": "환자 사용자",
+    "role": "patient",
+    "action": "ACCESS_CHECK",
+    "resource": "patient",
+    "patient_id": "PT-2025-0520-0017",
+    "allowed": true,
+    "reason": "clinical_v3 navigation"
+  },
+  {
+    "timestamp": "2026-05-17T02:35:44",
+    "actor": "환자 사용자",
+    "role": "patient",
+    "action": "ACCESS_CHECK",
+    "resource": "patient",
+    "patient_id": "PT-2025-0520-0017",
+    "allowed": true,
+    "reason": "clinical_v3 navigation"
+  },
+  {
+    "timestamp": "2026-05-17T02:36:07",
+    "actor": "환자 사용자",
+    "role": "patient",
+    "action": "ACCESS_CHECK",
+    "resource": "dashboard",
+    "patient_id": "PT-2025-0520-0017",
+    "allowed": true,
+    "reason": "clinical_v3 navigation"
+  },
+  {
+    "timestamp": "2026-05-17T02:36:14",
+    "actor": "환자 사용자",
+    "role": "patient",
+    "action": "ACCESS_CHECK",
+    "resource": "patient",
+    "patient_id": "PT-2025-0520-0017",
+    "allowed": true,
+    "reason": "clinical_v3 navigation"
+  },
+  {
+    "timestamp": "2026-05-17T02:36:15",
+    "actor": "환자 사용자",
+    "role": "patient",
+    "action": "ACCESS_CHECK",
+    "resource": "patient",
+    "patient_id": "PT-2025-0520-0017",
+    "allowed": true,
+    "reason": "clinical_v3 navigation"
+  },
+  {
+    "timestamp": "2026-05-17T02:36:42",
+    "actor": "환자 사용자",
+    "role": "patient",
+    "action": "ACCESS_CHECK",
+    "resource": "dashboard",
+    "patient_id": "PT-2025-0520-0017",
+    "allowed": true,
+    "reason": "clinical_v3 navigation"
+  },
+  {
+    "timestamp": "2026-05-17T02:36:57",
+    "actor": "환자 사용자",
+    "role": "patient",
+    "action": "ACCESS_CHECK",
+    "resource": "patient",
+    "patient_id": "PT-2025-0520-0017",
+    "allowed": true,
+    "reason": "clinical_v3 navigation"
+  },
+  {
+    "timestamp": "2026-05-17T02:36:58",
+    "actor": "환자 사용자",
+    "role": "patient",
+    "action": "ACCESS_CHECK",
+    "resource": "patient",
+    "patient_id": "PT-2025-0520-0017",
+    "allowed": true,
+    "reason": "clinical_v3 navigation"
+  },
+  {
+    "timestamp": "2026-05-17T02:37:09",
+    "actor": "환자 사용자",
+    "role": "patient",
+    "action": "ACCESS_CHECK",
+    "resource": "dashboard",
+    "patient_id": "PT-2025-0520-0017",
+    "allowed": true,
+    "reason": "clinical_v3 navigation"
+  },
+  {
+    "timestamp": "2026-05-17T02:37:09",
+    "actor": "간호학과 검토자 A",
+    "role": "nurse",
+    "action": "ACCESS_CHECK",
+    "resource": "nurse",
+    "patient_id": "PT-2025-0520-0017",
+    "allowed": false,
+    "reason": "clinical_v3 navigation"
+  },
+  {
+    "timestamp": "2026-05-17T02:37:10",
+    "actor": "간호학과 검토자 A",
+    "role": "nurse",
+    "action": "ACCESS_CHECK",
+    "resource": "nurse",
+    "patient_id": "PT-2025-0520-0017",
+    "allowed": false,
+    "reason": "clinical_v3 navigation"
+  },
+  {
+    "timestamp": "2026-05-17T02:37:20",
+    "actor": "이준호 의사",
+    "role": "doctor",
+    "action": "ACCESS_CHECK",
+    "resource": "doctor",
+    "patient_id": "PT-2025-0520-0017",
+    "allowed": true,
+    "reason": "clinical_v3 navigation"
+  },
+  {
+    "timestamp": "2026-05-17T02:37:21",
+    "actor": "이준호 의사",
+    "role": "doctor",
+    "action": "ACCESS_CHECK",
+    "resource": "doctor",
+    "patient_id": "PT-2025-0520-0017",
+    "allowed": true,
+    "reason": "clinical_v3 navigation"
+  },
+  {
+    "timestamp": "2026-05-17T02:37:26",
+    "actor": "이준호 의사",
+    "role": "doctor",
+    "action": "ACCESS_CHECK",
+    "resource": "dashboard",
+    "patient_id": "PT-2025-0520-0017",
+    "allowed": true,
+    "reason": "clinical_v3 navigation"
+  },
+  {
+    "timestamp": "2026-05-17T02:37:27",
+    "actor": "박민지 약사",
+    "role": "pharmacist",
+    "action": "ACCESS_CHECK",
+    "resource": "prescription",
+    "patient_id": "PT-2025-0520-0017",
+    "allowed": true,
+    "reason": "clinical_v3 navigation"
+  },
+  {
+    "timestamp": "2026-05-17T02:37:27",
+    "actor": "박민지 약사",
+    "role": "pharmacist",
+    "action": "ACCESS_CHECK",
+    "resource": "prescription",
+    "patient_id": "PT-2025-0520-0017",
+    "allowed": true,
+    "reason": "clinical_v3 navigation"
+  },
+  {
+    "timestamp": "2026-05-17T02:37:35",
+    "actor": "박민지 약사",
+    "role": "pharmacist",
+    "action": "ACCESS_CHECK",
+    "resource": "dashboard",
+    "patient_id": "PT-2025-0520-0017",
+    "allowed": true,
+    "reason": "clinical_v3 navigation"
+  },
+  {
+    "timestamp": "2026-05-17T02:37:35",
+    "actor": "최하늘 원무",
+    "role": "admin_staff",
+    "action": "ACCESS_CHECK",
+    "resource": "admin",
+    "patient_id": "PT-2025-0520-0017",
+    "allowed": true,
+    "reason": "clinical_v3 navigation"
+  },
+  {
+    "timestamp": "2026-05-17T02:37:36",
+    "actor": "최하늘 원무",
+    "role": "admin_staff",
+    "action": "ACCESS_CHECK",
+    "resource": "admin",
+    "patient_id": "PT-2025-0520-0017",
+    "allowed": true,
+    "reason": "clinical_v3 navigation"
+  },
+  {
+    "timestamp": "2026-05-17T02:37:47",
+    "actor": "최하늘 원무",
+    "role": "admin_staff",
+    "action": "ACCESS_CHECK",
+    "resource": "dashboard",
+    "patient_id": "PT-2025-0520-0017",
+    "allowed": true,
+    "reason": "clinical_v3 navigation"
+  },
+  {
+    "timestamp": "2026-05-17T02:37:47",
+    "actor": "김서연 박사",
+    "role": "researcher",
+    "action": "ACCESS_CHECK",
+    "resource": "research_lab",
+    "patient_id": "PT-2025-0520-0017",
+    "allowed": true,
+    "reason": "clinical_v3 navigation"
+  },
+  {
+    "timestamp": "2026-05-17T02:37:47",
+    "actor": "김서연 박사",
+    "role": "researcher",
+    "action": "ACCESS_CHECK",
+    "resource": "research_lab",
+    "patient_id": "PT-2025-0520-0017",
+    "allowed": true,
+    "reason": "clinical_v3 navigation"
+  },
+  {
+    "timestamp": "2026-05-17T02:37:55",
+    "actor": "김서연 박사",
+    "role": "researcher",
+    "action": "ACCESS_CHECK",
+    "resource": "dashboard",
+    "patient_id": "PT-2025-0520-0017",
+    "allowed": true,
+    "reason": "clinical_v3 navigation"
+  },
+  {
+    "timestamp": "2026-05-17T02:37:55",
+    "actor": "보안관리자",
+    "role": "security",
+    "action": "ACCESS_CHECK",
+    "resource": "security",
+    "patient_id": "PT-2025-0520-0017",
+    "allowed": true,
+    "reason": "clinical_v3 navigation"
+  },
+  {
+    "timestamp": "2026-05-17T02:37:55",
+    "actor": "보안관리자",
+    "role": "security",
+    "action": "VIEW_AUDIT_LOGS",
+    "resource": "audit_logs",
+    "patient_id": null,
+    "allowed": true,
+    "reason": "security center"
+  },
+  {
+    "timestamp": "2026-05-17T02:37:55",
+    "actor": "보안관리자",
+    "role": "security",
+    "action": "VIEW_RISK_EVENTS",
+    "resource": "risk_events",
+    "patient_id": null,
+    "allowed": true,
+    "reason": "security center"
+  },
+  {
+    "timestamp": "2026-05-17T02:37:56",
+    "actor": "보안관리자",
+    "role": "security",
+    "action": "ACCESS_CHECK",
+    "resource": "security",
+    "patient_id": "PT-2025-0520-0017",
+    "allowed": true,
+    "reason": "clinical_v3 navigation"
+  },
+  {
+    "timestamp": "2026-05-17T02:37:56",
+    "actor": "보안관리자",
+    "role": "security",
+    "action": "VIEW_AUDIT_LOGS",
+    "resource": "audit_logs",
+    "patient_id": null,
+    "allowed": true,
+    "reason": "security center"
+  },
+  {
+    "timestamp": "2026-05-17T02:37:56",
+    "actor": "보안관리자",
+    "role": "security",
+    "action": "VIEW_RISK_EVENTS",
+    "resource": "risk_events",
+    "patient_id": null,
+    "allowed": true,
+    "reason": "security center"
+  },
+  {
+    "timestamp": "2026-05-17T02:38:02",
+    "actor": "보안관리자",
+    "role": "security",
+    "action": "ACCESS_CHECK",
+    "resource": "dashboard",
+    "patient_id": "PT-2025-0520-0017",
+    "allowed": true,
+    "reason": "clinical_v3 navigation"
+  },
+  {
+    "timestamp": "2026-05-17T02:38:02",
+    "actor": "이영준 관리자",
+    "role": "super_admin",
+    "action": "ACCESS_CHECK",
+    "resource": "security",
+    "patient_id": null,
+    "allowed": true,
+    "reason": "platform admin console open"
+  },
+  {
+    "timestamp": "2026-05-17T02:38:03",
+    "actor": "이영준 관리자",
+    "role": "super_admin",
+    "action": "ACCESS_CHECK",
+    "resource": "security",
+    "patient_id": null,
+    "allowed": true,
+    "reason": "platform admin console open"
+  },
+  {
+    "timestamp": "2026-05-17T02:38:09",
+    "actor": "이영준 관리자",
+    "role": "super_admin",
+    "action": "ACCESS_CHECK",
+    "resource": "dashboard",
+    "patient_id": "PT-2025-0520-0017",
+    "allowed": true,
+    "reason": "clinical_v3 navigation"
+  },
+  {
+    "timestamp": "2026-05-17T02:38:10",
+    "actor": "환자 사용자",
+    "role": "patient",
+    "action": "ACCESS_CHECK",
+    "resource": "security",
+    "patient_id": "PT-2025-0520-0017",
+    "allowed": false,
+    "reason": "clinical_v3 navigation"
+  },
+  {
+    "timestamp": "2026-05-17T02:38:10",
+    "actor": "보안관리자",
+    "role": "security",
+    "action": "VIEW_AUDIT_LOGS",
+    "resource": "audit_logs",
+    "patient_id": null,
+    "allowed": true,
+    "reason": "security center"
+  },
+  {
+    "timestamp": "2026-05-17T02:38:10",
+    "actor": "보안관리자",
+    "role": "security",
+    "action": "VIEW_RISK_EVENTS",
+    "resource": "risk_events",
+    "patient_id": null,
+    "allowed": true,
+    "reason": "security center"
+  },
+  {
+    "timestamp": "2026-05-17T02:38:10",
+    "actor": "환자 사용자",
+    "role": "patient",
+    "action": "ACCESS_CHECK",
+    "resource": "security",
+    "patient_id": "PT-2025-0520-0017",
+    "allowed": false,
+    "reason": "clinical_v3 navigation"
+  },
+  {
+    "timestamp": "2026-05-17T02:38:10",
+    "actor": "보안관리자",
+    "role": "security",
+    "action": "VIEW_AUDIT_LOGS",
+    "resource": "audit_logs",
+    "patient_id": null,
+    "allowed": true,
+    "reason": "security center"
+  },
+  {
+    "timestamp": "2026-05-17T02:38:10",
+    "actor": "보안관리자",
+    "role": "security",
+    "action": "VIEW_RISK_EVENTS",
+    "resource": "risk_events",
+    "patient_id": null,
+    "allowed": true,
+    "reason": "security center"
+  },
+  {
+    "timestamp": "2026-05-17T02:38:16",
+    "actor": "환자 사용자",
+    "role": "patient",
+    "action": "ACCESS_CHECK",
+    "resource": "dashboard",
+    "patient_id": "PT-2025-0520-0017",
+    "allowed": true,
+    "reason": "clinical_v3 navigation"
+  },
+  {
+    "timestamp": "2026-05-17T02:38:16",
+    "actor": "간호학과 검토자 A",
+    "role": "nurse",
+    "action": "ACCESS_CHECK",
+    "resource": "dashboard",
+    "patient_id": "PT-2025-0520-0017",
+    "allowed": false,
+    "reason": "role workspace open"
+  },
+  {
+    "timestamp": "2026-05-17T02:38:17",
+    "actor": "간호학과 검토자 A",
+    "role": "nurse",
+    "action": "ACCESS_CHECK",
+    "resource": "dashboard",
+    "patient_id": "PT-2025-0520-0017",
+    "allowed": false,
+    "reason": "role workspace open"
+  },
+  {
+    "timestamp": "2026-05-17T02:38:24",
+    "actor": "바이오 보안 아키텍트",
+    "role": "bio_security_architect",
+    "action": "ACCESS_CHECK",
+    "resource": "dashboard",
+    "patient_id": "PT-2025-0520-0017",
+    "allowed": true,
+    "reason": "role workspace open"
+  },
+  {
+    "timestamp": "2026-05-17T02:38:25",
+    "actor": "바이오 보안 아키텍트",
+    "role": "bio_security_architect",
+    "action": "ACCESS_CHECK",
+    "resource": "dashboard",
+    "patient_id": "PT-2025-0520-0017",
+    "allowed": true,
+    "reason": "role workspace open"
   }
 ]

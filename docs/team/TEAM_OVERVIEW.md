@@ -27,10 +27,9 @@ BioDockLab은 의료·바이오 데이터를 역할별로 안전하게 보여주
 |---|---|---|---|
 | 이영준 | 시스템 설계, 프로토타입, GitHub, 발표 | Founder / Product Architect | 전체 구조 설계, 개발 방향, 문서화, 팀 운영 |
 | 류종걸 | AI 개발, 의료 관심, 의료 데이터 관심 | AI / Medical Data Lead | AI 기능 기획, 공개 데이터 탐색, 의료 데이터 구조 설계 |
-| 주수빈 | 디자인 지원 후보 | UI/UX Designer | 화면 디자인, 발표자료 디자인, 서비스 시각화 |
-| 이민준 | 디자인 지원 후보 | UI/UX Designer | UI 흐름 개선, 프로토타입 시각 개선 |
+| ??? | 디자인 지원 후보 | UI/UX Designer | UI 흐름 개선, 프로토타입 시각 개선 |
 | 이상목 | LLM 관심, 빅데이터 분석, 사업 감각 | Business / Data Strategy | 시장성 분석, 데이터 전략, LLM 서비스 검토 |
-| 이찬규 | 의대 경험, 경영/사업, 회계 | Business / Finance / Healthcare Strategy | 사업모델, 예산, 회계, 의료 비즈니스 전략 |
+| 이찬규 | 경영/사업, 회계 | Business / Finance / Healthcare Strategy | 사업모델, 예산, 회계, 의료 비즈니스 전략 |
 
 ---
 
@@ -46,6 +45,21 @@ BioDockLab은 의료·바이오 데이터를 역할별로 안전하게 보여주
 | Backend / Security Developer | 권한, API, 감사 로그, 보안을 구현하는 사람 |
 | Clinical Workflow Advisor | 병원 현장 업무흐름과 의료 표현을 검토하는 사람 |
 | Bio / Research Advisor | 단백질, 변이, 질환, 도킹 실험의 과학성을 검토하는 사람 |
+
+---
+
+## 3-1. Recruiting Priority
+
+| 우선순위 | 포지션 | 필요 인원 | 이유 |
+|---:|---|---:|---|
+| P0 | Backend / Security Developer | 1명 | BioDockLab의 핵심인 권한제어, 감사 로그, API 구조를 실제로 구현해야 함 |
+| P0 | Clinical Workflow Advisor | 1~2명 | 병원 현장 관점에서 간호사·의사·약사·원무 화면을 검토해야 함 |
+| P0/P1 | Bio / Research Advisor | 1명 | Protein Atlas와 Research Lab이 과학적으로 과장되지 않도록 검토해야 함 |
+| P1 | Frontend Developer | 1명 | 현재 화면을 더 안정적이고 상용화 가능한 UI로 개선해야 함 |
+| P1 | QA / Documentation | 1명 | 의료 표현, 개인정보, 권한 테스트, 문서화를 체계적으로 관리해야 함 |
+| P1 | AI / Data Engineer | 1명 | 설명 요약, 유사 사례 검색, 사전문진 구조를 안전하게 설계해야 함 |
+| P2 | DevOps / Infra | 1명 | 배포, 서버, Docker, 로그, 백업 구조가 필요함 |
+| P2 | Legal / Privacy Advisor | 외부 자문 1명 | 실제 상용화 전 개인정보·의료법·원격상담 규제 검토가 필요함 |
 
 ---
 

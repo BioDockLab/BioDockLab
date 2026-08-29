@@ -19,8 +19,7 @@
 |---|---|---|
 | 이영준 | Founder / Product Architect | 전체 제품 구조, GitHub, 프로토타입, 발표, 문서화 |
 | 류종걸 | AI / Medical Data Lead | 인공지능 개발, 의료 데이터 구조 설계, 공개 데이터 탐색, AI 기능 기획 |
-| 주수빈 | UI/UX Designer Candidate | 화면 디자인, 서비스 시각화, 발표자료 디자인 |
-| 이민준 | UI/UX Designer Candidate | 화면 디자인, 사용자 흐름, 프로토타입 시각 개선 |
+| ??? | UI/UX Designer Candidate | 화면 디자인, 사용자 흐름, 프로토타입 시각 개선 |
 | 이상목 | Business / Data Strategy | LLM 관심, 빅데이터 분석, 시장성 분석, 지표 설계 |
 | 이찬규 | Business / Finance / Healthcare Strategy | 경영, 회계, 사업화 전략, 의료 비즈니스 관점 검토 |
 
