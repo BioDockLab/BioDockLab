@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <title>BioDockLab v2.0</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: linear-gradient(135deg, #eef5ff, #f8fffb);
+      color: #101828;
+    }
+    .wrap {
+      width: 1100px;
+      margin: 50px auto;
+    }
+    .hero {
+      background: white;
+      padding: 50px;
+      border-radius: 30px;
+      box-shadow: 0 20px 60px rgba(37, 99, 235, 0.15);
+    }
+    .badge {
+      display: inline-block;
+      background: #eaf2ff;
+      color: #2563eb;
+      padding: 10px 16px;
+      border-radius: 999px;
+      font-weight: 800;
+      margin-bottom: 20px;
+    }
+    h1 {
+      font-size: 48px;
+      line-height: 1.15;
+      margin: 0 0 20px;
+    }
+    .desc {
+      font-size: 19px;
+      line-height: 1.7;
+      color: #475467;
+      width: 800px;
+    }
+    .flow {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 12px;
+      margin-top: 30px;
+    }
+    .flow div {
+      background: #f8fbff;
+      border: 1px solid #dbeafe;
+      color: #1d4ed8;
+      padding: 18px;
+      border-radius: 18px;
+      text-align: center;
+      font-weight: 800;
+    }
+    h2 {
+      margin-top: 45px;
+      font-size: 32px;
+    }
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 16px;
+    }
+    .card {
+      background: white;
+      border-radius: 24px;
+      padding: 24px;
+      min-height: 260px;
+      box-shadow: 0 16px 45px rgba(15, 23, 42, 0.08);
+      border: 1px solid #e5e7eb;
+    }
+    .num {
+      width: 42px;
+      height: 42px;
+      background: #2563eb;
+      color: white;
+      border-radius: 14px;
+      display: grid;
+      place-items: center;
+      font-weight: 900;
+      margin-bottom: 16px;
+    }
+    .card h3 {
+      font-size: 22px;
+      margin: 0 0 8px;
+    }
+    .eng {
+      color: #ec4899;
+      font-weight: 800;
+      margin-bottom: 14px;
+    }
+    .card p {
+      color: #475467;
+      line-height: 1.6;
+      font-size: 15px;
+    }
+    .tag {
+      display: inline-block;
+      margin-top: 12px;
+      background: #f1f5f9;
+      color: #334155;
+      padding: 8px 10px;
+      border-radius: 999px;
+      font-size: 13px;
+      font-weight: 800;
+    }
+    .position {
+      margin-top: 40px;
+      background: #101828;
+      color: white;
+      border-radius: 28px;
+      padding: 35px;
+    }
+    .position p {
+      color: #d0d5dd;
+      font-size: 18px;
+      line-height: 1.8;
+    }
+    .footer {
+      margin-top: 25px;
+      text-align: center;
+      color: #667085;
+      font-weight: 800;
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <section class="hero">
+      <div class="badge">BioDockLab v2.0 · Bio AI Research Navigator</div>
+      <h1>바이오 실험 데이터를<br>판단 가능한 시스템으로 바꾸는 플랫폼</h1>
+      <p class="desc">
+        BioDockLab은 오가노이드, 수술 AI, 양자 바이오컴퓨팅, 디지털 트윈, CFPS를
+        데이터 흐름과 의사결정 구조로 연결하는 연구형 소프트웨어 프로젝트입니다.
+      </p>
+
+      <div class="flow">
+        <div>Bio Data</div>
+        <div>AI Analysis</div>
+        <div>Digital Twin</div>
+        <div>Decision</div>
+        <div>Report</div>
+      </div>
+    </section>
+
+    <h2>5대 바이오·의료 AI 방향</h2>
+
+    <section class="cards">
+      <article class="card">
+        <div class="num">1</div>
+        <h3>오가노이드</h3>
+        <div class="eng">Organoid</div>
+        <p>줄기세포 기반 미니 장기로 질병 모델, 약물 반응, 치료제 후보를 비교합니다.</p>
+        <span class="tag">실험 모델</span>
+      </article>
+
+      <article class="card">
+        <div class="num">2</div>
+        <h3>수술 인공지능</h3>
+        <div class="eng">Surgery AI</div>
+        <p>의료 영상과 센서 데이터를 분석해 수술 중 판단과 위험 예측을 보조합니다.</p>
+        <span class="tag">의료 판단 보조</span>
+      </article>
+
+      <article class="card">
+        <div class="num">3</div>
+        <h3>양자 바이오컴퓨팅</h3>
+        <div class="eng">Quantum Bio</div>
+        <p>단백질 구조, 유전체, 분자 시뮬레이션처럼 계산량이 큰 문제를 다룹니다.</p>
+        <span class="tag">고난도 계산</span>
+      </article>
+
+      <article class="card">
+        <div class="num">4</div>
+        <h3>디지털 트윈</h3>
+        <div class="eng">Digital Twin</div>
+        <p>환자, 장기, 실험 조건을 가상 모델로 복제해 치료 효과와 위험도를 예측합니다.</p>
+        <span class="tag">가상 실험</span>
+      </article>
+
+      <article class="card">
+        <div class="num">5</div>
+        <h3>무세포 단백질 합성</h3>
+        <div class="eng">CFPS</div>
+        <p>세포 배양 없이 효소와 아미노산으로 단백질을 합성해 신약·진단에 활용합니다.</p>
+        <span class="tag">바이오 제조</span>
+      </article>
+    </section>
+
+    <section class="position">
+      <h2>Developer Position</h2>
+      <p>
+        저는 바이오 연구자가 아니라, 바이오 실험 데이터를 구조화하고 시각화해
+        연구자의 다음 판단을 돕는 시스템을 만드는 개발자입니다.
+      </p>
+    </section>
+
+    <div class="footer">
+      BioDockLab · Bio × AI × Digital Twin · Research Software Project
+    </div>
+  </div>
+</body>
+</html>

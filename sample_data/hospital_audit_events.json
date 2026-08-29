@@ -1,0 +1,52 @@
+[
+  {
+    "time": "08:11",
+    "actor": "Nurse",
+    "actor_id": "nurse-01",
+    "patient_id": "P-002",
+    "action": "VIEW_VITAL_SIGN",
+    "resource": "vital_signs",
+    "result": "Allowed",
+    "reason": "간호사 역할은 담당 환자의 바이탈사인 접근 가능"
+  },
+  {
+    "time": "08:28",
+    "actor": "Doctor",
+    "actor_id": "doctor-03",
+    "patient_id": "P-002",
+    "action": "VIEW_DECISION_SUPPORT",
+    "resource": "doctor_decisions",
+    "result": "Allowed",
+    "reason": "담당 의사는 판단 보조 데이터 접근 가능"
+  },
+  {
+    "time": "08:36",
+    "actor": "Patient",
+    "actor_id": "patient-P-002",
+    "patient_id": "P-002",
+    "action": "VIEW_PATIENT_REPORT",
+    "resource": "patient_reports",
+    "result": "Allowed",
+    "reason": "환자는 본인의 설명 리포트 접근 가능"
+  },
+  {
+    "time": "08:40",
+    "actor": "Patient",
+    "actor_id": "patient-P-002",
+    "patient_id": "P-001",
+    "action": "VIEW_OTHER_PATIENT_REPORT",
+    "resource": "patient_reports",
+    "result": "Denied",
+    "reason": "환자는 타 환자 리포트 접근 불가"
+  },
+  {
+    "time": "08:42",
+    "actor": "Security Officer",
+    "actor_id": "security-01",
+    "patient_id": "P-002",
+    "action": "REVIEW_ACCESS_LOG",
+    "resource": "audit_logs",
+    "result": "Allowed",
+    "reason": "보안관리자는 접근 로그 감사 가능"
+  }
+]

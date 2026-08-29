@@ -1,0 +1,35 @@
+[
+  {
+    "id": "ORG-001",
+    "domain": "Organoid",
+    "sample": "intestinal organoid",
+    "condition": "growth factor A + drug candidate X",
+    "temperature": 37,
+    "duration_hours": 72,
+    "success_rate": 78,
+    "risk_level": "Medium",
+    "note": "Potential drug response model"
+  },
+  {
+    "id": "CFPS-001",
+    "domain": "CFPS",
+    "sample": "cell-free protein synthesis",
+    "condition": "enzyme mix B + amino acid pool",
+    "temperature": 30,
+    "duration_hours": 6,
+    "success_rate": 84,
+    "risk_level": "Low",
+    "note": "Protein production simulation sample"
+  },
+  {
+    "id": "DT-001",
+    "domain": "Digital Twin",
+    "sample": "virtual patient model",
+    "condition": "treatment response prediction",
+    "temperature": null,
+    "duration_hours": 24,
+    "success_rate": 69,
+    "risk_level": "High",
+    "note": "Digital twin prediction sample"
+  }
+]

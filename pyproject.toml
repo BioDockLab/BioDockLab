@@ -1,0 +1,19 @@
+[project]
+name = "biodocklab"
+version = "2.2.0"
+description = "Bio AI research software platform"
+requires-python = ">=3.11"
+dependencies = [
+  "fastapi",
+  "uvicorn",
+  "pandas",
+  "numpy",
+  "scikit-learn",
+  "biopython",
+  "rdkit",
+  "opencv-python",
+  "qiskit",
+  "pennylane",
+  "jinja2",
+  "reportlab"
+]

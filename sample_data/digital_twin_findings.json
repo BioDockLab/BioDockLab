@@ -1,0 +1,71 @@
+[
+  {
+    "patient_id": "P-001",
+    "model_type": "prototype-risk-map",
+    "overall_risk": "Low",
+    "summary": "현재 신체 위험 위치 시각화에서 급성 출혈 의심 부위는 낮게 표시된다.",
+    "findings": [
+      {
+        "id": "MON-001",
+        "region": "Chest",
+        "label": "정기 관찰",
+        "severity": "Low",
+        "description": "현재 급성 위험 소견은 낮으며 정기 관찰을 유지한다.",
+        "x": 50,
+        "y": 38
+      }
+    ]
+  },
+  {
+    "patient_id": "P-002",
+    "model_type": "prototype-risk-map",
+    "overall_risk": "High",
+    "summary": "실제 3D 인체 모델이 아니라, 바이탈사인 기반 위험 위치를 시각화하는 초기 디지털 트윈 모형입니다.",
+    "findings": [
+      {
+        "id": "BLEED-ABD-001",
+        "region": "Abdomen",
+        "label": "복부 출혈 의심",
+        "severity": "High",
+        "description": "저혈압과 빈맥이 동반되어 내부 출혈 가능성을 표시합니다.",
+        "x": 50,
+        "y": 47
+      },
+      {
+        "id": "BLEED-PEL-002",
+        "region": "Pelvic Region",
+        "label": "골반 부위 출혈 의심",
+        "severity": "High",
+        "description": "골반 손상 가능성을 함께 추적합니다.",
+        "x": 50,
+        "y": 59
+      },
+      {
+        "id": "INJ-FEM-003",
+        "region": "Left Femur",
+        "label": "대퇴부 손상 가능성",
+        "severity": "Medium",
+        "description": "대퇴부 손상과 출혈 가능성을 추적합니다.",
+        "x": 43,
+        "y": 76
+      }
+    ]
+  },
+  {
+    "patient_id": "P-003",
+    "model_type": "prototype-risk-map",
+    "overall_risk": "Low",
+    "summary": "현재 위험 위치 시각화에서 이상 징후는 낮으며 회복 경과를 관찰한다.",
+    "findings": [
+      {
+        "id": "MON-003",
+        "region": "General",
+        "label": "회복 관찰",
+        "severity": "Low",
+        "description": "현재 주요 위험 위치는 낮게 표시되며 회복 경과를 확인한다.",
+        "x": 50,
+        "y": 52
+      }
+    ]
+  }
+]
