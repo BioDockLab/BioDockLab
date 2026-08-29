@@ -1,7 +1,18 @@
-import { Award, Brain, CheckCircle2, Dna, ShieldCheck } from 'lucide-react';
+import {
+  Atom,
+  Brain,
+  CheckCircle2,
+  FlaskConical,
+  Microscope,
+  Sparkles,
+} from 'lucide-react';
 import { Brand } from './Brand';
 import { QrPlaceholder } from './ScienceArt';
-import type { Candidate, Disease, ResearchSession } from '../types';
+import type {
+  Candidate,
+  Disease,
+  ResearchSession,
+} from '../types';
 
 type PrintProps = {
   session: ResearchSession;
@@ -9,74 +20,422 @@ type PrintProps = {
   candidate: Candidate;
 };
 
-export function PrintOutputs({ session, disease, candidate }: PrintProps) {
-  const name = session.researcherName.trim() || '미래 연구원';
-  const role = session.dreamRole.trim() || '바이오 AI 연구원';
+export function PrintOutputs({
+  session,
+  disease,
+  candidate,
+}: PrintProps) {
+  const name =
+    session.researcherName.trim() ||
+    '미래 연구원';
+
+  const role =
+    session.dreamRole.trim() ||
+    '바이오 AI 연구원';
+
+  const modelName =
+    session.cellModelId === '3d-organoid'
+      ? '3D Brain Organoid'
+      : '2D Cell Model';
+
+  const issuedDate =
+    new Date().toLocaleDateString(
+      'ko-KR',
+    );
+
   return (
-    <div id="print-output" className="print-output" aria-hidden="true">
+    <div
+      id="print-output"
+      className="print-output"
+      aria-hidden="true"
+    >
       <article className="a4-report print-sheet">
         <div className="report-header">
           <Brand />
-          <span>Report No.<strong>{session.sessionId}</strong></span>
+
+          <span>
+            Research ID
+            <strong>
+              {session.sessionId}
+            </strong>
+          </span>
         </div>
-        <h1>AI RESEARCH REPORT</h1>
-        <p className="report-subtitle">Cell-based Bio AI Educational Research Report</p>
+
+        <h1>
+          BIODOCKLAB RESEARCH TRAIL
+        </h1>
+
+        <p className="report-subtitle">
+          Bio AI Educational Research
+          Experience Record
+        </p>
+
         <div className="report-grid">
           <section className="report-profile">
             <dl>
-              <div><dt>연구원 이름</dt><dd>{name}</dd></div>
-              <div><dt>희망 직업</dt><dd>{role}</dd></div>
-              <div><dt>연구 주제</dt><dd>{disease.title} · 3D 뇌 오가노이드</dd></div>
-              <div><dt>단백질 표적</dt><dd>EGFR (P00533)</dd></div>
-              <div><dt>분석 완료일</dt><dd>{new Date().toLocaleDateString('ko-KR')}</dd></div>
+              <div>
+                <dt>
+                  연구원 이름
+                </dt>
+
+                <dd>
+                  {name}
+                </dd>
+              </div>
+
+              <div>
+                <dt>
+                  관심 분야
+                </dt>
+
+                <dd>
+                  {role}
+                </dd>
+              </div>
+
+              <div>
+                <dt>
+                  연구 질문
+                </dt>
+
+                <dd>
+                  {disease.title}
+                </dd>
+              </div>
+
+              <div>
+                <dt>
+                  연구 모델
+                </dt>
+
+                <dd>
+                  {modelName}
+                </dd>
+              </div>
+
+              <div>
+                <dt>
+                  단백질 탐색
+                </dt>
+
+                <dd>
+                  EGFR (P00533)
+                </dd>
+              </div>
+
+              <div>
+                <dt>
+                  체험 완료일
+                </dt>
+
+                <dd>
+                  {issuedDate}
+                </dd>
+              </div>
             </dl>
           </section>
+
           <section className="report-score">
-            <span>AI 종합 점수</span>
-            <div className="score-ring"><strong>84</strong><small>/100</small></div>
-            <p>Research Potential</p>
+            <span>
+              RESEARCH TRAIL
+            </span>
+
+            <div className="score-ring">
+              <CheckCircle2 />
+
+              <strong>
+                COMPLETE
+              </strong>
+            </div>
+
+            <p>
+              Educational Experience
+            </p>
           </section>
+
           <section className="report-flow">
-            <Brain /><span>AI ANALYSIS</span><b>↓</b><Dna /><span>BIO DATA</span><b>↓</b><Award /><span>RESEARCH RESULT</span>
+            <Microscope />
+
+            <span>
+              SAMPLE
+            </span>
+
+            <b>
+              ↓
+            </b>
+
+            <Brain />
+
+            <span>
+              QUESTION
+            </span>
+
+            <b>
+              ↓
+            </b>
+
+            <FlaskConical />
+
+            <span>
+              MODEL
+            </span>
+
+            <b>
+              ↓
+            </b>
+
+            <Atom />
+
+            <span>
+              PROTEIN
+            </span>
+
+            <b>
+              ↓
+            </b>
+
+            <Sparkles />
+
+            <span>
+              NEXT DIRECTION
+            </span>
           </section>
+
           <section className="report-summary">
-            <h2>AI 분석 요약</h2>
-            <p>{disease.title} 연구 사례에서 3D 오가노이드 모델과 EGFR 구조를 살펴보고, 세 후보물질의 구조적 상호작용을 비교했습니다.</p>
-            <h2>선택한 연구 방향</h2>
+            <h2>
+              오늘의 연구 경로
+            </h2>
+
+            <p>
+              {disease.title} 연구 질문을
+              선택하고 {modelName}을
+              연구 모델로 비교한 뒤,
+              EGFR 단백질 구조와 세 후보의
+              구조적 상호작용을
+              교육용 시각화로
+              탐색했습니다.
+            </p>
+
+            <h2>
+              선택한 다음 연구 방향
+            </h2>
+
             <ul>
-              <li>{candidate.name} ({candidate.code})</li>
-              <li>{candidate.feature}</li>
-              <li>도킹 점수는 연구 참고용 계산값이며 실제 약효를 의미하지 않음</li>
+              <li>
+                {candidate.name}{' '}
+                ({candidate.code})
+              </li>
+
+              <li>
+                {candidate.feature}
+              </li>
+
+              <li>
+                구조 비교 참고값:{' '}
+                {candidate.dockingScore}{' '}
+                kcal/mol
+              </li>
             </ul>
+
+            <h2>
+              Next Research Question
+            </h2>
+
+            <p>
+              이 후보의 구조적
+              상호작용을 실제 실험에서는
+              어떤 방법으로 검증할 수
+              있을까요?
+            </p>
           </section>
+
           <section className="report-metrics">
-            <div><strong>92%</strong><span>AI Confidence</span></div>
-            <div><strong>86%</strong><span>Structure Coverage</span></div>
-            <div><strong>{candidate.dockingScore}</strong><span>Docking Reference</span></div>
-            <div><strong>12:48</strong><span>Experience Time</span></div>
+            <div>
+              <strong>
+                {disease.title}
+              </strong>
+
+              <span>
+                Research Question
+              </span>
+            </div>
+
+            <div>
+              <strong>
+                {modelName}
+              </strong>
+
+              <span>
+                Research Model
+              </span>
+            </div>
+
+            <div>
+              <strong>
+                EGFR
+              </strong>
+
+              <span>
+                Protein Target
+              </span>
+            </div>
+
+            <div>
+              <strong>
+                {candidate.name}
+              </strong>
+
+              <span>
+                Next Direction
+              </span>
+            </div>
           </section>
         </div>
+
         <div className="report-footer">
-          <span className="verified"><ShieldCheck /> AI VERIFIED</span>
-          <span><CheckCircle2 /> Today's Research Completed</span>
+          <span className="verified">
+            <CheckCircle2 />
+            RESEARCH TRAIL COMPLETE
+          </span>
+
+          <span>
+            <Sparkles />
+            Bio AI Educational
+            Experience
+          </span>
+
           <QrPlaceholder />
         </div>
-        <small className="report-disclaimer">본 결과는 교육·체험 목적의 시뮬레이션이며 실제 의료 진단, 치료 또는 처방을 의미하지 않습니다.</small>
+
+        <small className="report-disclaimer">
+          본 결과물은 바이오 연구의 사고
+          과정과 AI 활용 개념을 이해하기
+          위한 교육용 체험 기록입니다.
+          실제 의료 진단·치료·처방,
+          약효 판정 또는 검증된
+          분자 도킹 결과를 의미하지
+          않습니다.
+        </small>
       </article>
 
       <article className="research-card-print print-sheet">
         <div className="card-side card-front">
           <Brand compact />
-          <span>OFFICIAL AI RESEARCH CARD</span>
-          <dl><div><dt>Research ID</dt><dd>{session.sessionId}</dd></div><div><dt>Main Field</dt><dd>Cell-based Bio AI</dd></div></dl>
-          <div className="card-level"><span>AI LEVEL</span><strong>4</strong><small>Advanced</small></div>
+
+          <span>
+            BIODOCKLAB RESEARCHER CARD
+          </span>
+
+          <dl>
+            <div>
+              <dt>
+                Research ID
+              </dt>
+
+              <dd>
+                {session.sessionId}
+              </dd>
+            </div>
+
+            <div>
+              <dt>
+                Researcher
+              </dt>
+
+              <dd>
+                {name}
+              </dd>
+            </div>
+
+            <div>
+              <dt>
+                Interest
+              </dt>
+
+              <dd>
+                {role}
+              </dd>
+            </div>
+          </dl>
+
+          <div className="card-level">
+            <span>
+              RESEARCH TRAIL
+            </span>
+
+            <strong>
+              COMPLETE
+            </strong>
+
+            <small>
+              Bio AI Experience
+            </small>
+          </div>
+
           <Brand compact />
         </div>
+
         <div className="card-side card-back">
           <Brand compact />
-          <dl><div><dt>Researcher</dt><dd>{name}</dd></div><div><dt>Main Field</dt><dd>{disease.title}</dd></div><div><dt>Issued</dt><dd>{new Date().toLocaleDateString('ko-KR')}</dd></div></dl>
+
+          <dl>
+            <div>
+              <dt>
+                Research Question
+              </dt>
+
+              <dd>
+                {disease.title}
+              </dd>
+            </div>
+
+            <div>
+              <dt>
+                Model
+              </dt>
+
+              <dd>
+                {modelName}
+              </dd>
+            </div>
+
+            <div>
+              <dt>
+                Protein
+              </dt>
+
+              <dd>
+                EGFR
+              </dd>
+            </div>
+
+            <div>
+              <dt>
+                Next Direction
+              </dt>
+
+              <dd>
+                {candidate.name}
+              </dd>
+            </div>
+
+            <div>
+              <dt>
+                Issued
+              </dt>
+
+              <dd>
+                {issuedDate}
+              </dd>
+            </div>
+          </dl>
+
           <QrPlaceholder />
-          <small>Touch Experience Laboratory</small>
+
+          <small>
+            Educational Bio AI
+            Research Experience
+          </small>
         </div>
       </article>
     </div>
