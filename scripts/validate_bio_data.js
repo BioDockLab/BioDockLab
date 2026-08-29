@@ -1,7 +1,17 @@
-const fs = require("fs");
-const path = require("path");
+﻿import fs from "node:fs";
+import path from "node:path";
+import { fileURLToPath } from "node:url";
 
-const dataPath = path.join(__dirname, "..", "data", "sample", "bio_experiments.json");
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+const dataPath = path.join(
+  __dirname,
+  "..",
+  "data",
+  "sample",
+  "bio_experiments.json"
+);
 
 function loadExperiments() {
   const raw = fs.readFileSync(dataPath, "utf-8");
