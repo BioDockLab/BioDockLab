@@ -175,16 +175,62 @@ function App() {
   };
 
   const print = (
-    kind: 'report' | 'card',
-  ) => {
-    setPrintKind(kind);
-    document.body.dataset.printKind = kind;
+  kind: 'report' | 'card',
+) => {
+  setPrintKind(kind);
+  document.body.dataset.printKind = kind;
 
-    window.setTimeout(
-      () => window.print(),
-      80,
+  const previousStyle =
+    document.getElementById(
+      'biodocklab-print-page-style',
+    );
+
+  previousStyle?.remove();
+
+  const pageStyle =
+    document.createElement('style');
+
+  pageStyle.id =
+    'biodocklab-print-page-style';
+
+  pageStyle.textContent =
+    kind === 'card'
+      ? `
+        @page {
+          size: A4 landscape;
+          margin: 5mm;
+        }
+      `
+      : `
+        @page {
+          size: A4 portrait;
+          margin: 5mm;
+        }
+      `;
+
+  document.head.appendChild(
+    pageStyle,
+  );
+
+  const cleanup = () => {
+    pageStyle.remove();
+
+    window.removeEventListener(
+      'afterprint',
+      cleanup,
     );
   };
+
+  window.addEventListener(
+    'afterprint',
+    cleanup,
+  );
+
+  window.setTimeout(
+    () => window.print(),
+    120,
+  );
+};
 
   return (
     <>
