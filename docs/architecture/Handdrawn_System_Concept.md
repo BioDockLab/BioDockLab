@@ -1,75 +1,92 @@
-# Hand-Drawn System Concept
+# BioDockLab Hand-Drawn System Concept
 
-## Purpose
+BioDockLab is a role-based medical and bio AI research platform that connects medical data, biological experiment records, AI analysis, simulation, and explainable reports.
 
-Before implementation, BioDockLab was first organized through hand-drawn system sketches.
-
-These sketches were used to:
-
-- Define platform scope
-- Organize medical and bio data flow
-- Identify AI analysis modules
-- Plan digital twin simulation
-- Clarify future expansion directions
+This document contains early hand-drawn system sketches for organizing the platform structure before full implementation.
 
 ---
 
-## System Overview
+## 1. System Overview
 
-![System Overview](../../assets/concept/biodocklab_handdrawn_system_overview.png)
+![BioDockLab Handdrawn System Overview](../../assets/concept/biodocklab_handdrawn_system_overview.png)
 
-### Main Components
+The first concept sketch shows the overall BioDockLab architecture.
 
-The system concept consists of:
+Core structure:
 
-- Experiment Data Layer
-- AI Analysis Layer
-- Risk Evaluation Layer
-- Digital Twin Layer
-- Research Report Layer
+```text
+Role-Based Access
+→ Data Input
+→ AI Analysis
+→ Risk / Priority Scoring
+→ Simulation
+→ Report
+→ Explainable Output
+The purpose is to connect patient-understandable data, medical staff decision support, and reusable research data into one software platform.
 
-The goal is to transform isolated biological experiment records into structured research workflows.
+2. Medical / Bio AI Concept Map
 
----
+The second concept sketch focuses on the medical and bio AI direction of BioDockLab.
 
-## Medical / Bio AI Map
+Key components:
 
-![Medical AI Map](../../assets/concept/biodocklab_handdrawn_medical_ai_map.png)
+Vital sign data
+Experiment data
+AI risk scoring
+Response prediction
+Digital twin simulation
+Organoid / 3D model expansion
+CFPS expansion
+Role-based access
+Future medical technology tracking
+3. Developer Position
 
-### Expansion Areas
+BioDockLab is not designed as a clinical replacement system.
 
-The sketch identifies future expansion possibilities:
+The developer position of this project is to design the software structure that connects:
 
-- Organoid Research
-- CFPS
-- Digital Twin
-- Bioinformatics
-- Research Automation
-- Scientific Reporting
+medical data
+biological research data
+AI analysis
+simulation logic
+report automation
+explainable user interfaces
 
----
+The project focuses on building a platform architecture where medical and biological data can be structured, analyzed, simulated, and explained.
 
-## Why Hand-Drawn Design
+4. Design Principles
 
-Before writing code, the platform architecture was explored through visual sketches.
+BioDockLab follows four design principles.
 
-This approach helped:
+Patient-understandable data
+Medical staff decision support
+Research data reusability
+Expandable software architecture
 
-- Reduce scope confusion
-- Clarify module relationships
-- Improve presentation quality
-- Support expert feedback discussions
+The core idea is:
 
----
+Data becomes meaningful when it can be understood, connected, and reused.
 
-## Current Status
+5. Module Direction
+Vital Sign Module
+→ Patient status summary / nurse handoff / basic monitoring
 
-The hand-drawn concepts have already been translated into:
+Experiment Module
+→ experiment condition / success rate / risk level / notes
 
-- FastAPI backend prototype
-- Dashboard prototype
-- Simulation modules
-- Research documentation
-- Product roadmap
+AI Analysis Module
+→ risk classification / priority scoring / response prediction
 
-These sketches remain the foundation of the BioDockLab architecture.
+Simulation Module
+→ digital twin / organoid / CFPS simulation
+
+Report Module
+→ Markdown report / PDF report / summary output
+
+Security Module
+→ role-based access / audit log / sensitive data control
+6. Status
+
+These sketches are early architecture notes.
+
+They are used to guide the development direction of BioDockLab before implementation is fully connected across frontend, backend, AI analysis, simulation, and reporting layers.
