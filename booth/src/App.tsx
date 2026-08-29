@@ -33,6 +33,7 @@ import { Shell } from './components/Shell';
 import { PrintOutputs } from './components/PrintOutputs';
 import { CellScopeExperience } from './components/CellScopeExperience';
 import type { CellModelId, DiseaseId, ResearchSession, ThemeId } from './types';
+import { aiAnalysisByDisease } from './data/aiAnalysis';
 
 const createSessionId = () => {
   const now = new Date();
@@ -229,6 +230,7 @@ function ProteinScreen({ diseaseName, previous, next }: { diseaseName: string; p
 }
 
 function PredictionScreen({ session, diseaseName, previous, next }: { session: ResearchSession; diseaseName: string; previous: () => void; next: () => void }) {
+  const aiAnalysis = aiAnalysisByDisease[session.diseaseId];
   return (
     <div className="screen screen--prediction">
       <div className="prediction-grid">
@@ -250,13 +252,13 @@ function PredictionScreen({ session, diseaseName, previous, next }: { session: R
   <ShieldCheck />
   <span>위험도</span>
 </div> 
-    <strong>중간</strong>
+    <strong>{aiAnalysis.riskLabel}</strong>
 
     <div className="ai-progress">
-      <div className="ai-progress__bar" style={{ width: '62%' }} />
+      <div className="ai-progress__bar" style={{ width: `${aiAnalysis.riskScore}%` }} />
     </div>
 
-    <small>AI 분석 기준 · 62%</small>
+    <small>AI 분석 기준 · {aiAnalysis.riskScore}%</small>
   </div>
 
     <div className="ai-metric ai-metric--priority">
@@ -264,13 +266,13 @@ function PredictionScreen({ session, diseaseName, previous, next }: { session: R
   <Target />
   <span>우선순위</span>
 </div>
-  <strong>높음</strong>
+  <strong>{aiAnalysis.priorityLabel}</strong>
 
   <div className="ai-progress">
-    <div className="ai-progress__bar" style={{ width: '86%' }} />
+    <div className="ai-progress__bar" style={{ width: `${aiAnalysis.priorityScore}%` }} />
   </div>
 
-  <small>추가 분석 권장 · 86%</small>
+  <small>추가 분석 권장 · {aiAnalysis.priorityScore}%</small>
 </div>
 
     <div className="ai-metric ai-metric--research">
@@ -278,13 +280,13 @@ function PredictionScreen({ session, diseaseName, previous, next }: { session: R
   <Beaker />
   <span>추천 연구 분야</span>
 </div>
-  <strong>표적 단백질 분석</strong>
+  <strong>{aiAnalysis.researchLabel}</strong>
 
   <div className="ai-progress">
-    <div className="ai-progress__bar" style={{ width: '92%' }} />
+    <div className="ai-progress__bar" style={{ width: `${aiAnalysis.researchScore}%` }} />
   </div>
 
-  <small>EGFR 기반 분석 · 92%</small>
+  <small>EGFR 기반 분석 · {aiAnalysis.researchScore}%</small>
 </div>
   </div>
 </section>
