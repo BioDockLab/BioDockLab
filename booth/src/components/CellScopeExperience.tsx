@@ -119,6 +119,9 @@ export function CellScopeExperience() {
         ? 'Raspberry Pi 연결 정상'
         : 'Raspberry Pi 연결 모드';
 
+  const showHardwareHealth =
+    client.getMode() === 'device' && health !== null;
+
   return (
     <section className="panel cellscope-panel">
       <div className="cellscope-panel__intro">
@@ -142,6 +145,25 @@ export function CellScopeExperience() {
           <div>
             <strong>{statusText[status]}</strong>
             <span>{connectionText}</span>
+
+            {showHardwareHealth && (
+              <div className="cellscope-health">
+                <DeviceHealthItem
+                  label="Camera"
+                  ready={health?.camera}
+                />
+
+                <DeviceHealthItem
+                  label="Button"
+                  ready={health?.button}
+                />
+
+                <DeviceHealthItem
+                  label="LED"
+                  ready={health?.led}
+                />
+              </div>
+            )}
           </div>
         </div>
 
@@ -265,5 +287,23 @@ function Metric({
         <b style={{ width: `${value}%` }} />
       </i>
     </div>
+  );
+}
+
+function DeviceHealthItem({
+  label,
+  ready,
+}: {
+  label: string;
+  ready?: boolean;
+}) {
+  return (
+    <span
+      className={`cellscope-health__item ${
+        ready ? 'is-ready' : 'is-error'
+      }`}
+    >
+      {ready ? '●' : '×'} {label}
+    </span>
   );
 }
