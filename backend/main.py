@@ -1,6 +1,5 @@
 from pathlib import Path
 import json
-
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
@@ -10,8 +9,8 @@ CORE_DATA_DIR = ROOT_DIR / "data" / "sample"
 
 app = FastAPI(
     title="BioDockLab API",
-    version="2.7.0",
-    description="Patient digital twin, vital sign, clinical decision support API",
+    version="2.1.0",
+    description="Role-based medical and bio research data platform API",
 )
 
 app.add_middleware(
@@ -32,19 +31,24 @@ def load_json(path: Path, fallback):
     if not path.exists():
         return fallback
 
-    try:
-        with path.open("r", encoding="utf-8") as file:
-            return json.load(file)
-    except Exception:
-        return fallback
+    with path.open("r", encoding="utf-8") as file:
+        return json.load(file)
 
 
 @app.get("/")
 def root():
     return {
         "project": "BioDockLab",
-        "version": "2.7",
-        "message": "Patient digital twin hospital AI platform API",
+        "version": "2.1",
+        "message": "Bio AI research software platform API",
+        "modules": [
+            "roles",
+            "experiments",
+            "analysis",
+            "access-policies",
+            "risk-events",
+            "audit-logs",
+        ],
     }
 
 
@@ -53,7 +57,7 @@ def health():
     return {
         "status": "ok",
         "service": "biodocklab-api",
-        "version": "2.7.0",
+        "version": "2.1.0",
     }
 
 
@@ -85,6 +89,18 @@ def get_roles():
             "focus": "처방 검토, 상호작용, 안전성",
         },
         {
+            "id": "admin",
+            "name": "Admin",
+            "description": "예약, 동의서, 서류 상태를 관리하는 사용자",
+            "focus": "동의서, 문서 상태, 접수 흐름",
+        },
+        {
+            "id": "researcher",
+            "name": "Researcher",
+            "description": "실험 데이터와 시뮬레이션 결과를 분석하는 사용자",
+            "focus": "실험 데이터, 연구 분석, 시뮬레이션",
+        },
+        {
             "id": "security",
             "name": "Security Officer",
             "description": "접근 로그와 민감정보 사용을 감사하는 사용자",
@@ -93,70 +109,30 @@ def get_roles():
     ]
 
 
-@app.get("/role-detail/{role_id}")
-def get_role_detail(role_id: str):
-    role_details = {
-        "patient": {
-            "title": "Patient Right-to-Know View",
-            "summary": "환자가 자신의 검사 결과, 위험도, 설명 리포트를 이해할 수 있도록 제공하는 화면",
-            "data_scope": ["검사 결과 요약", "위험도 설명", "의료진 상담 준비 자료", "환자 친화형 리포트"],
-            "restricted": ["타 환자 정보", "내부 의료진 메모", "보안 로그"],
-        },
-        "nurse": {
-            "title": "Nurse Vital Sign & Handoff View",
-            "summary": "간호사가 바이탈사인, 인수인계, 상태 변화를 빠르게 확인하는 화면",
-            "data_scope": ["바이탈사인", "투약 전 확인", "인수인계 메모", "상태 변화 알림"],
-            "restricted": ["관리자 보안 정책", "연구자 전용 실험 데이터"],
-        },
-        "doctor": {
-            "title": "Doctor Decision Support View",
-            "summary": "의사가 검사 결과와 AI 위험도 분석을 기반으로 판단을 보조받는 화면",
-            "data_scope": ["검사 결과", "AI 위험도 평가", "치료 방향 후보", "환자 상담 자료"],
-            "restricted": ["원무 서류 처리 내역", "시스템 내부 보안 설정"],
-        },
-        "security": {
-            "title": "Security Audit View",
-            "summary": "보안관리자가 접근 기록, 권한 위반, 민감정보 접근을 감사하는 화면",
-            "data_scope": ["접근 로그", "권한 정책", "위험 이벤트", "민감정보 접근 기록"],
-            "restricted": ["환자 친화형 설명 화면 조작", "실험 결과 임의 수정"],
-        },
-    }
-
-    return role_details.get(
-        role_id,
-        {
-            "title": "Unknown Role",
-            "summary": "등록되지 않은 역할이다.",
-            "data_scope": [],
-            "restricted": [],
-        },
-    )
-
-
 @app.get("/experiments")
 def get_experiments():
     fallback = [
         {
-            "id": "ORG-001",
+            "id": "EXP-ORG-001",
             "domain": "Organoid",
-            "sample": "intestinal organoid",
-            "condition": "growth factor A + drug candidate X",
+            "sample": "Patient-derived mini organoid sample",
+            "condition": "Drug response screening / 72h culture",
+            "success_rate": 86,
+            "risk_level": "Low",
+        },
+        {
+            "id": "EXP-DT-002",
+            "domain": "Digital Twin",
+            "sample": "Virtual patient response model",
+            "condition": "Treatment strength simulation",
             "success_rate": 78,
             "risk_level": "Medium",
         },
         {
-            "id": "CFPS-001",
+            "id": "EXP-CFPS-003",
             "domain": "CFPS",
-            "sample": "cell-free protein synthesis",
-            "condition": "enzyme mix B + amino acid pool",
-            "success_rate": 84,
-            "risk_level": "Low",
-        },
-        {
-            "id": "DT-001",
-            "domain": "Digital Twin",
-            "sample": "virtual patient model",
-            "condition": "treatment response prediction",
+            "sample": "Cell-free protein synthesis batch",
+            "condition": "Temperature / enzyme quality / substrate level",
             "success_rate": 69,
             "risk_level": "High",
         },
@@ -201,6 +177,21 @@ def get_analysis():
     return results
 
 
+@app.get("/access-policies")
+def get_access_policies():
+    return load_json(DATA_DIR / "access_policies.json", [])
+
+
+@app.get("/risk-events")
+def get_risk_events():
+    return load_json(DATA_DIR / "risk_events.json", [])
+
+
+@app.get("/audit-logs")
+def get_audit_logs():
+    return load_json(DATA_DIR / "audit_logs.json", [])
+
+
 @app.get("/platform-summary")
 def get_platform_summary():
     experiments = get_experiments()
@@ -218,8 +209,101 @@ def get_platform_summary():
         "experiments": len(experiments),
         "high_priority": high_priority,
         "average_success_rate": avg_success,
-        "research_directions": ["Organoid", "Surgery AI", "Quantum Biocomputing", "Digital Twin", "CFPS"],
+        "research_directions": [
+            "Organoid",
+            "Surgery AI",
+            "Quantum Biocomputing",
+            "Digital Twin",
+            "CFPS",
+        ],
     }
+
+
+@app.get("/role-detail/{role_id}")
+def get_role_detail(role_id: str):
+    role_details = {
+        "patient": {
+            "title": "Patient Right-to-Know View",
+            "summary": "환자가 자신의 검사 결과, 위험도, 설명 리포트를 이해할 수 있도록 제공하는 화면",
+            "data_scope": [
+                "검사 결과 요약",
+                "위험도 설명",
+                "의료진 상담 준비 자료",
+                "환자 친화형 리포트",
+            ],
+            "restricted": [
+                "타 환자 정보",
+                "내부 의료진 메모",
+                "보안 로그",
+            ],
+        },
+        "nurse": {
+            "title": "Nurse Vital Sign & Handoff View",
+            "summary": "간호사가 바이탈사인, 인수인계, 상태 변화를 빠르게 확인하는 화면",
+            "data_scope": [
+                "바이탈사인",
+                "투약 전 확인",
+                "인수인계 메모",
+                "상태 변화 알림",
+            ],
+            "restricted": [
+                "관리자 보안 정책",
+                "연구자 전용 실험 데이터",
+            ],
+        },
+        "doctor": {
+            "title": "Doctor Decision Support View",
+            "summary": "의사가 검사 결과와 AI 위험도 분석을 기반으로 판단을 보조받는 화면",
+            "data_scope": [
+                "검사 결과",
+                "AI 위험도 평가",
+                "치료 방향 후보",
+                "환자 상담 자료",
+            ],
+            "restricted": [
+                "원무 서류 처리 내역",
+                "시스템 내부 보안 설정",
+            ],
+        },
+        "pharmacist": {
+            "title": "Pharmacist Prescription Review View",
+            "summary": "약사가 처방, 약물상호작용, 유전자 적합성을 검토하는 화면",
+            "data_scope": [
+                "처방 정보",
+                "약물상호작용",
+                "유전자 적합성",
+                "복약 안전성",
+            ],
+            "restricted": [
+                "진료 판단 메모",
+                "보안 감사 로그",
+            ],
+        },
+        "security": {
+            "title": "Security Audit View",
+            "summary": "보안관리자가 접근 기록, 권한 위반, 민감정보 접근을 감사하는 화면",
+            "data_scope": [
+                "접근 로그",
+                "권한 정책",
+                "위험 이벤트",
+                "민감정보 접근 기록",
+            ],
+            "restricted": [
+                "환자 친화형 설명 화면 조작",
+                "실험 결과 임의 수정",
+            ],
+        },
+    }
+
+    return role_details.get(
+        role_id,
+        {
+            "title": "Unknown Role",
+            "summary": "등록되지 않은 역할이다.",
+            "data_scope": [],
+            "restricted": [],
+        },
+    )
 
 
 @app.get("/vital-signs")
@@ -235,7 +319,6 @@ def get_patient_reports():
 @app.get("/patient-reports/{patient_id}")
 def get_patient_report(patient_id: str):
     reports = get_patient_reports()
-
     for report in reports:
         if report.get("patient_id") == patient_id:
             return report
@@ -265,6 +348,12 @@ def get_hospital_summary():
         "stable": stable_count,
         "watch": watch_count,
         "average_spo2": avg_spo2,
+        "focus": [
+            "Patient right-to-know",
+            "Vital sign monitoring",
+            "Nurse handoff support",
+            "Doctor decision support",
+        ],
     }
 
 
@@ -316,70 +405,10 @@ def get_hospital_audit_summary():
         "events": len(events),
         "allowed": allowed,
         "denied": denied,
-    }
-
-
-@app.get("/digital-twin-findings")
-def get_digital_twin_findings():
-    fallback = [
-        {
-            "patient_id": "P-002",
-            "model_type": "human-trauma-digital-twin",
-            "overall_risk": "High",
-            "summary": "혈압 저하, 심박수 증가, 산소포화도 저하가 함께 관찰되어 내부 출혈 가능성을 시각적으로 추적한다.",
-            "findings": [
-                {
-                    "id": "BLEED-ABD-001",
-                    "region": "Left Upper Abdomen",
-                    "label": "복부 상부 출혈 의심",
-                    "severity": "High",
-                    "description": "저혈압과 빈맥이 동반되어 복부 내부 출혈 가능성이 있다.",
-                    "x": 50,
-                    "y": 44,
-                },
-                {
-                    "id": "BLEED-PEL-002",
-                    "region": "Pelvic Region",
-                    "label": "골반 부위 출혈 의심",
-                    "severity": "High",
-                    "description": "골반 부위 손상 또는 내부 출혈 가능성을 모니터링한다.",
-                    "x": 50,
-                    "y": 58,
-                },
-                {
-                    "id": "INJ-FEM-003",
-                    "region": "Left Femur",
-                    "label": "좌측 대퇴부 손상",
-                    "severity": "Medium",
-                    "description": "대퇴부 손상과 출혈 가능성을 함께 추적한다.",
-                    "x": 42,
-                    "y": 75,
-                },
-            ],
-            "patient_explanation": [
-                "현재 몸 안쪽에서 출혈이 의심되는 위치를 모형으로 보여준다.",
-                "빨간색은 의료진이 빠르게 확인해야 하는 위험 위치를 의미한다.",
-                "이 정보는 환자가 자신의 상태를 이해하고 의료진에게 질문할 수 있도록 돕는다.",
-            ],
-        }
-    ]
-
-    return load_json(DATA_DIR / "digital_twin_findings.json", fallback)
-
-
-@app.get("/digital-twin-findings/{patient_id}")
-def get_digital_twin_finding_by_patient(patient_id: str):
-    twins = get_digital_twin_findings()
-
-    for twin in twins:
-        if twin.get("patient_id") == patient_id:
-            return twin
-
-    return {
-        "patient_id": patient_id,
-        "model_type": "unknown",
-        "overall_risk": "Unknown",
-        "summary": "해당 환자의 디지털 트윈 데이터가 없다.",
-        "findings": [],
-        "patient_explanation": [],
+        "focus": [
+            "Role-based access control",
+            "Patient privacy",
+            "Audit trail",
+            "Sensitive medical data governance"
+        ]
     }

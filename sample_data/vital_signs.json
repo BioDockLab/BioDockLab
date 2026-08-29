@@ -1,0 +1,38 @@
+[
+  {
+    "patient_id": "P-001",
+    "name": "Sample Patient A",
+    "age": 42,
+    "heart_rate": 88,
+    "blood_pressure": "124/82",
+    "temperature": 36.8,
+    "spo2": 97,
+    "respiratory_rate": 18,
+    "status": "Stable",
+    "note": "수술 후 회복 관찰 중. 산소포화도 안정적."
+  },
+  {
+    "patient_id": "P-002",
+    "name": "Sample Patient B",
+    "age": 67,
+    "heart_rate": 112,
+    "blood_pressure": "148/92",
+    "temperature": 37.9,
+    "spo2": 92,
+    "respiratory_rate": 24,
+    "status": "Watch",
+    "note": "호흡수 증가 및 산소포화도 저하. 간호사 재확인 필요."
+  },
+  {
+    "patient_id": "P-003",
+    "name": "Sample Patient C",
+    "age": 55,
+    "heart_rate": 76,
+    "blood_pressure": "118/78",
+    "temperature": 36.5,
+    "spo2": 98,
+    "respiratory_rate": 16,
+    "status": "Stable",
+    "note": "바이탈 안정. 정기 관찰 유지."
+  }
+]

@@ -1,19 +1,12 @@
 [
   {
-    "time": "08:00",
-    "patient_id": "P-001",
-    "type": "Routine Check",
-    "role": "Nurse",
-    "title": "정기 바이탈 확인",
-    "description": "주요 바이탈사인이 안정 범위에 있어 정기 관찰을 유지한다."
-  },
-  {
     "time": "08:10",
     "patient_id": "P-002",
     "type": "Vital Sign Alert",
     "role": "Nurse",
     "title": "산소포화도 저하 감지",
-    "description": "SpO₂ 92%, 호흡수 24/min으로 주의 관찰 기준에 진입했다."
+    "description": "SpO₂ 92%, 호흡수 24/min으로 주의 관찰 기준에 진입했다.",
+    "status": "watch"
   },
   {
     "time": "08:18",
@@ -21,7 +14,8 @@
     "type": "Nurse Handoff",
     "role": "Nurse",
     "title": "간호사 재확인 요청",
-    "description": "호흡 불편감 문진 및 산소포화도 추세 확인이 필요하다."
+    "description": "호흡 불편감 문진 및 산소포화도 추세 확인이 필요하다.",
+    "status": "review"
   },
   {
     "time": "08:27",
@@ -29,22 +23,25 @@
     "type": "Doctor Decision",
     "role": "Doctor",
     "title": "Clinical review required",
-    "description": "담당 의료진 확인과 추가 모니터링이 필요하다."
+    "description": "산소포화도 저하와 호흡수 증가가 관찰되어 담당의 확인이 필요하다.",
+    "status": "decision"
   },
   {
     "time": "08:35",
     "patient_id": "P-002",
     "type": "Patient Report",
     "role": "Patient",
-    "title": "환자 설명 리포트 생성",
-    "description": "환자가 현재 상태를 이해할 수 있도록 쉬운 설명 리포트를 제공한다."
+    "title": "주의 관찰 설명 리포트 생성",
+    "description": "환자가 산소포화도 저하와 호흡수 증가의 의미를 이해할 수 있도록 설명 리포트를 생성했다.",
+    "status": "report"
   },
   {
-    "time": "08:45",
-    "patient_id": "P-003",
-    "type": "Recovery Check",
-    "role": "Nurse",
-    "title": "회복 경과 관찰",
-    "description": "바이탈 안정 상태를 유지하고 있으며 정기 관찰을 지속한다."
+    "time": "08:42",
+    "patient_id": "P-002",
+    "type": "Audit Log",
+    "role": "Security Officer",
+    "title": "접근 기록 저장",
+    "description": "간호사, 의사, 환자 설명 리포트 접근 이력이 감사 로그에 기록되었다.",
+    "status": "audit"
   }
 ]
