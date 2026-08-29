@@ -1,10 +1,28 @@
-const fs = require("fs");
-const path = require("path");
+﻿import fs from "node:fs";
+import path from "node:path";
+import { fileURLToPath } from "node:url";
 
-const dataPath = path.join(__dirname, "..", "data", "sample", "bio_experiments.json");
-const outputPath = path.join(__dirname, "..", "reports", "BioDockLab_Report_Node.md");
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
-const experiments = JSON.parse(fs.readFileSync(dataPath, "utf-8"));
+const dataPath = path.join(
+  __dirname,
+  "..",
+  "data",
+  "sample",
+  "bio_experiments.json"
+);
+
+const outputPath = path.join(
+  __dirname,
+  "..",
+  "reports",
+  "BioDockLab_Report_Node.md"
+);
+
+const experiments = JSON.parse(
+  fs.readFileSync(dataPath, "utf-8")
+);
 
 const lines = [];
 
