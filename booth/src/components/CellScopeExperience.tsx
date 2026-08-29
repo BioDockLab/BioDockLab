@@ -1,5 +1,5 @@
 ﻿import { Camera, CheckCircle2, Cpu, ScanLine, Sparkles } from 'lucide-react';
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import {
   createCellScopeClient,
   type CellScopeAnalysis,
@@ -76,6 +76,31 @@ export function CellScopeExperience() {
 
   const busy = !['idle', 'complete', 'error'].includes(status);
 
+    useEffect(() => {
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Enter' && !busy) {
+        event.preventDefault();
+        void start();
+      }
+
+      if (event.key === 'Escape' && !busy) {
+        event.preventDefault();
+
+        setStatus('idle');
+        setSample(null);
+        setAnalysis(null);
+        setHealth(null);
+        setErrorMessage(null);
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [busy]);
+
   const connectionText =
     client.getMode() === 'demo'
       ? '오프라인 데모 모드'
@@ -123,6 +148,10 @@ export function CellScopeExperience() {
                 ? '다시 스캔'
                 : 'CellScope 스캔 시작'}
         </button>
+
+        <small className="cellscope-control-hint">
+          Enter: 스캔 시작 · Esc: 초기화
+        </small>
       </div>
 
       <div className="cellscope-panel__result">
