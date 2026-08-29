@@ -1,7 +1,8 @@
-export type CellScopeMode = 'demo' | 'device';
+﻿export type CellScopeMode = 'demo' | 'device';
 
 export type CellScopeStatus =
   | 'idle'
+  | 'checking-device'
   | 'waiting-for-sample'
   | 'sample-detected'
   | 'capturing'
@@ -16,6 +17,7 @@ export type CellScopeSample = {
   model: 'brain-organoid';
   disease: 'glioblastoma';
   imageLabel: string;
+  imageUrl?: string;
 };
 
 export type CellScopeAnalysis = {
@@ -26,7 +28,26 @@ export type CellScopeAnalysis = {
   distributionScore: number;
   observation: string;
   nextStep: string;
+  imageUrl?: string;
 };
+
+export type CellScopeHealth = {
+  ok: boolean;
+  camera?: boolean;
+  button?: boolean;
+  led?: boolean;
+  service?: string;
+};
+
+export type CellScopeLedState =
+  | 'idle'
+  | 'checking-device'
+  | 'waiting-for-sample'
+  | 'sample-detected'
+  | 'capturing'
+  | 'analyzing'
+  | 'complete'
+  | 'error';
 
 export const BOOTH_SAMPLE: CellScopeSample = {
   id: 'ORG-BRAIN-001',
@@ -38,7 +59,25 @@ export const BOOTH_SAMPLE: CellScopeSample = {
 };
 
 const wait = (ms: number) =>
-  new Promise((resolve) => window.setTimeout(resolve, ms));
+  new Promise<void>((resolve) => window.setTimeout(resolve, ms));
+
+async function fetchWithTimeout(
+  input: RequestInfo | URL,
+  init: RequestInit = {},
+  timeoutMs = 3000,
+) {
+  const controller = new AbortController();
+  const timer = window.setTimeout(() => controller.abort(), timeoutMs);
+
+  try {
+    return await fetch(input, {
+      ...init,
+      signal: controller.signal,
+    });
+  } finally {
+    window.clearTimeout(timer);
+  }
+}
 
 export class CellScopeClient {
   constructor(
@@ -50,19 +89,91 @@ export class CellScopeClient {
     return this.mode;
   }
 
+  getBaseUrl() {
+    return this.baseUrl;
+  }
+
+  async setLedState(state: CellScopeLedState): Promise<void> {
+    if (this.mode === 'demo') {
+      console.info(`[CellScope LED] ${state}`);
+      return;
+    }
+
+    const response = await fetchWithTimeout(
+      `${this.baseUrl}/api/cellscope/led`,
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Accept: 'application/json',
+        },
+        body: JSON.stringify({ state }),
+      },
+      1500,
+    );
+
+    if (!response.ok) {
+      throw new Error(`LED 상태 변경 실패 (HTTP ${response.status})`);
+    }
+  }
+
+  async health(): Promise<CellScopeHealth> {
+    if (this.mode === 'demo') {
+      await wait(150);
+
+      return {
+        ok: true,
+        camera: true,
+        button: true,
+        led: true,
+        service: 'CellScope Demo Adapter',
+      };
+    }
+
+    try {
+      const response = await fetchWithTimeout(
+        `${this.baseUrl}/api/cellscope/health`,
+        {
+          headers: { Accept: 'application/json' },
+        },
+        2000,
+      );
+
+      if (!response.ok) {
+        return {
+          ok: false,
+          service: `HTTP ${response.status}`,
+        };
+      }
+
+      return response.json() as Promise<CellScopeHealth>;
+    } catch {
+      return {
+        ok: false,
+        camera: false,
+        button: false,
+        led: false,
+        service: 'CellScope device unavailable',
+      };
+    }
+  }
+
   async detectSample(): Promise<CellScopeSample> {
     if (this.mode === 'demo') {
       await wait(650);
       return BOOTH_SAMPLE;
     }
 
-    const response = await fetch(`${this.baseUrl}/api/cellscope/sample`, {
-      headers: { Accept: 'application/json' },
-      signal: AbortSignal.timeout(3000),
-    });
+    const response = await fetchWithTimeout(
+      `${this.baseUrl}/api/cellscope/sample`,
+      {
+        headers: { Accept: 'application/json' },
+      },
+      3000,
+    );
 
     if (!response.ok) {
-      throw new Error(`CellScope sample API failed: ${response.status}`);
+      throw new Error(`샘플 인식 실패 (HTTP ${response.status})`);
     }
 
     return response.json() as Promise<CellScopeSample>;
@@ -71,6 +182,7 @@ export class CellScopeClient {
   async analyze(sample: CellScopeSample): Promise<CellScopeAnalysis> {
     if (this.mode === 'demo') {
       await wait(1200);
+
       return {
         sampleId: sample.id,
         capturedAt: new Date().toISOString(),
@@ -84,18 +196,21 @@ export class CellScopeClient {
       };
     }
 
-    const response = await fetch(`${this.baseUrl}/api/cellscope/analyze`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        Accept: 'application/json',
+    const response = await fetchWithTimeout(
+      `${this.baseUrl}/api/cellscope/analyze`,
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Accept: 'application/json',
+        },
+        body: JSON.stringify({ sample }),
       },
-      body: JSON.stringify({ sample }),
-      signal: AbortSignal.timeout(5000),
-    });
+      7000,
+    );
 
     if (!response.ok) {
-      throw new Error(`CellScope analysis API failed: ${response.status}`);
+      throw new Error(`이미지 분석 실패 (HTTP ${response.status})`);
     }
 
     return response.json() as Promise<CellScopeAnalysis>;
@@ -104,7 +219,12 @@ export class CellScopeClient {
 
 export const createCellScopeClient = () => {
   const params = new URLSearchParams(window.location.search);
+
   const mode: CellScopeMode =
     params.get('cellscope') === 'device' ? 'device' : 'demo';
-  return new CellScopeClient(mode);
+
+  const baseUrl =
+    params.get('cellscopeApi') ?? 'http://127.0.0.1:8765';
+
+  return new CellScopeClient(mode, baseUrl);
 };
