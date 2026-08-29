@@ -1,4 +1,11 @@
-﻿import { Camera, CheckCircle2, Cpu, ScanLine, Sparkles } from 'lucide-react';
+﻿import {
+  Camera,
+  CheckCircle2,
+  Cpu,
+  ImageOff,
+  ScanLine,
+  Sparkles,
+} from 'lucide-react';
 import { useEffect, useMemo, useState } from 'react';
 import {
   createCellScopeClient,
@@ -27,12 +34,14 @@ export function CellScopeExperience() {
   const [analysis, setAnalysis] = useState<CellScopeAnalysis | null>(null);
   const [health, setHealth] = useState<CellScopeHealth | null>(null);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
+  const [imageFailed, setImageFailed] = useState(false);
 
   const start = async () => {
     try {
       setErrorMessage(null);
       setAnalysis(null);
       setSample(null);
+      setImageFailed(false);
 
       setStatus('checking-device');
 
@@ -51,6 +60,7 @@ export function CellScopeExperience() {
 
       const detected = await client.detectSample();
       setSample(detected);
+      setImageFailed(false);
       setStatus('sample-detected');
 
       await new Promise((resolve) => window.setTimeout(resolve, 350));
@@ -62,6 +72,7 @@ export function CellScopeExperience() {
       const result = await client.analyze(detected);
 
       setAnalysis(result);
+      setImageFailed(false);
       setStatus('complete');
     } catch (error) {
       console.error(error);
@@ -82,9 +93,19 @@ export function CellScopeExperience() {
     setAnalysis(null);
     setHealth(null);
     setErrorMessage(null);
+    setImageFailed(false);
   };
 
   const busy = !['idle', 'complete', 'error'].includes(status);
+
+  const previewImageUrl =
+    analysis?.imageUrl ??
+    sample?.imageUrl ??
+    null;
+
+  useEffect(() => {
+    setImageFailed(false);
+  }, [previewImageUrl]);
 
   useEffect(() => {
     void client.setLedState(status).catch((error) => {
@@ -230,6 +251,14 @@ export function CellScopeExperience() {
               </small>
             </div>
 
+            <CellScopeImagePreview
+              imageUrl={previewImageUrl}
+              imageLabel={sample.imageLabel}
+              status={status}
+              failed={imageFailed}
+              onError={() => setImageFailed(true)}
+            />
+
             {analysis && (
               <div className="cellscope-analysis">
                 <header>
@@ -267,6 +296,78 @@ export function CellScopeExperience() {
         )}
       </div>
     </section>
+  );
+}
+
+function CellScopeImagePreview({
+  imageUrl,
+  imageLabel,
+  status,
+  failed,
+  onError,
+}: {
+  imageUrl: string | null;
+  imageLabel: string;
+  status: CellScopeStatus;
+  failed: boolean;
+  onError: () => void;
+}) {
+  const loading =
+    status === 'capturing' ||
+    status === 'analyzing';
+
+  if (imageUrl && !failed) {
+    return (
+      <figure className="cellscope-preview">
+        <div className="cellscope-preview__frame">
+          <img
+            src={imageUrl}
+            alt={imageLabel}
+            onError={onError}
+          />
+
+          {loading && (
+            <div className="cellscope-preview__overlay">
+              <ScanLine />
+              <strong>
+                {status === 'capturing'
+                  ? '이미지 캡처 중'
+                  : '이미지 분석 중'}
+              </strong>
+            </div>
+          )}
+        </div>
+
+        <figcaption>
+          <Camera />
+          <span>{imageLabel}</span>
+        </figcaption>
+      </figure>
+    );
+  }
+
+  return (
+    <div className="cellscope-preview cellscope-preview--fallback">
+      <div className="cellscope-preview__placeholder">
+        {failed ? <ImageOff /> : <Camera />}
+
+        <strong>
+          {failed
+            ? '이미지를 불러올 수 없습니다'
+            : loading
+              ? status === 'capturing'
+                ? '카메라 이미지 준비 중'
+                : '이미지 분석 준비 중'
+              : '카메라 이미지 대기 중'}
+        </strong>
+
+        <span>
+          {failed
+            ? '분석 결과는 계속 확인할 수 있습니다.'
+            : '실제 Camera Module 3 연결 시 이 영역에 촬영 이미지가 표시됩니다.'}
+        </span>
+      </div>
+    </div>
   );
 }
 
