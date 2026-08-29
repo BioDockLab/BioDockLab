@@ -27,7 +27,7 @@
 |---|---|
 | Product / System Architecture | 이영준 |
 | AI / Medical Data Interest | 류종걸 |
-| UI / Design | 주수빈, 이민준 |
+| UI / Design | ???  |
 | Business / Data Strategy | 이상목 |
 | Business / Finance / Healthcare Strategy | 이찬규 |
 
