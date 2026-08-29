@@ -36,12 +36,18 @@ import {
 import { Shell } from './components/Shell';
 import { PrintOutputs } from './components/PrintOutputs';
 import { CellScopeExperience } from './components/CellScopeExperience';
+import { CandidateDockingStage } from './components/CandidateDockingStage';
 import type {
   CellModelId,
   DiseaseId,
   ResearchSession,
 } from './types';
 import { aiAnalysisByDisease } from './data/aiAnalysis';
+import {
+  speakBioDockLab,
+  stopBioDockLabSpeech,
+  type BioDockLabSpeechId,
+} from './audio/speech';
 
 const createSessionId = () => {
   const now = new Date();
@@ -69,6 +75,7 @@ const defaultSession = (): ResearchSession => ({
 
 function App() {
   const [step, setStep] = useState(1);
+  const [cellScopeComplete, setCellScopeComplete] = useState(false);
 
   const [session, setSession] =
     useState<ResearchSession>(() => {
@@ -97,6 +104,33 @@ function App() {
       JSON.stringify(session),
     );
   }, [session]);
+
+  useEffect(() => {
+    const speechByStep: Partial<
+      Record<number, BioDockLabSpeechId>
+    > = {
+      2: 'research-question',
+      3: 'protein',
+      4: 'ai-research',
+      5: 'candidate',
+      6: 'research-complete',
+    };
+
+    const speechId = speechByStep[step];
+
+    if (!speechId) {
+      return;
+    }
+
+    const timer = window.setTimeout(() => {
+      speakBioDockLab(speechId);
+    }, 220);
+
+    return () => {
+      window.clearTimeout(timer);
+      stopBioDockLabSpeech();
+    };
+  }, [step]);
 
   const disease = useMemo(
     () =>
@@ -128,11 +162,14 @@ function App() {
   };
 
   const reset = () => {
+    stopBioDockLabSpeech();
+
     localStorage.removeItem(
       'biodocklab-session',
     );
 
     setSession(defaultSession());
+    setCellScopeComplete(false);
     setStep(1);
   };
 
@@ -158,6 +195,9 @@ function App() {
       >
         {step === 1 && (
           <HomeScreen
+            cellScopeComplete={cellScopeComplete}
+            onCellScopeComplete={() => setCellScopeComplete(true)}
+            onCellScopeReset={() => setCellScopeComplete(false)}
             next={() => setStep(2)}
           />
         )}
@@ -242,8 +282,14 @@ function App() {
 }
 
 function HomeScreen({
+  cellScopeComplete,
+  onCellScopeComplete,
+  onCellScopeReset,
   next,
 }: {
+  cellScopeComplete: boolean;
+  onCellScopeComplete: () => void;
+  onCellScopeReset: () => void;
   next: () => void;
 }) {
   return (
@@ -317,22 +363,38 @@ function HomeScreen({
         </div>
       </section>
 
-      <CellScopeExperience />
+      <CellScopeExperience
+        onComplete={onCellScopeComplete}
+        onReset={onCellScopeReset}
+      />
 
-      <section className="panel kiosk-next-panel">
+      <section
+        className={`panel kiosk-next-panel ${
+          cellScopeComplete
+            ? 'is-ready'
+            : 'is-locked'
+        }`}
+      >
         <div>
           <span className="eyebrow">
-            <CheckCircle2 />
+            {cellScopeComplete ? (
+              <CheckCircle2 />
+            ) : (
+              <ScanLine />
+            )}
             NEXT RESEARCH STEP
           </span>
 
           <h2>
-            샘플 관찰을 마쳤나요?
+            {cellScopeComplete
+              ? '샘플 분석이 완료되었습니다.'
+              : '먼저 CellScope 스캔을 완료해 주세요.'}
           </h2>
 
           <p>
-            이제 이 샘플로 어떤 질환을
-            연구할지 선택합니다.
+            {cellScopeComplete
+              ? '이제 이 샘플로 어떤 질환을 연구할지 선택합니다.'
+              : '샘플 촬영과 분석이 끝나면 다음 연구 단계가 열립니다.'}
           </p>
         </div>
 
@@ -340,8 +402,17 @@ function HomeScreen({
           type="button"
           className="button button--hero"
           onClick={next}
+          disabled={!cellScopeComplete}
+          aria-disabled={!cellScopeComplete}
+          title={
+            cellScopeComplete
+              ? '다음 연구 단계로 이동합니다.'
+              : 'CellScope 스캔을 먼저 완료해 주세요.'
+          }
         >
-          연구 질문 선택
+          {cellScopeComplete
+            ? '연구 질문 선택'
+            : '스캔 완료 후 활성화'}
           <ArrowRight />
         </button>
       </section>
@@ -1184,6 +1255,11 @@ function CandidateScreen({
             교육용 연구 비교
           </span>
         </header>
+
+        <CandidateDockingStage
+          selectedId={selectedId}
+          onSelect={select}
+        />
 
         <div className="candidate-cards">
           {candidates.map(

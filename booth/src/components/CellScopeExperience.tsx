@@ -14,6 +14,10 @@ import {
   type CellScopeSample,
   type CellScopeStatus,
 } from '../cellscope/device';
+import {
+  speakBioDockLab,
+  stopBioDockLabSpeech,
+} from '../audio/speech';
 
 const statusText: Record<CellScopeStatus, string> = {
   idle: '체험 준비 완료',
@@ -26,18 +30,39 @@ const statusText: Record<CellScopeStatus, string> = {
   error: '장비 연결을 확인해 주세요',
 };
 
-export function CellScopeExperience() {
+type CellScopeExperienceProps = {
+  onComplete?: (analysis: CellScopeAnalysis) => void;
+  onReset?: () => void;
+};
+
+export function CellScopeExperience({
+  onComplete,
+  onReset,
+}: CellScopeExperienceProps) {
   const client = useMemo(() => createCellScopeClient(), []);
 
-  const [status, setStatus] = useState<CellScopeStatus>('idle');
-  const [sample, setSample] = useState<CellScopeSample | null>(null);
-  const [analysis, setAnalysis] = useState<CellScopeAnalysis | null>(null);
-  const [health, setHealth] = useState<CellScopeHealth | null>(null);
-  const [errorMessage, setErrorMessage] = useState<string | null>(null);
-  const [imageFailed, setImageFailed] = useState(false);
+  const [status, setStatus] =
+    useState<CellScopeStatus>('idle');
+
+  const [sample, setSample] =
+    useState<CellScopeSample | null>(null);
+
+  const [analysis, setAnalysis] =
+    useState<CellScopeAnalysis | null>(null);
+
+  const [health, setHealth] =
+    useState<CellScopeHealth | null>(null);
+
+  const [errorMessage, setErrorMessage] =
+    useState<string | null>(null);
+
+  const [imageFailed, setImageFailed] =
+    useState(false);
 
   const start = async () => {
     try {
+      stopBioDockLabSpeech();
+
       setErrorMessage(null);
       setAnalysis(null);
       setSample(null);
@@ -45,7 +70,9 @@ export function CellScopeExperience() {
 
       setStatus('checking-device');
 
-      const deviceHealth = await client.health();
+      const deviceHealth =
+        await client.health();
+
       setHealth(deviceHealth);
 
       if (!deviceHealth.ok) {
@@ -58,19 +85,32 @@ export function CellScopeExperience() {
 
       setStatus('waiting-for-sample');
 
-      const detected = await client.detectSample();
+      const detected =
+        await client.detectSample();
 
       setSample(detected);
       setImageFailed(false);
       setStatus('sample-detected');
 
+      speakBioDockLab(
+        'sample-detected',
+      );
+
       await new Promise((resolve) =>
-        window.setTimeout(resolve, 350),
+        window.setTimeout(
+          resolve,
+          650,
+        ),
       );
 
       setStatus('capturing');
 
-      const capture = await client.capture(detected);
+      speakBioDockLab(
+        'capturing',
+      );
+
+      const capture =
+        await client.capture(detected);
 
       const capturedSample: CellScopeSample = {
         ...detected,
@@ -87,7 +127,14 @@ export function CellScopeExperience() {
 
       setStatus('analyzing');
 
-      const result = await client.analyze(capturedSample);
+      speakBioDockLab(
+        'analyzing',
+      );
+
+      const result =
+        await client.analyze(
+          capturedSample,
+        );
 
       const completedResult: CellScopeAnalysis = {
         ...result,
@@ -96,11 +143,24 @@ export function CellScopeExperience() {
           capturedSample.imageUrl,
       };
 
-      setAnalysis(completedResult);
+      setAnalysis(
+        completedResult,
+      );
+
       setImageFailed(false);
       setStatus('complete');
+
+      speakBioDockLab(
+        'analysis-complete',
+      );
+
+      onComplete?.(
+        completedResult,
+      );
     } catch (error) {
       console.error(error);
+
+      stopBioDockLabSpeech();
 
       setErrorMessage(
         error instanceof Error
@@ -113,12 +173,16 @@ export function CellScopeExperience() {
   };
 
   const reset = () => {
+    stopBioDockLabSpeech();
+
     setStatus('idle');
     setSample(null);
     setAnalysis(null);
     setHealth(null);
     setErrorMessage(null);
     setImageFailed(false);
+
+    onReset?.();
   };
 
   const busy = ![
@@ -137,18 +201,26 @@ export function CellScopeExperience() {
   }, [previewImageUrl]);
 
   useEffect(() => {
-    void client.setLedState(status).catch((error) => {
-      console.warn('[CellScope LED]', error);
-    });
+    void client
+      .setLedState(status)
+      .catch((error) => {
+        console.warn(
+          '[CellScope LED]',
+          error,
+        );
+      });
   }, [client, status]);
 
   useEffect(() => {
-    const handleKeyDown = (event: KeyboardEvent) => {
+    const handleKeyDown = (
+      event: KeyboardEvent,
+    ) => {
       if (
         event.key === 'Enter' &&
         !busy
       ) {
         event.preventDefault();
+
         void start();
       }
 
@@ -157,6 +229,7 @@ export function CellScopeExperience() {
         !busy
       ) {
         event.preventDefault();
+
         reset();
       }
     };
@@ -173,6 +246,12 @@ export function CellScopeExperience() {
       );
     };
   }, [busy]);
+
+  useEffect(() => {
+    return () => {
+      stopBioDockLabSpeech();
+    };
+  }, []);
 
   const connectionText =
     client.getMode() === 'demo'
@@ -194,12 +273,15 @@ export function CellScopeExperience() {
         </span>
 
         <h2>
-          샘플을 넣고 AI 연구를 시작해 보세요.
+          샘플을 넣고 AI 연구를
+          시작해 보세요.
         </h2>
 
         <p>
-          교육용 카트리지를 인식하면 뇌 오가노이드 이미지를
-          촬영하고 형태와 분포 특징을 시각화합니다.
+          교육용 카트리지를 인식하면
+          뇌 오가노이드 이미지를
+          촬영하고 형태와 분포 특징을
+          시각화합니다.
         </p>
 
         <div className="cellscope-device">
@@ -250,7 +332,9 @@ export function CellScopeExperience() {
           {busy
             ? status === 'capturing'
               ? '이미지 촬영 중…'
-              : '분석 중…'
+              : status === 'analyzing'
+                ? 'AI 분석 중…'
+                : '장비 확인 중…'
             : status === 'error'
               ? '장비 다시 연결'
               : analysis
@@ -294,7 +378,8 @@ export function CellScopeExperience() {
               </strong>
 
               <p>
-                뇌 오가노이드를 관찰하고 교모세포종 연구 흐름을
+                뇌 오가노이드를 관찰하고
+                질환 연구 흐름을
                 따라갑니다.
               </p>
             </div>
@@ -312,13 +397,18 @@ export function CellScopeExperience() {
               </strong>
 
               <small>
-                {sample.id} · Marker {sample.markerId}
+                {sample.id} · Marker{' '}
+                {sample.markerId}
               </small>
             </div>
 
             <CellScopeImagePreview
-              imageUrl={previewImageUrl}
-              imageLabel={sample.imageLabel}
+              imageUrl={
+                previewImageUrl
+              }
+              imageLabel={
+                sample.imageLabel
+              }
               status={status}
               failed={imageFailed}
               onError={() =>
@@ -333,11 +423,13 @@ export function CellScopeExperience() {
 
                   <div>
                     <strong>
-                      교육용 이미지 분석 완료
+                      교육용 이미지
+                      분석 완료
                     </strong>
 
                     <small>
-                      진단·약효 판정 기능이 아닙니다.
+                      진단·약효 판정
+                      기능이 아닙니다.
                     </small>
                   </div>
                 </header>
@@ -345,17 +437,23 @@ export function CellScopeExperience() {
                 <div className="cellscope-metrics">
                   <Metric
                     label="형태 특징"
-                    value={analysis.morphologyScore}
+                    value={
+                      analysis.morphologyScore
+                    }
                   />
 
                   <Metric
                     label="3D 구조"
-                    value={analysis.structureScore}
+                    value={
+                      analysis.structureScore
+                    }
                   />
 
                   <Metric
                     label="세포 분포"
-                    value={analysis.distributionScore}
+                    value={
+                      analysis.distributionScore
+                    }
                   />
                 </div>
 
@@ -412,7 +510,7 @@ function CellScopeImagePreview({
               <strong>
                 {status === 'capturing'
                   ? '이미지 촬영 중'
-                  : '이미지 분석 중'}
+                  : 'AI 분석 중'}
               </strong>
             </div>
           )}
