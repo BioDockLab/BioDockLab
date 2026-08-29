@@ -1,96 +1,69 @@
-# BioDockLab v2.0 Development Note
+# BioDockLab v2 Development Note
 
-## 1. Project Direction
+## Purpose
 
-BioDockLab v2.0은 기존 바이오 데이터 분석 프로젝트를 확장하여, 바이오 실험과 의료 AI 기술을 하나의 연구형 소프트웨어 구조로 연결하는 것을 목표로 한다.
+This document summarizes the v2 development direction of BioDockLab.
 
-핵심 방향은 단순한 바이오 키워드 소개가 아니라, 실험 데이터가 수집되고, 분석되고, 시뮬레이션되며, 최종적으로 연구자의 판단으로 이어지는 흐름을 만드는 것이다.
+BioDockLab v2 focuses on turning the project from a concept-level research platform into a more executable MVP structure.
 
-> Bio Data → AI Analysis → Digital Twin → Decision → Report
+## Main Direction
 
----
+BioDockLab v2 focuses on:
 
-## 2. Why v2.0?
+- Experiment data management
+- AI-based risk analysis
+- Digital twin-style simulation
+- Dashboard visualization
+- Research report generation
 
-기존 BioDockLab은 바이오 데이터를 다루는 프로젝트였지만, v2.0에서는 오가노이드, 수술 AI, 양자 바이오컴퓨팅, 디지털 트윈, CFPS라는 다섯 가지 바이오·의료 AI 방향을 연결한다.
+## Development Goals
 
-이 확장은 BioDockLab을 단순한 공모전 프로젝트가 아니라, 바이오 연구 데이터를 판단 가능한 시스템으로 바꾸는 포트폴리오 프로젝트로 발전시키기 위한 단계이다.
+### 1. Experiment Data MVP
 
----
+- Clean up sample data schema
+- Add experiment create, update, and delete flow
+- Improve FastAPI route structure
+- Connect dashboard to backend data
+- Add experiment detail view
 
-## 3. Five Research Directions
+### 2. AI Analysis Layer
 
-### 3.1 Organoid
+- Add AI analysis API endpoint
+- Return risk classification result
+- Return priority recommendation
+- Generate experiment summary
+- Prepare ML-ready feature structure
 
-오가노이드는 줄기세포 기반의 미니 장기 모델을 활용하여 질병 모델링, 약물 반응 분석, 치료제 후보 검증에 사용될 수 있다.
+### 3. Digital Twin MVP
 
-BioDockLab에서는 오가노이드 실험 조건과 결과 데이터를 기록하고, 유사 실험을 비교하며, 다음 실험 방향을 추천하는 구조로 연결할 수 있다.
+- Add digital twin simulation API
+- Add parameter-based simulation input
+- Return predicted response score
+- Visualize simulation result in dashboard
+- Connect organoid and CFPS simulation logic
 
-### 3.2 Surgery AI
+### 4. Research Report System
 
-수술 인공지능은 의료 영상, 센서 데이터, 수술 중 상태 정보를 분석하여 수술 판단을 보조하는 방향이다.
+- Generate Markdown report
+- Include experiment summary
+- Include AI analysis result
+- Include simulation result
+- Prepare PDF export structure
 
-BioDockLab에서는 의료 판단 보조 시스템의 데이터 흐름을 시각화하고, 위험도 평가와 리포트 생성 구조로 확장할 수 있다.
+## Current Limitations
 
-### 3.3 Quantum Biocomputing
+BioDockLab is still an early-stage research software prototype.
 
-양자 바이오컴퓨팅은 단백질 구조, 유전체 분석, 분자 시뮬레이션처럼 계산량이 큰 바이오 문제를 다루는 미래 기술이다.
+Current limitations:
 
-현재 단계에서는 직접 구현 대상이라기보다, BioDockLab의 장기 확장 방향과 연구 키워드로 관리한다.
+- AI analysis is currently rule-based
+- Digital twin simulation is still function-level
+- Frontend and backend are not fully integrated
+- Real biological validation has not been performed
+- Medical or clinical use is not supported
 
-### 3.4 Digital Twin
+## Next Step
 
-디지털 트윈은 환자, 장기, 실험 조건을 가상 모델로 복제해 치료 효과와 위험도를 예측하는 기술이다.
+The next priority is to connect the existing modules into one executable research workflow:
 
-BioDockLab v2.0에서 가장 핵심적인 방향이며, 실험 데이터와 AI 분석 결과를 시뮬레이션 화면으로 연결하는 중심 구조가 된다.
-
-### 3.5 CFPS
-
-CFPS는 Cell-Free Protein Synthesis의 약자로, 세포 배양 없이 효소와 아미노산 기반으로 단백질을 합성하는 기술이다.
-
-BioDockLab에서는 바이오 제조 조건, 단백질 생산 결과, 실험 성공률 데이터를 관리하는 자동화 대시보드로 확장할 수 있다.
-
----
-
-## 4. Developer Position
-
-저는 바이오 연구자가 아니라, 바이오 실험 데이터를 구조화하고 시각화해 연구자의 다음 판단을 돕는 시스템을 만드는 개발자입니다.
-
-BioDockLab v2.0은 이 포지션을 보여주는 프로젝트입니다.
-
-- 실험 조건 기록
-- AI 기반 비교 분석
-- 디지털 트윈 시뮬레이션
-- 연구 리포트 자동화
-- 바이오 데이터 의사결정 대시보드
-
----
-
-## 5. v2.0 MVP Result
-
-현재 v2.0 MVP에서는 다음을 구현했다.
-
-- Bio AI Research Navigator 페이지 추가
-- 5대 바이오·의료 AI 방향 카드 UI 구성
-- Bio Data → AI Analysis → Digital Twin → Decision → Report 흐름 시각화
-- 개발자 포지션 섹션 추가
-
-파일 위치:
-
-```text
-frontend/bio_ai_navigator.html
-
-6. Next Version Plan
-v2.1
-각 기술 카드 클릭 시 상세 설명 확장
-난이도, 구현 가능성, BioDockLab 연결성 지표 추가
-v2.2
-실험 조건 입력 폼 추가
-오가노이드 / CFPS 샘플 데이터 입력
-v2.3
-디지털 트윈 대시보드 목업 추가
-성공률, 위험도, 실험 비교 그래프 구현
-v3.0
-실제 데이터 기반 연구 리포트 자동 생성
-AI 분석 API 연동
-연구노트 PDF 출력 기능 추가
+Experiment Data Registration → AI Risk Analysis → Digital Twin Prediction → Dashboard Visualization → Research Report Generation
