@@ -23,10 +23,57 @@ type CandidateDockingStageProps = {
   onSelect: (id: CandidateId) => void;
 };
 
-const STEP_DURATION = 1500;
+const STEP_DURATION = 1700;
+
+const speakDockingText = (
+  text: string,
+) => {
+  if (
+    typeof window === 'undefined' ||
+    !('speechSynthesis' in window)
+  ) {
+    return;
+  }
+
+  const utterance =
+    new SpeechSynthesisUtterance(
+      text,
+    );
+
+  utterance.lang = 'ko-KR';
+  utterance.rate = 0.94;
+  utterance.pitch = 1;
+  utterance.volume = 1;
+
+  const voices =
+    window.speechSynthesis.getVoices();
+
+  const koreanVoice =
+    voices.find(
+      (voice) =>
+        voice.lang
+          .toLowerCase()
+          .startsWith('ko') &&
+        voice.localService,
+    ) ??
+    voices.find((voice) =>
+      voice.lang
+        .toLowerCase()
+        .startsWith('ko'),
+    );
+
+  if (koreanVoice) {
+    utterance.voice =
+      koreanVoice;
+  }
+
+  window.speechSynthesis.speak(
+    utterance,
+  );
+};
 
 export function CandidateDockingStage({
-  selectedId,
+  selectedId: _selectedId,
   onSelect,
 }: CandidateDockingStageProps) {
   const [phase, setPhase] =
@@ -34,6 +81,11 @@ export function CandidateDockingStage({
 
   const [runId, setRunId] =
     useState(0);
+
+  const [chosenId, setChosenId] =
+    useState<CandidateId | null>(
+      null,
+    );
 
   const rankedCandidates = useMemo(
     () =>
@@ -45,56 +97,112 @@ export function CandidateDockingStage({
     [],
   );
 
-  const completed = phase >= candidates.length;
+  const completed =
+    phase >= candidates.length;
+
+  const bestCandidate =
+    rankedCandidates[0] ?? null;
 
   useEffect(() => {
-    const timer = window.setTimeout(
-      () => {
-        setPhase((current) => {
-          if (
-            current >=
-            candidates.length
-          ) {
-            return current;
-          }
-
-          return current + 1;
-        });
-      },
-      phase < 0 ? 650 : STEP_DURATION,
-    );
-
     if (completed) {
-      window.clearTimeout(timer);
+      return;
     }
 
+    const timer =
+      window.setTimeout(
+        () => {
+          setPhase((current) => {
+            if (
+              current >=
+              candidates.length
+            ) {
+              return current;
+            }
+
+            return current + 1;
+          });
+        },
+        phase < 0
+          ? 850
+          : STEP_DURATION,
+      );
+
     return () => {
-      window.clearTimeout(timer);
+      window.clearTimeout(
+        timer,
+      );
     };
-  }, [phase, runId, completed]);
+  }, [
+    phase,
+    runId,
+    completed,
+  ]);
 
   useEffect(() => {
+    if (phase === 0) {
+      speakDockingText(
+        '첫 번째 후보, Candidate A의 구조적 상호작용을 확인합니다.',
+      );
+    }
+
+    if (phase === 1) {
+      speakDockingText(
+        '두 번째 후보, Candidate B를 비교합니다.',
+      );
+    }
+
+    if (phase === 2) {
+      speakDockingText(
+        '마지막 후보, Candidate C를 비교합니다.',
+      );
+    }
+
+    if (phase === candidates.length) {
+      speakDockingText(
+        '세 후보의 비교가 완료되었습니다. 계산 참고값을 확인하고, 다음 연구 방향을 직접 선택해 주세요.',
+      );
+    }
+  }, [phase]);
+
+  const restart = () => {
+    if (
+      typeof window !==
+        'undefined' &&
+      'speechSynthesis' in window
+    ) {
+      window.speechSynthesis.cancel();
+    }
+
+    setPhase(-1);
+
+    setRunId(
+      (value) => value + 1,
+    );
+  };
+
+  const chooseCandidate = (
+    id: CandidateId,
+  ) => {
     if (!completed) {
       return;
     }
 
-    const best =
-      rankedCandidates[0];
-
-    if (best) {
-      onSelect(
-        best.id as CandidateId,
+    const item =
+      candidates.find(
+        (candidate) =>
+          candidate.id === id,
       );
-    }
-  }, [
-    completed,
-    rankedCandidates,
-    onSelect,
-  ]);
 
-  const restart = () => {
-    setPhase(-1);
-    setRunId((value) => value + 1);
+    if (!item) {
+      return;
+    }
+
+    setChosenId(id);
+    onSelect(id);
+
+    speakDockingText(
+      `${item.name}를 다음 연구 방향으로 선택했습니다.`,
+    );
   };
 
   const currentCandidate =
@@ -119,9 +227,11 @@ export function CandidateDockingStage({
           </h2>
 
           <p>
-            세 후보의 구조적 상호작용을
-            순서대로 비교하는 교육용
-            시각화입니다.
+            세 후보의 구조적
+            상호작용을 순서대로
+            비교하고, 마지막에는
+            연구자가 직접 다음
+            탐색 방향을 선택합니다.
           </p>
         </div>
 
@@ -136,7 +246,9 @@ export function CandidateDockingStage({
 
           <strong>
             {completed
-              ? '비교 완료'
+              ? chosenId
+                ? '연구 방향 선택 완료'
+                : '비교 완료 · 선택 대기'
               : phase < 0
                 ? '결합 부위 탐색'
                 : `${currentCandidate?.name} 비교 중`}
@@ -204,10 +316,21 @@ export function CandidateDockingStage({
                     item.id,
                 ) + 1;
 
+              const isRecommended =
+                bestCandidate?.id ===
+                item.id;
+
+              const isChosen =
+                chosenId ===
+                item.id;
+
               return (
                 <button
                   key={item.id}
                   type="button"
+                  disabled={
+                    !completed
+                  }
                   className={`docking-molecule docking-molecule--${
                     index + 1
                   } ${
@@ -219,13 +342,12 @@ export function CandidateDockingStage({
                       ? 'is-analyzed'
                       : ''
                   } ${
-                    selectedId ===
-                    item.id
+                    isChosen
                       ? 'is-selected'
                       : ''
                   }`}
                   onClick={() =>
-                    onSelect(
+                    chooseCandidate(
                       item.id as CandidateId,
                     )
                   }
@@ -264,6 +386,22 @@ export function CandidateDockingStage({
                       kcal/mol
                     </span>
                   )}
+
+                  {completed &&
+                    isRecommended && (
+                      <span className="molecule-live">
+                        <Sparkles />
+                        AI 참고 · 우선 탐색
+                        후보
+                      </span>
+                    )}
+
+                  {isChosen && (
+                    <span className="molecule-result">
+                      <CheckCircle2 />
+                      내 연구 방향
+                    </span>
+                  )}
                 </button>
               );
             },
@@ -285,8 +423,9 @@ export function CandidateDockingStage({
                 </strong>
 
                 <span>
-                  단백질 구조에서 후보가
-                  접근할 수 있는 영역을
+                  단백질 구조에서
+                  후보가 접근할 수
+                  있는 영역을
                   확인합니다.
                 </span>
               </div>
@@ -313,62 +452,108 @@ export function CandidateDockingStage({
             </>
           )}
 
-          {completed && (
-            <>
-              <CheckCircle2 />
+          {completed &&
+            !chosenId && (
+              <>
+                <CheckCircle2 />
 
-              <div>
-                <strong>
-                  세 후보의 비교가
-                  완료되었습니다.
-                </strong>
+                <div>
+                  <strong>
+                    세 후보의 비교가
+                    완료되었습니다.
+                  </strong>
 
-                <span>
-                  계산 참고값과 구조적
-                  특징을 함께 확인한 뒤
-                  탐색할 방향을
-                  선택하세요.
-                </span>
-              </div>
-            </>
-          )}
+                  <span>
+                    참고 순위를 확인한
+                    뒤, 다음 연구
+                    방향을 직접
+                    선택해 주세요.
+                  </span>
+                </div>
+              </>
+            )}
+
+          {completed &&
+            chosenId && (
+              <>
+                <Sparkles />
+
+                <div>
+                  <strong>
+                    연구 방향을
+                    선택했습니다.
+                  </strong>
+
+                  <span>
+                    선택한 후보는
+                    Research Trail의
+                    다음 연구 방향으로
+                    기록됩니다.
+                  </span>
+                </div>
+              </>
+            )}
         </div>
       </div>
 
       <footer className="docking-stage__footer">
         <div className="docking-ranking">
           {rankedCandidates.map(
-            (item, index) => (
-              <button
-                key={item.id}
-                type="button"
-                className={
-                  selectedId === item.id
-                    ? 'is-selected'
-                    : ''
-                }
-                onClick={() =>
-                  onSelect(
-                    item.id as CandidateId,
-                  )
-                }
-              >
-                <span>
-                  {index + 1}
-                </span>
+            (item, index) => {
+              const isRecommended =
+                index === 0;
 
-                <div>
-                  <strong>
-                    {item.name}
-                  </strong>
+              const isChosen =
+                chosenId ===
+                item.id;
 
-                  <small>
-                    {item.dockingScore}{' '}
-                    kcal/mol
-                  </small>
-                </div>
-              </button>
-            ),
+              return (
+                <button
+                  key={item.id}
+                  type="button"
+                  disabled={
+                    !completed
+                  }
+                  className={
+                    isChosen
+                      ? 'is-selected'
+                      : ''
+                  }
+                  onClick={() =>
+                    chooseCandidate(
+                      item.id as CandidateId,
+                    )
+                  }
+                >
+                  <span>
+                    {index + 1}
+                  </span>
+
+                  <div>
+                    <strong>
+                      {item.name}
+                    </strong>
+
+                    <small>
+                      {item.dockingScore}{' '}
+                      kcal/mol
+                    </small>
+
+                    {isRecommended && (
+                      <small>
+                        AI 참고 · 우선 탐색
+                      </small>
+                    )}
+
+                    {isChosen && (
+                      <small>
+                        ✓ 내 연구 방향
+                      </small>
+                    )}
+                  </div>
+                </button>
+              );
+            },
           )}
         </div>
 
@@ -386,9 +571,12 @@ export function CandidateDockingStage({
       </footer>
 
       <div className="docking-stage__disclaimer">
-        계산 참고값은 후보 간 구조적
-        비교를 설명하기 위한 교육용
-        데이터이며 실제 약효·치료 효과를
+        계산 참고값은 후보 간
+        구조적 비교를 설명하기 위한
+        교육용 데이터입니다.
+        AI의 참고 순위는 연구자의
+        선택을 대신하지 않으며,
+        실제 약효·치료 효과를
         의미하지 않습니다.
       </div>
     </section>
