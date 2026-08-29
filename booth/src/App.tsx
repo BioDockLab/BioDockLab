@@ -70,6 +70,7 @@ const defaultSession = (): ResearchSession => ({
   cellModelId: '3d-organoid',
   proteinId: 'egfr',
   selectedCandidateId: 'candidate-a',
+  candidateConfirmed: false,
   startedAt: new Date().toISOString(),
 });
 
@@ -206,10 +207,18 @@ function App() {
           <OrganoidScreen
             session={session}
             updateDisease={(value) =>
-              update('diseaseId', value)
+              setSession((current) => ({
+                ...current,
+                diseaseId: value,
+                candidateConfirmed: false,
+              }))
             }
             updateCellModel={(value) =>
-              update('cellModelId', value)
+              setSession((current) => ({
+                ...current,
+                cellModelId: value,
+                candidateConfirmed: false,
+              }))
             }
             previous={() => setStep(1)}
             next={() => setStep(3)}
@@ -238,14 +247,24 @@ function App() {
             selectedId={
               session.selectedCandidateId
             }
+            candidateConfirmed={
+              session.candidateConfirmed
+            }
             select={(value) =>
-              update(
-                'selectedCandidateId',
-                value,
-              )
+              setSession((current) => ({
+                ...current,
+                selectedCandidateId: value,
+                candidateConfirmed: true,
+              }))
             }
             previous={() => setStep(4)}
-            next={() => setStep(6)}
+            next={() => {
+              if (
+                session.candidateConfirmed
+              ) {
+                setStep(6);
+              }
+            }}
           />
         )}
 
@@ -1223,12 +1242,14 @@ function PredictionScreen({
 
 function CandidateScreen({
   selectedId,
+  candidateConfirmed,
   select,
   previous,
   next,
 }: {
   selectedId:
     ResearchSession['selectedCandidateId'];
+  candidateConfirmed: boolean;
   select: (
     id: ResearchSession['selectedCandidateId'],
   ) => void;
@@ -1268,10 +1289,18 @@ function CandidateScreen({
                 key={item.id}
                 type="button"
                 className={`candidate-card candidate-card--${item.accent} ${
+                  candidateConfirmed &&
                   selectedId === item.id
                     ? 'is-selected'
                     : ''
                 }`}
+                disabled={!candidateConfirmed}
+                aria-disabled={!candidateConfirmed}
+                title={
+                  candidateConfirmed
+                    ? '선택한 연구 방향을 변경합니다.'
+                    : '위 구조 비교가 끝난 뒤 후보를 직접 선택해 주세요.'
+                }
                 onClick={() =>
                   select(item.id)
                 }
@@ -1287,10 +1316,11 @@ function CandidateScreen({
                     </span>
                   </div>
 
-                  {selectedId ===
-                    item.id && (
-                    <CheckCircle2 />
-                  )}
+                  {candidateConfirmed &&
+                    selectedId ===
+                      item.id && (
+                      <CheckCircle2 />
+                    )}
                 </header>
 
                 <ChemicalSketch
@@ -1354,16 +1384,22 @@ function CandidateScreen({
 
       <div className="screen-actions">
         <Notice compact>
-          계산 참고값은 실제 약효를
-          의미하지 않습니다. 실제 연구에는
-          실험 검증과 다양한 추가 평가가
-          필요합니다.
+          {candidateConfirmed
+            ? '선택한 후보가 Research Trail의 다음 연구 방향으로 기록됩니다. 계산 참고값은 실제 약효를 의미하지 않습니다.'
+            : '위 구조 비교가 끝난 뒤 후보를 직접 선택해 주세요. 선택 전에는 Research Trail 단계로 이동할 수 없습니다.'}
         </Notice>
 
         <NavButtons
           previous={previous}
           next={next}
-          nextLabel="나의 연구 기록"
+          nextLabel={
+            candidateConfirmed
+              ? '나의 연구 기록'
+              : '후보 선택 후 활성화'
+          }
+          nextDisabled={
+            !candidateConfirmed
+          }
         />
       </div>
     </div>
@@ -1906,10 +1942,12 @@ function NavButtons({
   previous,
   next,
   nextLabel = '다음 단계',
+  nextDisabled = false,
 }: {
   previous: () => void;
   next: () => void;
   nextLabel?: string;
+  nextDisabled?: boolean;
 }) {
   return (
     <div className="nav-buttons">
@@ -1926,6 +1964,13 @@ function NavButtons({
         type="button"
         className="button button--primary"
         onClick={next}
+        disabled={nextDisabled}
+        aria-disabled={nextDisabled}
+        title={
+          nextDisabled
+            ? '먼저 현재 단계의 선택을 완료해 주세요.'
+            : undefined
+        }
       >
         {nextLabel}
         <ArrowRight />
