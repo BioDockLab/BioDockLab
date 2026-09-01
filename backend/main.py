@@ -383,3 +383,38 @@ def get_digital_twin_finding_by_patient(patient_id: str):
         "findings": [],
         "patient_explanation": [],
     }
+
+@app.get("/api/cellscope/health")
+def cellscope_health():
+    return {
+        "ok": True,
+        "camera": True,
+        "button": True,
+        "led": True,
+        "service": "mock",
+    }
+
+
+@app.post("/api/cellscope/sample")
+def cellscope_sample():
+    return {
+        "id": "ORG-BRAIN-001",
+        "markerId": "BDL-GBM-001",
+        "label": "CellScope mock sample",
+        "model": "brain-organoid",
+        "disease": "glioblastoma",
+        "imageLabel": "mock organoid image",
+    }
+
+
+@app.post("/api/cellscope/analyze")
+def cellscope_analyze():
+    return {
+        "sampleId": "ORG-BRAIN-001",
+        "capturedAt": "2026-08-30T00:00:00Z",
+        "morphologyScore": 72,
+        "structureScore": 88,
+        "distributionScore": 91,
+        "observation": "Mock analysis result",
+        "nextStep": "Continue with CellScope analysis",
+    }
