@@ -126,7 +126,7 @@ function HomeScreen({ session, updateTheme, next }: { session: ResearchSession; 
         </div>
       </section>
 
-      <CellScopeExperience />
+      <CellScopeExperience themeId={session.themeId} />
 
       <div className="home-grid">
         <section className="panel theme-panel">

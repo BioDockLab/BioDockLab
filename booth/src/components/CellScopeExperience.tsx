@@ -1,4 +1,6 @@
-﻿import { Camera, CheckCircle2, Cpu, ScanLine, Sparkles } from 'lucide-react';
+﻿import type { ThemeId } from '../types';
+
+import { Camera, CheckCircle2, Cpu, ScanLine, Sparkles } from 'lucide-react';
 import { useEffect, useMemo, useState } from 'react';
 import {
   createCellScopeClient,
@@ -19,7 +21,7 @@ const statusText: Record<CellScopeStatus, string> = {
   error: '장비 연결을 확인해 주세요',
 };
 
-export function CellScopeExperience() {
+export function CellScopeExperience({ themeId }: { themeId: ThemeId }) {
   const client = useMemo(() => createCellScopeClient(), []);
 
   const [status, setStatus] = useState<CellScopeStatus>('idle');
@@ -49,7 +51,7 @@ export function CellScopeExperience() {
 
       setStatus('waiting-for-sample');
 
-      const detected = await client.detectSample();
+      const detected = await client.detectSample(themeId);
       setSample(detected);
       setStatus('sample-detected');
 
@@ -133,9 +135,12 @@ export function CellScopeExperience() {
         <h2>샘플을 넣고 AI 연구를 시작해 보세요.</h2>
 
         <p>
-          교육용 카트리지를 인식하면 뇌 오가노이드 이미지를 불러와 형태와
-          분포 특징을 시각화합니다.
-        </p>
+  {themeId === 'brain-organoid'
+    ? '교육용 카트리지를 인식하면 뇌 오가노이드 이미지를 불러와 형태와 분포 특징을 시각화합니다.'
+    : themeId === 'cancer-cell'
+      ? '교육용 카트리지를 인식하면 암세포 이미지를 불러와 형태와 분포 특징을 시각화합니다.'
+      : '교육용 카트리지를 인식하면 신경 세포 이미지를 불러와 형태와 분포 특징을 시각화합니다.'}
+</p>
 
         <div className="cellscope-device">
           <div className={`cellscope-device__ring is-${status}`}>

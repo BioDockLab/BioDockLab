@@ -1,4 +1,6 @@
-﻿export type CellScopeMode = 'demo' | 'device';
+﻿import type { ThemeId } from '../types';
+
+export type CellScopeMode = 'demo' | 'device';
 
 export type CellScopeStatus =
   | 'idle'
@@ -14,8 +16,8 @@ export type CellScopeSample = {
   id: string;
   markerId: string;
   label: string;
-  model: 'brain-organoid';
-  disease: 'glioblastoma';
+  model: 'brain-organoid' | 'cancer-cell' | 'neuron';
+  disease: 'glioblastoma' | 'cancer' | 'neuron';
   imageLabel: string;
   imageUrl?: string;
 };
@@ -55,6 +57,24 @@ export const BOOTH_SAMPLE: CellScopeSample = {
   label: '뇌 오가노이드 연구 샘플',
   model: 'brain-organoid',
   disease: 'glioblastoma',
+  imageLabel: '교육용 공개 이미지 기반 샘플',
+};
+
+export const CANCER_SAMPLE: CellScopeSample = {
+  id: 'CANCER-001',
+  markerId: 'BDL-CANCER-001',
+  label: '암세포 연구 샘플',
+  model: 'cancer-cell',
+  disease: 'cancer',
+  imageLabel: '교육용 공개 이미지 기반 샘플',
+};
+
+export const NEURON_SAMPLE: CellScopeSample = {
+  id: 'NEURON-001',
+  markerId: 'BDL-NEURON-001',
+  label: '신경 세포 연구 샘플',
+  model: 'neuron',
+  disease: 'neuron',
   imageLabel: '교육용 공개 이미지 기반 샘플',
 };
 
@@ -158,10 +178,18 @@ export class CellScopeClient {
     }
   }
 
-  async detectSample(): Promise<CellScopeSample> {
+  async detectSample(themeId: ThemeId): Promise<CellScopeSample> {
     if (this.mode === 'demo') {
       await wait(650);
-      return BOOTH_SAMPLE;
+      if (themeId === 'cancer-cell') {
+  return CANCER_SAMPLE;
+}
+
+if (themeId === 'neuron') {
+  return NEURON_SAMPLE;
+}
+
+return BOOTH_SAMPLE;
     }
 
     const response = await fetchWithTimeout(
@@ -186,9 +214,24 @@ export class CellScopeClient {
       return {
         sampleId: sample.id,
         capturedAt: new Date().toISOString(),
-        morphologyScore: 84,
-        structureScore: 89,
-        distributionScore: 81,
+       morphologyScore:
+  sample.model === 'cancer-cell'
+    ? 76
+    : sample.model === 'neuron'
+      ? 91
+      : 84,
+structureScore:
+  sample.model === 'cancer-cell'
+    ? 82
+    : sample.model === 'neuron'
+      ? 86
+      : 89,
+distributionScore:
+  sample.model === 'cancer-cell'
+    ? 88
+    : sample.model === 'neuron'
+      ? 79
+      : 81,
         observation:
           '3차원 세포 집합의 형태와 분포 특징을 교육용 지표로 시각화했습니다.',
         nextStep:
