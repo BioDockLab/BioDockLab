@@ -1,4 +1,4 @@
-:root {
+﻿:root {
   font-family: Pretendard, "Noto Sans KR", Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   color: #10234a;
   background: #061839;
@@ -198,7 +198,7 @@ button { cursor: pointer; }
 .tip-card strong { display: block; margin-top: 4px; font-size: 11px; }
 .tip-card p { margin: 5px 0 0; font-size: 9px; line-height: 1.55; }
 .screen-actions { display: flex; align-items: center; gap: 12px; }
-.nav-buttons { display: flex; justify-content: flex-end; gap: 9px; white-space: nowrap; }
+.nav-buttons { display: flex; justify-content: flex-end; gap: 9px; flex-wrap: wrap; }
 .protein-viewer { position: relative; min-height: 530px; padding: 18px; overflow: hidden; color: white; background: radial-gradient(circle at 50% 50%, #102a61, #05152f 68%); }
 .viewer-header { position: relative; z-index: 2; display: flex; justify-content: space-between; }
 .viewer-header small, .viewer-header p, .viewer-header span { display: block; color: #a9bad8; }
@@ -324,6 +324,8 @@ button { cursor: pointer; }
   .sidebar { padding-left: 14px; padding-right: 14px; }
   .workspace__content { padding-left: 16px; padding-right: 16px; }
   .theme-card { grid-template-columns: 75px 1fr; }
+  .hero-panel { grid-template-columns: minmax(0, 1fr) 200px; }
+  .button--hero { min-width: 0; width: 100%; white-space: nowrap; }
   .theme-card .science-orb { transform: scale(.82); }
 }
 @media print {
@@ -938,9 +940,9 @@ button { cursor: pointer; }
 }
 
 /*
- * LG StanbyME 및 세로 폭이 제한적인 전시 환경.
- * 전체 페이지의 기존 최소폭 정책은 유지하면서
- * CellScope 내부 요소만 압축한다.
+ * LG StanbyME 諛??몃줈 ??씠 ?쒗븳?곸씤 ?꾩떆 ?섍꼍.
+ * ?꾩껜 ?섏씠吏??湲곗〈 理쒖냼???뺤콉? ?좎??섎㈃??
+ * CellScope ?대? ?붿냼留??뺤텞?쒕떎.
  */
 @media (max-height: 850px) and (min-width: 981px) {
   .cellscope-panel {
@@ -1010,3 +1012,10 @@ button { cursor: pointer; }
     width: 100%;
   }
 }
+
+
+
+
+
+
+
