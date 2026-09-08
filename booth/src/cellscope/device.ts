@@ -22,6 +22,14 @@ export type CellScopeSample = {
   imageUrl?: string;
 };
 
+export type CellScopeCapture = {
+  sampleId: string;
+  capturedAt: string;
+  imageUrl: string;
+  imageLabel?: string;
+  source?: string;
+};
+
 export type CellScopeAnalysis = {
   sampleId: string;
   capturedAt: string;
@@ -154,7 +162,9 @@ export class CellScopeClient {
       const response = await fetchWithTimeout(
         `${this.baseUrl}/api/cellscope/health`,
         {
-          headers: { Accept: 'application/json' },
+          headers: {
+            Accept: 'application/json',
+          },
         },
         2000,
       );
@@ -195,7 +205,9 @@ return BOOTH_SAMPLE;
     const response = await fetchWithTimeout(
       `${this.baseUrl}/api/cellscope/sample`,
       {
-        headers: { Accept: 'application/json' },
+        headers: {
+          Accept: 'application/json',
+        },
       },
       3000,
     );
@@ -205,6 +217,47 @@ return BOOTH_SAMPLE;
     }
 
     return response.json() as Promise<CellScopeSample>;
+  }
+
+  async capture(sample: CellScopeSample): Promise<CellScopeCapture> {
+    if (this.mode === 'demo') {
+      await wait(700);
+
+      return {
+        sampleId: sample.id,
+        capturedAt: new Date().toISOString(),
+        imageUrl: sample.imageUrl ?? '',
+        imageLabel: sample.imageLabel,
+        source: 'CellScope Demo Camera',
+      };
+    }
+
+    const response = await fetchWithTimeout(
+      `${this.baseUrl}/api/cellscope/capture`,
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Accept: 'application/json',
+        },
+        body: JSON.stringify({
+          sample,
+        }),
+      },
+      5000,
+    );
+
+    if (!response.ok) {
+      throw new Error(`이미지 촬영 실패 (HTTP ${response.status})`);
+    }
+
+    const capture = await response.json() as CellScopeCapture;
+
+    if (!capture.imageUrl) {
+      throw new Error('촬영 이미지 URL을 받지 못했습니다.');
+    }
+
+    return capture;
   }
 
   async analyze(sample: CellScopeSample): Promise<CellScopeAnalysis> {
@@ -236,6 +289,7 @@ distributionScore:
           '3차원 세포 집합의 형태와 분포 특징을 교육용 지표로 시각화했습니다.',
         nextStep:
           '관련 표적 단백질의 구조를 확인해 연구 질문을 이어갑니다.',
+        imageUrl: sample.imageUrl,
       };
     }
 
@@ -247,7 +301,9 @@ distributionScore:
           'Content-Type': 'application/json',
           Accept: 'application/json',
         },
-        body: JSON.stringify({ sample }),
+        body: JSON.stringify({
+          sample,
+        }),
       },
       7000,
     );
@@ -264,10 +320,16 @@ export const createCellScopeClient = () => {
   const params = new URLSearchParams(window.location.search);
 
   const mode: CellScopeMode =
-    params.get('cellscope') === 'device' ? 'device' : 'demo';
+    params.get('cellscope') === 'device'
+      ? 'device'
+      : 'demo';
 
   const baseUrl =
-    params.get('cellscopeApi') ?? 'http://127.0.0.1:8765';
+    params.get('cellscopeApi') ??
+    'http://127.0.0.1:8765';
 
-  return new CellScopeClient(mode, baseUrl);
+  return new CellScopeClient(
+    mode,
+    baseUrl,
+  );
 };

@@ -50,6 +50,7 @@ const defaultSession = (): ResearchSession => ({
   cellModelId: '3d-organoid',
   proteinId: 'egfr',
   selectedCandidateId: 'candidate-a',
+  candidateConfirmed: false,
   startedAt: new Date().toISOString(),
 });
 
@@ -64,6 +65,7 @@ function App() {
     }
   });
   const [printKind, setPrintKind] = useState<'report' | 'card'>('report');
+const [cellScopeComplete, setCellScopeComplete] = useState(false);
 
   useEffect(() => {
     localStorage.setItem('biodocklab-session', JSON.stringify(session));
@@ -75,6 +77,9 @@ function App() {
   const update = <K extends keyof ResearchSession>(key: K, value: ResearchSession[K]) => {
     setSession((current) => ({ ...current, [key]: value }));
   };
+
+const onCellScopeComplete = () => setCellScopeComplete(true);
+const onCellScopeReset = () => setCellScopeComplete(false);
 
   const reset = () => {
     localStorage.removeItem('biodocklab-session');
@@ -91,7 +96,15 @@ function App() {
   return (
     <>
       <Shell step={step} onStep={setStep} onReset={reset} sessionId={session.sessionId}>
-        {step === 1 && <HomeScreen session={session} updateTheme={(value) => update('themeId', value)} next={() => setStep(2)} />}
+        {step === 1 && (
+  <HomeScreen
+    session={session}
+    updateTheme={(value) => update('themeId', value)}
+    next={() => setStep(2)}
+    onCellScopeComplete={onCellScopeComplete}
+    onCellScopeReset={onCellScopeReset}
+  />
+)}
         {step === 2 && <OrganoidScreen session={session} updateDisease={(value) => update('diseaseId', value)} updateCellModel={(value) => update('cellModelId', value)} previous={() => setStep(1)} next={() => setStep(3)} />}
         {step === 3 && <ProteinScreen diseaseName={disease.title} previous={() => setStep(2)} next={() => setStep(4)} />}
         {step === 4 && <PredictionScreen session={session} diseaseName={disease.title} previous={() => setStep(3)} next={() => setStep(5)} />}
@@ -104,7 +117,19 @@ function App() {
   );
 }
 
-function HomeScreen({ session, updateTheme, next }: { session: ResearchSession; updateTheme: (id: ThemeId) => void; next: () => void }) {
+function HomeScreen({
+  session,
+  updateTheme,
+  next,
+  onCellScopeComplete,
+  onCellScopeReset,
+}: {
+  session: ResearchSession;
+  updateTheme: (id: ThemeId) => void;
+  next: () => void;
+  onCellScopeComplete: () => void;
+  onCellScopeReset: () => void;
+}) {
   return (
     <div className="screen screen--home">
       <section className="hero-panel">
@@ -126,7 +151,11 @@ function HomeScreen({ session, updateTheme, next }: { session: ResearchSession; 
         </div>
       </section>
 
-      <CellScopeExperience themeId={session.themeId} />
+      <CellScopeExperience
+  themeId={session.themeId}
+  onComplete={onCellScopeComplete}
+  onReset={onCellScopeReset}
+/>
 
       <div className="home-grid">
         <section className="panel theme-panel">

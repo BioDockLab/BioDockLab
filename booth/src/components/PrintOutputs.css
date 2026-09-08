@@ -1,0 +1,440 @@
+/* PrintOutputs.css
+   BioDockLab Research Trail + Limited Collector Card
+
+   Page orientation is injected dynamically by App.tsx:
+   - report: A4 portrait
+   - card:   A4 landscape
+*/
+
+@media print {
+  html,
+  body {
+    min-width: 0 !important;
+    min-height: 0 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    background: #fff !important;
+  }
+
+  #print-output {
+    display: block !important;
+    width: auto !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  #print-output,
+  #print-output * {
+    box-sizing: border-box;
+  }
+
+  body[data-print-kind='report']
+    .collector-card-print,
+  body[data-print-kind='card']
+    .a4-report {
+    display: none !important;
+  }
+
+  /* =========================
+     Research Trail — A4 portrait
+     ========================= */
+
+  body[data-print-kind='report']
+    .a4-report {
+    display: block !important;
+    width: 200mm !important;
+    height: 287mm !important;
+    min-height: 0 !important;
+    max-height: 287mm !important;
+    margin: 0 auto !important;
+    padding: 6mm 7mm !important;
+    overflow: hidden !important;
+    color: #10234a !important;
+    background: #fff !important;
+    break-inside: avoid !important;
+    page-break-inside: avoid !important;
+  }
+
+  body[data-print-kind='report']
+    .report-header {
+    margin: 0 0 3mm !important;
+  }
+
+  body[data-print-kind='report']
+    .report-header > span {
+    gap: 1mm !important;
+    padding: 2mm 3mm !important;
+    font-size: 6.5pt !important;
+  }
+
+  body[data-print-kind='report']
+    .a4-report > h1 {
+    margin: 3mm 0 0.8mm !important;
+    font-size: 20pt !important;
+    line-height: 1.05 !important;
+  }
+
+  body[data-print-kind='report']
+    .report-subtitle {
+    margin: 0 !important;
+    font-size: 7.5pt !important;
+  }
+
+  body[data-print-kind='report']
+    .report-grid {
+    grid-template-columns:
+      1.05fr 0.9fr 0.45fr !important;
+    gap: 3mm !important;
+    margin-top: 4mm !important;
+  }
+
+  body[data-print-kind='report']
+    .report-profile,
+  body[data-print-kind='report']
+    .report-score,
+  body[data-print-kind='report']
+    .report-flow,
+  body[data-print-kind='report']
+    .report-summary,
+  body[data-print-kind='report']
+    .report-metrics {
+    padding: 3.2mm !important;
+    break-inside: avoid !important;
+  }
+
+  body[data-print-kind='report']
+    .report-profile dl div {
+    margin-bottom: 2.3mm !important;
+  }
+
+  body[data-print-kind='report']
+    .report-profile dt {
+    font-size: 6.4pt !important;
+  }
+
+  body[data-print-kind='report']
+    .report-profile dd {
+    margin: 0.8mm 0 0 !important;
+    padding-bottom: 1.1mm !important;
+    font-size: 8.4pt !important;
+  }
+
+  body[data-print-kind='report']
+    .score-ring {
+    width: 34mm !important;
+    height: 34mm !important;
+    margin: 4mm auto 3mm !important;
+    border-width: 5.5mm !important;
+  }
+
+  body[data-print-kind='report']
+    .score-ring svg {
+    width: 6mm !important;
+    height: 6mm !important;
+  }
+
+  body[data-print-kind='report']
+    .score-ring strong {
+    font-size: 15pt !important;
+  }
+
+  body[data-print-kind='report']
+    .report-flow {
+    gap: 0.7mm !important;
+    align-content: center !important;
+  }
+
+  body[data-print-kind='report']
+    .report-flow svg {
+    width: 8mm !important;
+    height: 8mm !important;
+  }
+
+  body[data-print-kind='report']
+    .report-flow span {
+    font-size: 5.6pt !important;
+  }
+
+  body[data-print-kind='report']
+    .report-summary {
+    grid-column: 1 / 4 !important;
+    min-height: 0 !important;
+    padding: 3.5mm 4mm !important;
+  }
+
+  body[data-print-kind='report']
+    .report-summary h2 {
+    margin: 2.2mm 0 1mm !important;
+    font-size: 9pt !important;
+  }
+
+  body[data-print-kind='report']
+    .report-summary p,
+  body[data-print-kind='report']
+    .report-summary li {
+    margin-top: 0 !important;
+    margin-bottom: 0.8mm !important;
+    font-size: 7.1pt !important;
+    line-height: 1.38 !important;
+  }
+
+  body[data-print-kind='report']
+    .report-summary ul {
+    margin: 0 0 1mm !important;
+    padding-left: 5mm !important;
+  }
+
+  body[data-print-kind='report']
+    .report-metrics {
+    grid-column: 1 / 4 !important;
+    gap: 2mm !important;
+    padding: 2.5mm !important;
+  }
+
+  body[data-print-kind='report']
+    .report-metrics div {
+    gap: 0.8mm !important;
+    padding: 2.2mm !important;
+  }
+
+  body[data-print-kind='report']
+    .report-metrics strong {
+    font-size: 9.3pt !important;
+    text-align: center !important;
+  }
+
+  body[data-print-kind='report']
+    .report-metrics span {
+    font-size: 5.6pt !important;
+  }
+
+  body[data-print-kind='report']
+    .report-footer {
+    grid-template-columns:
+      1fr 1fr 18mm !important;
+    gap: 2mm !important;
+    margin-top: 3mm !important;
+  }
+
+  body[data-print-kind='report']
+    .report-footer > span {
+    gap: 1.2mm !important;
+    font-size: 6.4pt !important;
+  }
+
+  body[data-print-kind='report']
+    .report-footer .qr {
+    width: 17mm !important;
+    height: 17mm !important;
+  }
+
+  body[data-print-kind='report']
+    .report-disclaimer {
+    display: block !important;
+    margin-top: 2mm !important;
+    font-size: 5.9pt !important;
+    line-height: 1.35 !important;
+  }
+
+  /* =========================
+     Limited Collector Card — A4 landscape
+     ========================= */
+
+  body[data-print-kind='card']
+    #print-output {
+    width: 287mm !important;
+    height: 200mm !important;
+    overflow: hidden !important;
+  }
+
+  body[data-print-kind='card']
+    .collector-card-print {
+    display: flex !important;
+    width: 287mm !important;
+    height: 200mm !important;
+    min-height: 0 !important;
+    max-height: 200mm !important;
+    margin: 0 auto !important;
+    padding: 2.5mm 6mm !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 2mm !important;
+    overflow: hidden !important;
+    color: #0b2554 !important;
+    background: #fff !important;
+    break-inside: avoid !important;
+    page-break-inside: avoid !important;
+  }
+
+  .collector-print-heading {
+    display: flex !important;
+    width: 270mm !important;
+    min-height: 4.5mm !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    margin: 0 !important;
+    padding: 0 1mm 0.8mm !important;
+    border-bottom:
+      0.3mm solid #cbd7e8 !important;
+    flex: 0 0 auto !important;
+  }
+
+  .collector-print-heading strong {
+    font-size: 9.5pt !important;
+    line-height: 1 !important;
+    color: #102b5d !important;
+  }
+
+  .collector-print-heading span {
+    font-size: 5.8pt !important;
+    line-height: 1 !important;
+    color: #5d6e8b !important;
+  }
+
+  .collector-card-pair {
+    display: grid !important;
+    width: 255mm !important;
+    grid-template-columns:
+      repeat(2, 124mm) !important;
+    gap: 7mm !important;
+    align-items: center !important;
+    justify-content: center !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    flex: 0 0 auto !important;
+  }
+
+  .collector-card {
+    position: relative !important;
+    width: 124mm !important;
+    height: 184mm !important;
+    overflow: hidden !important;
+    border-radius: 4mm !important;
+    background-position:
+      center center !important;
+    background-repeat:
+      no-repeat !important;
+    background-size:
+      100% 100% !important;
+    box-shadow:
+      0 1mm 2.8mm
+      rgba(15, 35, 75, 0.14) !important;
+    -webkit-print-color-adjust:
+      exact !important;
+    print-color-adjust:
+      exact !important;
+  }
+
+  .collector-card__serial {
+    position: absolute !important;
+    left: 50% !important;
+    bottom: 6.2mm !important;
+    transform:
+      translateX(-50%) !important;
+    min-width: 47mm !important;
+    padding:
+      1.4mm 3.8mm !important;
+    border:
+      0.45mm solid #8fb6ff !important;
+    border-radius: 2.4mm !important;
+    color: #eaf3ff !important;
+    background:
+      rgba(3, 25, 65, 0.97) !important;
+    font-size: 11.2pt !important;
+    font-weight: 900 !important;
+    text-align: center !important;
+    letter-spacing:
+      0.04em !important;
+    z-index: 5 !important;
+  }
+
+  .collector-card--back {
+    color: #0d2d60 !important;
+  }
+
+  .collector-card__result {
+    position: absolute !important;
+    inset: 0 !important;
+  }
+
+  .result-field {
+    position: absolute !important;
+    left: 36.5% !important;
+    width: 54% !important;
+    color: #153d79 !important;
+    font-size: 10.2pt !important;
+    font-weight: 800 !important;
+    line-height: 1.1 !important;
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    z-index: 4 !important;
+  }
+
+  .result-field--name {
+    top: 27.1% !important;
+  }
+
+  .result-field--interest {
+    top: 32.6% !important;
+  }
+
+  .result-field--question {
+    top: 38% !important;
+  }
+
+  .result-field--model {
+    top: 43.4% !important;
+  }
+
+  .result-field--protein {
+    top: 48.9% !important;
+  }
+
+  .result-field--candidate {
+    top: 54.4% !important;
+  }
+
+  .result-field--time {
+    top: 60.4% !important;
+  }
+
+  .collector-card__serial--back {
+    bottom: 7mm !important;
+  }
+
+  .collector-card__qr {
+    position: absolute !important;
+    right: 7.5mm !important;
+    bottom: 6.7mm !important;
+    width: 23mm !important;
+    height: 23mm !important;
+    padding: 1.2mm !important;
+    border-radius: 1.4mm !important;
+    background: #fff !important;
+    z-index: 6 !important;
+  }
+
+  .collector-card__qr .qr {
+    width: 100% !important;
+    height: 100% !important;
+    padding: 0 !important;
+  }
+
+  .collector-print-footer {
+    display: flex !important;
+    width: 270mm !important;
+    min-height: 4mm !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    margin: 0 !important;
+    padding: 0.8mm 1mm 0 !important;
+    border-top:
+      0.3mm solid #d6dfec !important;
+    color: #60718c !important;
+    font-size: 5.5pt !important;
+    line-height: 1 !important;
+    flex: 0 0 auto !important;
+  }
+}

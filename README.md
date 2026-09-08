@@ -212,36 +212,123 @@ This allows BioDockLab to support bio-manufacturing and protein-production exper
 
 ## 4. Technology Stack
 
-### Frontend
+BioDockLab currently consists of two connected software directions:
 
-* TypeScript
+1. the **core Bio-AI research platform**, which manages experiment data, analysis, simulation, and reporting, and  
+2. the **Bio AI CellScope exhibition system**, which connects a Raspberry Pi-based edge device with a kiosk-style research experience.
+
+### Frontend / Exhibition UI
+
 * React
-* Recharts
+* TypeScript
+* Vite
+* Custom CSS
 * Lucide React
+* Browser `localStorage`
+* Browser Print API
+* Web Speech API (`SpeechSynthesis`) for Korean TTS
+* Kiosk-style interaction flow
+* Keyboard operator controls (`Enter` start / `Esc` reset)
 
-### Backend
+### CellScope Edge Device
+
+* Raspberry Pi 5
+* Raspberry Pi Camera Module 3
+* GPIO button interface
+* WS2812B LED ring
+* Local device health monitoring
+* Camera capture and image-preview workflow
+* Device-state synchronization between UI and hardware
+
+### CellScope Local API
+
+The booth frontend communicates with the CellScope device through a local REST-style API.
+
+```text
+GET  /api/cellscope/health
+GET  /api/cellscope/sample
+POST /api/cellscope/capture
+POST /api/cellscope/analyze
+POST /api/cellscope/led
+GET  /api/cellscope/image/latest
+```
+
+The current device state flow is:
+
+```text
+idle
+  ↓
+checking-device
+  ↓
+waiting-for-sample
+  ↓
+sample-detected
+  ↓
+capturing
+  ↓
+analyzing
+  ↓
+complete / error
+```
+
+### Backend / Research Platform
 
 * Python
 * FastAPI
 * JSON-based sample data
+* Python standard-library HTTP server for the CellScope mock-device environment
+* REST / JSON interface design
 
 ### AI / Simulation
 
 * Python
 * Rule-based experiment analysis
 * Risk classification
-* Feature engineering structure
+* Feature-engineering structure
 * Digital twin-style simulation
 * Organoid response simulation
 * CFPS yield estimation
+* Protein-structure exploration UI
+* Educational AI structure-prediction visualization
+* Educational candidate / docking-reference comparison
 
-### Documentation
+> The current booth implementation does **not** run a validated clinical AI model, AlphaFold inference pipeline, or real-time molecular docking engine. Protein-structure prediction and docking-related screens are educational research visualizations and reference comparisons.
 
-* Markdown
-* Research notes
-* Development notes
-* Report templates
+### Reporting / Research Trail
 
+* Session-based Research Trail
+* A4 research report layout
+* Researcher-card output
+* Browser print / PDF workflow
+* QR-style result presentation
+* Markdown documentation
+
+### Development / Collaboration
+
+* Git
+* GitHub
+* Feature-branch workflow
+* Pull Requests
+* Build verification with TypeScript and Vite
+* Mock-device integration testing
+
+### Exhibition Architecture
+
+```text
+Camera Module 3
+      ↓
+Raspberry Pi 5
+      ↓
+CellScope Local API
+      ↓
+REST / JSON
+      ↓
+React + TypeScript Kiosk UI
+      ↓
+Bio AI Research Experience
+      ↓
+TTS + Visualization + Research Trail
+```
 ---
 
 ## 5. Project Structure
@@ -252,6 +339,7 @@ BioDockLab/
 ├── ai/                   # Experiment analysis and risk classification
 ├── backend/              # FastAPI backend prototype
 ├── bio/                  # Bio-domain logic
+├── booth/                # Bio AI CellScope exhibition kiosk and mock device
 ├── data/
 │   └── sample/           # Sample experiment data
 ├── database/             # Database-related structure
@@ -285,6 +373,14 @@ BioDockLab is currently in the **MVP / prototype stage**.
 * [x] CFPS yield simulator
 * [x] Dashboard prototype
 * [x] Development documentation
+* [x] Bio AI CellScope kiosk UI
+* [x] CellScope demo / device adapter
+* [x] Raspberry Pi local API contract
+* [x] Device health-check and recovery flow
+* [x] Camera capture / preview integration
+* [x] GPIO button and WS2812B LED interface contract
+* [x] Kiosk operator controls and exhibition flow
+* [x] Browser-based Korean TTS foundation
 * [ ] Complete frontend and backend integration
 * [ ] Automated research report generation
 * [ ] Real biological validation
