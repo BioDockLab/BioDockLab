@@ -121,8 +121,15 @@ button { cursor: pointer; }
 .science-orb--neuron { background: radial-gradient(circle, #e9f8ff 0 15%, #6fa7ff 16% 26%, transparent 28%), repeating-conic-gradient(from 12deg, #6fa7ff 0 4deg, transparent 5deg 45deg), radial-gradient(circle, #cce8ff, #6c7fea 55%, transparent 56%); box-shadow: none; }
 .science-orb--neuron > span { width: 8%; height: 8%; background: #6fa7ff; transform: translate(-50%, -50%) rotate(var(--angle)) translateX(calc(var(--distance) * 1.3)); }
 .science-orb--organoid { filter: saturate(1.15); }
-.qr { display: grid; grid-template-columns: repeat(17, 1fr); width: 100px; height: 100px; padding: 7px; border: 1px solid #d8e2f0; border-radius: 8px; background: white; }
+.qr { display: flex; align-items: center; justify-content: center; width: 170px; height: 170px; padding: 7px; border: 1px solid #d8e2f0; border-radius: 8px; background: white; }
 .qr span { background: white; }
+
+.qr > svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
 .qr span.on {
   background: #071733;
   -webkit-print-color-adjust: exact;
@@ -349,6 +356,10 @@ button { cursor: pointer; }
   .report-footer > span { display: flex; align-items: center; gap: 2mm; font-size: 8pt; font-weight: 800; }
   .report-footer svg { width: 7mm; }
   .report-footer .qr { width: 25mm; height: 25mm; padding: 1mm; }
+  .report-footer .qr > svg {
+  width: 100%;
+  height: 100%;
+}
   .verified { color: #5f287a; border: 1mm double #5f287a; border-radius: 50%; padding: 4mm; width: fit-content; transform: rotate(-8deg); }
   .report-disclaimer { display: block; margin-top: 6mm; color: #566b8a; font-size: 7pt; }
   .research-card-print { width: 210mm; min-height: 297mm; grid-template-columns: 86mm 86mm; grid-auto-rows: 54mm; gap: 15mm 8mm; align-content: start; justify-content: center; padding-top: 25mm; }
