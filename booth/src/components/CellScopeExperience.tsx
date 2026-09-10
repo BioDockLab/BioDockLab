@@ -1,4 +1,6 @@
-﻿import {
+﻿import type { ThemeId } from '../types';
+
+import {
   Camera,
   CheckCircle2,
   Cpu,
@@ -31,11 +33,13 @@ const statusText: Record<CellScopeStatus, string> = {
 };
 
 type CellScopeExperienceProps = {
+  themeId: ThemeId;
   onComplete?: (analysis: CellScopeAnalysis) => void;
   onReset?: () => void;
 };
 
 export function CellScopeExperience({
+  themeId,
   onComplete,
   onReset,
 }: CellScopeExperienceProps) {
@@ -86,7 +90,7 @@ export function CellScopeExperience({
       setStatus('waiting-for-sample');
 
       const detected =
-        await client.detectSample();
+        await client.detectSample(themeId);
 
       setSample(detected);
       setImageFailed(false);
