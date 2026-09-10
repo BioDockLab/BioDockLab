@@ -1,4 +1,4 @@
-import type { CSSProperties, ReactNode } from 'react';
+﻿import type { CSSProperties, ReactNode } from 'react';
 import { QRCodeSVG } from 'qrcode.react';
 
 export function ScienceOrb({ type = 'brain', size = 120 }: { type?: 'brain' | 'cells' | 'neuron' | 'organoid'; size?: number }) {
@@ -22,7 +22,7 @@ export function ScienceOrb({ type = 'brain', size = 120 }: { type?: 'brain' | 'c
 
 export function ProteinArt({ uncertain = false }: { uncertain?: boolean }) {
   return (
-    <svg className="protein-art" viewBox="0 0 600 390" role="img" aria-label="교육용 단백질 구조 일러스트">
+    <svg className="protein-art" viewBox="0 0 600 390" role="img" aria-label="援먯쑁???⑤갚吏?援ъ“ ?쇰윭?ㅽ듃">
       <defs>
         <linearGradient id={`protein-${uncertain ? 'uncertain' : 'base'}`} x1="0" y1="0" x2="1" y2="1">
           <stop offset="0" stopColor="#8b5cf6" />
@@ -57,11 +57,13 @@ export function ChemicalSketch({ variant }: { variant: 1 | 2 | 3 }) {
 }
 
 export function QrPlaceholder() {
-  const qrUrl = `http://${window.location.hostname}:5173/?cellscope=demo`;
+  const qrUrl = 'http://192.168.0.117:5173/?cellscope=demo';
 
   return (
-    <div className="qr" aria-label="모바일 연동 QR 코드">
+    <div className="qr" aria-label="紐⑤컮???곕룞 QR 肄붾뱶">
       <QRCodeSVG value={qrUrl} size={170} />
     </div>
   );
 }
+
+
