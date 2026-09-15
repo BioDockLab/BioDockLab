@@ -3,23 +3,41 @@ export type DeepDiveProteinId =
   | 'mers-mpro'
   | 'h1n1-neuraminidase';
 
+export type LigandSelection =
+  | {
+      type: 'chain';
+      chain: string;
+    }
+  | {
+      type: 'residue';
+      residueName: string;
+    };
+
 export type DockingTarget = {
   proteinId: DeepDiveProteinId;
   disease: string;
   virus: string;
   proteinName: string;
-  pdbId: '6LU7' | '4YLU' | '3TI6';
+
+  pdbId:
+    | '6LU7'
+    | '4YLU'
+    | '3TI6';
+
   structurePath: string;
 
   referenceLigand: {
     name: string;
-    residueName: string;
+    selection: LigandSelection;
   };
 
   sourceUrl: string;
 
   docking: {
-    status: 'pending' | 'verified';
+    status:
+      | 'pending'
+      | 'verified';
+
     vinaVersion?: string;
     computedAt?: string;
   };
@@ -35,13 +53,20 @@ export const dockingTargets: Record<
     virus: 'SARS-CoV-2',
     proteinName: 'Main protease (Mpro)',
     pdbId: '6LU7',
-    structurePath: '/structures/6LU7.pdb',
+    structurePath:
+      '/structures/6LU7.pdb',
+
     referenceLigand: {
       name: 'N3',
-      residueName: 'N3',
+      selection: {
+        type: 'chain',
+        chain: 'C',
+      },
     },
+
     sourceUrl:
       'https://www.rcsb.org/structure/6LU7',
+
     docking: {
       status: 'pending',
     },
@@ -53,31 +78,54 @@ export const dockingTargets: Record<
     virus: 'MERS-CoV',
     proteinName: 'Main protease (Mpro)',
     pdbId: '4YLU',
-    structurePath: '/structures/4YLU.pdb',
+    structurePath:
+      '/structures/4YLU.pdb',
+
     referenceLigand: {
-      name: 'Non-covalent inhibitor',
-      residueName: 'R30',
+      name: 'R30 · non-covalent inhibitor',
+      selection: {
+        type: 'residue',
+        residueName: 'R30',
+      },
     },
+
     sourceUrl:
       'https://www.rcsb.org/structure/4YLU',
+
     docking: {
       status: 'pending',
     },
   },
 
   'h1n1-neuraminidase': {
-    proteinId: 'h1n1-neuraminidase',
-    disease: '2009 H1N1 influenza',
-    virus: 'Influenza A(H1N1)',
-    proteinName: 'Neuraminidase',
+    proteinId:
+      'h1n1-neuraminidase',
+
+    disease:
+      '2009 H1N1 influenza',
+
+    virus:
+      'Influenza A(H1N1)',
+
+    proteinName:
+      'Neuraminidase',
+
     pdbId: '3TI6',
-    structurePath: '/structures/3TI6.pdb',
+
+    structurePath:
+      '/structures/3TI6.pdb',
+
     referenceLigand: {
       name: 'Oseltamivir',
-      residueName: 'G39',
+      selection: {
+        type: 'residue',
+        residueName: 'G39',
+      },
     },
+
     sourceUrl:
       'https://www.rcsb.org/structure/3TI6',
+
     docking: {
       status: 'pending',
     },

@@ -3,12 +3,34 @@ import {
   useRef,
   useState,
 } from 'react';
-import * as $3Dmol from '3dmol/build/3Dmol.js';
-import type { DockingTarget } from '../data/dockingTargets';
+
+import * as $3Dmol from
+  '3dmol/build/3Dmol.js';
+
+import type {
+  DockingTarget,
+} from '../data/dockingTargets';
 
 type Props = {
   target: DockingTarget;
   compact?: boolean;
+};
+
+const ligandSelectionFor = (
+  target: DockingTarget,
+) => {
+  const selection =
+    target.referenceLigand.selection;
+
+  if (selection.type === 'chain') {
+    return {
+      chain: selection.chain,
+    };
+  }
+
+  return {
+    resn: selection.residueName,
+  };
 };
 
 export function Protein3DViewer({
@@ -16,16 +38,18 @@ export function Protein3DViewer({
   compact = false,
 }: Props) {
   const containerRef =
-    useRef<HTMLDivElement | null>(null);
+    useRef<HTMLDivElement | null>(
+      null,
+    );
 
   const viewerRef =
     useRef<any>(null);
 
-  const [failed, setFailed] =
-    useState(false);
-
   const [loading, setLoading] =
     useState(true);
+
+  const [failed, setFailed] =
+    useState(false);
 
   useEffect(() => {
     let disposed = false;
@@ -39,12 +63,14 @@ export function Protein3DViewer({
       setFailed(false);
 
       try {
-        const response = await fetch(
-          target.structurePath,
-          {
-            cache: 'force-cache',
-          },
-        );
+        const response =
+          await fetch(
+            target.structurePath,
+            {
+              cache:
+                'force-cache',
+            },
+          );
 
         if (!response.ok) {
           throw new Error(
@@ -62,84 +88,102 @@ export function Protein3DViewer({
           return;
         }
 
-        containerRef.current.innerHTML =
-          '';
+        containerRef.current
+          .innerHTML = '';
 
         const viewer =
           $3Dmol.createViewer(
             containerRef.current,
             {
-              backgroundColor: '#07111f',
+              backgroundColor:
+                '#07111f',
+
               antialias: true,
             },
           );
 
-        viewerRef.current = viewer;
+        viewerRef.current =
+          viewer;
 
         viewer.addModel(
           pdb,
           'pdb',
         );
 
+        /*
+         * Base protein representation.
+         *
+         * Protein remains cartoon-style.
+         * Reference ligand is overlaid below.
+         */
         viewer.setStyle(
-          {
-            hetflag: false,
-          },
+          {},
           {
             cartoon: {
               color: 'spectrum',
-              opacity: 0.95,
+              opacity: 0.92,
             },
           },
         );
 
+        const ligandSelection =
+          ligandSelectionFor(
+            target,
+          );
+
+        /*
+         * Experimental reference ligand.
+         */
         viewer.setStyle(
-          {
-            resn:
-              target.referenceLigand
-                .residueName,
-          },
+          ligandSelection,
           {
             stick: {
-              radius: 0.28,
+              radius: 0.25,
               colorscheme:
                 'greenCarbon',
             },
+
             sphere: {
-              scale: 0.28,
+              scale: 0.22,
               colorscheme:
                 'greenCarbon',
             },
           },
         );
 
+        /*
+         * Highlight residues within
+         * 4.5 Å of the reference ligand.
+         */
         viewer.addStyle(
           {
             byres: true,
+
             within: {
               distance: 4.5,
-              sel: {
-                resn:
-                  target
-                    .referenceLigand
-                    .residueName,
-              },
+
+              sel:
+                ligandSelection,
             },
           },
           {
             stick: {
-              radius: 0.12,
+              radius: 0.11,
+
               colorscheme:
                 'cyanCarbon',
             },
           },
         );
 
-        viewer.zoomTo({
-          resn:
-            target.referenceLigand
-              .residueName,
-        });
+        /*
+         * Focus initial camera on
+         * the experimentally observed
+         * ligand-binding region.
+         */
+        viewer.zoomTo(
+          ligandSelection,
+        );
 
         viewer.zoom(0.82);
 
@@ -165,8 +209,11 @@ export function Protein3DViewer({
     void load();
 
     const onResize = () => {
-      viewerRef.current?.resize?.();
-      viewerRef.current?.render?.();
+      viewerRef.current
+        ?.resize?.();
+
+      viewerRef.current
+        ?.render?.();
     };
 
     window.addEventListener(
@@ -183,9 +230,10 @@ export function Protein3DViewer({
       );
 
       try {
-        viewerRef.current?.clear?.();
+        viewerRef.current
+          ?.clear?.();
       } catch {
-        // kiosk shutdown cleanup
+        // kiosk cleanup only
       }
 
       viewerRef.current = null;
@@ -194,56 +242,80 @@ export function Protein3DViewer({
 
   return (
     <div
-      className={`protein-3d ${
-        compact
-          ? 'protein-3d--compact'
-          : ''
-      }`}
+      className={
+        `protein-3d ${
+          compact
+            ? 'protein-3d--compact'
+            : ''
+        }`
+      }
     >
       <div
         ref={containerRef}
-        className="protein-3d__canvas"
+        className=
+          "protein-3d__canvas"
       />
 
       {loading && (
-        <div className="protein-3d__overlay">
+        <div className=
+          "protein-3d__overlay"
+        >
           <strong>
-            실제 PDB 구조 불러오는 중
+            실제 PDB 구조
+            불러오는 중
           </strong>
+
           <span>
-            {target.pdbId} · local file
+            {target.pdbId}
+            {' · '}
+            local structure
           </span>
         </div>
       )}
 
       {failed && (
-        <div className="protein-3d__fallback">
+        <div className=
+          "protein-3d__fallback"
+        >
           <strong>
-            3D 구조 표시를 사용할 수 없습니다
+            WebGL 3D 표시를
+            사용할 수 없습니다
           </strong>
-          <span>
-            {target.pdbId} 로컬 구조는
-            보존되어 있습니다.
-          </span>
-        </div>
-      )}
 
-      {!loading && !failed && (
-        <div className="protein-3d__legend">
           <span>
             PDB {target.pdbId}
-          </span>
-
-          <span>
-            Ligand ·{' '}
-            {target.referenceLigand.name}
-          </span>
-
-          <span>
-            drag 회전 · pinch/scroll 확대
+            {' '}
+            로컬 데이터는
+            정상 보존되어 있습니다.
           </span>
         </div>
       )}
+
+      {!loading &&
+        !failed && (
+          <div className=
+            "protein-3d__legend"
+          >
+            <span>
+              PDB {target.pdbId}
+            </span>
+
+            <span>
+              Reference ·{' '}
+              {
+                target
+                  .referenceLigand
+                  .name
+              }
+            </span>
+
+            <span>
+              drag 회전
+              {' · '}
+              pinch/scroll 확대
+            </span>
+          </div>
+        )}
     </div>
   );
 }
