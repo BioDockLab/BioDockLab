@@ -19,6 +19,7 @@ type Screen =
 const diseaseCards = [
   {
     label: 'COVID-19',
+    proteinId: 'sars2-mpro' as DeepDiveProteinId,
     protein: 'SARS‑CoV‑2 Mpro',
     sub: 'Main protease (Mpro)',
     pdb: '6LU7',
@@ -27,6 +28,7 @@ const diseaseCards = [
   },
   {
     label: 'MERS',
+    proteinId: 'mers-mpro' as DeepDiveProteinId,
     protein: 'MERS‑CoV Mpro',
     sub: 'Main protease (Mpro)',
     pdb: '4YLU',
