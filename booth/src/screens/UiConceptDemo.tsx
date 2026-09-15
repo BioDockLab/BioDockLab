@@ -1,7 +1,11 @@
 import { useState } from 'react';
 import { KioskShell } from '../components/ui/KioskShell';
 import { Protein3DViewer } from '../components/Protein3DViewer';
-import { dockingTargetByProteinId } from '../data/dockingTargets';
+import {
+  dockingTargetByProteinId,
+  type DeepDiveProteinId,
+} from '../data/dockingTargets';
+import { dockingResultByProteinId } from '../data/dockingResults';
 
 type Screen =
   | 'home'
@@ -31,6 +35,7 @@ const diseaseCards = [
   },
   {
     label: 'H1N1',
+    proteinId: 'h1n1-neuraminidase' as DeepDiveProteinId,
     protein: 'H1N1 Neuraminidase',
     sub: 'Neuraminidase (NA)',
     pdb: '3TI6',
@@ -38,30 +43,6 @@ const diseaseCards = [
     note: '바이러스가 세포 밖으로 빠져나갈 때 필요한 단백질을 이해하고 감염 확산 억제를 탐색합니다.',
   },
 ] as const;
-
-type CandidateCard = {
-  name: string;
-  code: string;
-  selected: boolean;
-};
-
-const candidateCards: CandidateCard[] = [
-  {
-    name: 'COVID Candidate A',
-    code: 'COV-A-001',
-    selected: false,
-  },
-  {
-    name: 'COVID Candidate B',
-    code: 'COV-B-002',
-    selected: true,
-  },
-  {
-    name: 'COVID Candidate C',
-    code: 'COV-C-003',
-    selected: false,
-  },
-];
 
 function HomeScreen({ goVirus }: { goVirus: () => void }) {
   return (
@@ -132,7 +113,11 @@ function HomeScreen({ goVirus }: { goVirus: () => void }) {
   );
 }
 
-function AtlasScreen({ next }: { next: () => void }) {
+function AtlasScreen({
+  selectProtein,
+}: {
+  selectProtein: (proteinId: DeepDiveProteinId) => void;
+}) {
   return (
     <div className="bd-main">
       <div className="bd-card pad-lg">
@@ -151,7 +136,7 @@ function AtlasScreen({ next }: { next: () => void }) {
               <button
                 key={card.label}
                 className="bd-disease-card"
-                onClick={next}
+                onClick={() => selectProtein(card.proteinId)}
                 style={{ textAlign: 'left', cursor: 'pointer' }}
               >
                 <div className={`virus ${card.color}`} />
@@ -230,8 +215,14 @@ function AtlasScreen({ next }: { next: () => void }) {
   );
 }
 
-function StructureScreen({ next }: { next: () => void }) {
-  const dockingTarget = dockingTargetByProteinId('sars2-mpro');
+function StructureScreen({
+  proteinId,
+  next,
+}: {
+  proteinId: DeepDiveProteinId;
+  next: () => void;
+}) {
+  const dockingTarget = dockingTargetByProteinId(proteinId);
 
   return (
     <div className="bd-main">
@@ -405,7 +396,18 @@ function BindingScreen({ next }: { next: () => void }) {
   );
 }
 
-function CompareScreen({ next }: { next: () => void }) {
+function CompareScreen({
+  proteinId,
+  next,
+}: {
+  proteinId: DeepDiveProteinId;
+  next: () => void;
+}) {
+  const dockingTarget = dockingTargetByProteinId(proteinId);
+  const dockingResult = dockingResultByProteinId(proteinId);
+
+  const candidates = dockingResult?.candidates ?? [];
+
   return (
     <div className="bd-main">
       <div className="bd-card pad-lg">
@@ -418,10 +420,10 @@ function CompareScreen({ next }: { next: () => void }) {
       <div className="bd-grid compare">
         <div className="bd-card pad-lg">
           <div className="bd-candidates">
-            {candidateCards.map((card) => (
+            {candidates.map((card, index) => (
               <div
                 key={card.code}
-                className={['bd-candidate', card.selected ? 'selected' : ''].join(' ')}
+                className={['bd-candidate', index === 1 ? 'selected' : ''].join(' ')}
               >
                 <div className="bd-candidate-top">
                   <div>
@@ -429,27 +431,41 @@ function CompareScreen({ next }: { next: () => void }) {
                     <h3 style={{ margin: '10px 0 4px' }}>{card.name}</h3>
                     <div>{card.code}</div>
                   </div>
-                  {card.selected && <div className="bd-pill">다음 연구 방향 선택</div>}
+                  {index === 1 && <div className="bd-pill">다음 연구 방향 선택</div>}
                 </div>
 
                 <div className="bd-candidate-molecule" />
 
                 <div className="bd-mini-item">
                   <strong>Vina 점수</strong>
-                  <span>검증 대기</span>
+                  <span>
+                    {card.vinaScore == null
+                      ? '검증 대기'
+                      : `${card.vinaScore.toFixed(2)} kcal/mol`}
+                  </span>
                 </div>
 
                 <div className="bd-checks" style={{ marginTop: 0 }}>
-                  <div className="bd-check"><i>✓</i><span>수소 결합</span></div>
-                  <div className="bd-check"><i>✓</i><span>소수성 상호작용</span></div>
-                  <div className="bd-check"><i>✓</i><span>정전기적 상호작용</span></div>
+                  {card.interactions.length > 0 ? (
+                    card.interactions.map((interaction) => (
+                      <div className="bd-check" key={interaction}>
+                        <i>✓</i>
+                        <span>{interaction}</span>
+                      </div>
+                    ))
+                  ) : (
+                    <div className="bd-check">
+                      <i>·</i>
+                      <span>{card.note}</span>
+                    </div>
+                  )}
                 </div>
 
                 <button
-                  className={card.selected ? 'bd-btn secondary' : 'bd-btn ghost'}
+                  className={index === 1 ? 'bd-btn secondary' : 'bd-btn ghost'}
                   onClick={next}
                 >
-                  {card.selected ? '이 후보물질을 선택하기' : '이 후보물질 보기'}
+                  {index === 1 ? '이 후보물질을 선택하기' : '이 후보물질 보기'}
                 </button>
               </div>
             ))}
@@ -462,7 +478,7 @@ function CompareScreen({ next }: { next: () => void }) {
             <div className="bd-thumbnail" />
             <div className="bd-mini-list" style={{ marginTop: 12 }}>
               <div className="bd-mini-item"><strong>단백질</strong><span>SARS‑CoV‑2 Mpro (6LU7)</span></div>
-              <div className="bd-mini-item"><strong>기준 리간드</strong><span>N3</span></div>
+              <div className="bd-mini-item"><strong>기준 리간드</strong><span>{dockingTarget?.referenceLigand.name ?? '-'}</span></div>
             </div>
           </div>
 
@@ -647,6 +663,8 @@ function DoneScreen({ home }: { home: () => void }) {
 
 export default function UiConceptDemo() {
   const [screen, setScreen] = useState<Screen>('home');
+  const [selectedProteinId, setSelectedProteinId] =
+    useState<DeepDiveProteinId>('sars2-mpro');
 
   const activeStep =
     screen === 'atlas'
@@ -684,10 +702,32 @@ export default function UiConceptDemo() {
       </div>
 
       {screen === 'home' && <HomeScreen goVirus={() => setScreen('atlas')} />}
-      {screen === 'atlas' && <AtlasScreen next={() => setScreen('structure')} />}
-      {screen === 'structure' && <StructureScreen next={() => setScreen('binding')} />}
-      {screen === 'binding' && <BindingScreen next={() => setScreen('compare')} />}
-      {screen === 'compare' && <CompareScreen next={() => setScreen('report')} />}
+      {screen === 'atlas' && (
+        <AtlasScreen
+          selectProtein={(proteinId) => {
+            setSelectedProteinId(proteinId);
+            setScreen('structure');
+          }}
+        />
+      )}
+
+      {screen === 'structure' && (
+        <StructureScreen
+          proteinId={selectedProteinId}
+          next={() => setScreen('binding')}
+        />
+      )}
+
+      {screen === 'binding' && (
+        <BindingScreen next={() => setScreen('compare')} />
+      )}
+
+      {screen === 'compare' && (
+        <CompareScreen
+          proteinId={selectedProteinId}
+          next={() => setScreen('report')}
+        />
+      )}
       {screen === 'report' && <ReportScreen next={() => setScreen('done')} />}
       {screen === 'done' && <DoneScreen home={() => setScreen('home')} />}
     </KioskShell>
