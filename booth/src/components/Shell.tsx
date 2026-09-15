@@ -63,7 +63,7 @@ const cellSteps: KioskStep[] = [
 const viralSteps: KioskStep[] = [
   { label: '단백질 선택', description: '감염병 아틀라스', targetStep: 1, icon: Atom },
   { label: '구조 확인', description: 'RCSB PDB', targetStep: 3, icon: Microscope },
-  { label: '결합 탐색', description: 'Docking Cache', targetStep: 4, icon: Sparkles },
+  { label: '결합 탐색', description: '사전 계산 결과', targetStep: 4, icon: Sparkles },
   { label: '후보 비교', description: 'Research Choice', targetStep: 5, icon: Brain },
   { label: '결과 전달', description: 'Report · QR', targetStep: 6, icon: FileText },
 ];

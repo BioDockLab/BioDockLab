@@ -60,8 +60,23 @@ const defaultSession = (): ResearchSession => ({
 });
 
 function App() {
-  const [step, setStep] = useState(1);
-  const [track, setTrack] = useState<ExperienceTrack>('viral');
+  const [step, setStep] = useState(() => {
+    try {
+      const cached = localStorage.getItem('biodocklab-kiosk-state');
+      return cached ? JSON.parse(cached).step ?? 1 : 1;
+    } catch {
+      return 1;
+    }
+  });
+
+  const [track, setTrack] = useState<ExperienceTrack>(() => {
+    try {
+      const cached = localStorage.getItem('biodocklab-kiosk-state');
+      return cached ? JSON.parse(cached).track ?? 'viral' : 'viral';
+    } catch {
+      return 'viral';
+    }
+  });
   const [showProteinAtlas, setShowProteinAtlas] = useState(false);
   const [session, setSession] = useState<ResearchSession>(() => {
     try {
@@ -78,6 +93,13 @@ const [cellScopeComplete, setCellScopeComplete] = useState(false);
     localStorage.setItem('biodocklab-session', JSON.stringify(session));
   }, [session]);
 
+  useEffect(() => {
+    localStorage.setItem(
+      'biodocklab-kiosk-state',
+      JSON.stringify({ step, track }),
+    );
+  }, [step, track]);
+
   const disease = useMemo(() => diseases.find((item) => item.id === session.diseaseId)!, [session.diseaseId]);
   const candidate = useMemo(() => candidates.find((item) => item.id === session.selectedCandidateId)!, [session.selectedCandidateId]);
 
@@ -90,6 +112,7 @@ const onCellScopeReset = () => setCellScopeComplete(false);
 
   const reset = () => {
     localStorage.removeItem('biodocklab-session');
+    localStorage.removeItem('biodocklab-kiosk-state');
     setSession(defaultSession());
     setStep(1);
     setShowProteinAtlas(false);
@@ -300,11 +323,12 @@ function ProteinScreen({ proteinId, diseaseName, previous, next }: { proteinId: 
 function PredictionScreen({ session, diseaseName, previous, next }: { session: ResearchSession; diseaseName: string; previous: () => void; next: () => void }) {
   const aiAnalysis = aiAnalysisByDisease[session.diseaseId];
   const atlasProtein = proteinById(session.proteinId);
+  const dockingTarget = dockingTargetByProteinId(session.proteinId);
   const proteinTitle = atlasProtein?.nameKo ?? 'EGFR';
   return (
     <div className="screen screen--prediction">
       <div className="prediction-grid">
-        <section className="panel protein-viewer protein-viewer--compact"><div className="viewer-header"><div><small>선택 단백질</small><h1>{proteinTitle}</h1><span>{atlasProtein ? `PDB ID: ${atlasProtein.pdbId}` : 'UniProt ID: P00533'}</span></div></div><ProteinArt /><div className="confidence-legend"><span>{atlasProtein ? '공개 실험 구조' : '낮은 신뢰도'}</span><i /><span>{atlasProtein ? '출처 검증 완료' : '높은 신뢰도'}</span></div></section>
+        <section className="panel protein-viewer protein-viewer--compact"><div className="viewer-header"><div><small>선택 단백질</small><h1>{proteinTitle}</h1><span>{atlasProtein ? `PDB ID: ${atlasProtein.pdbId}` : 'UniProt ID: P00533'}</span></div></div>{dockingTarget ? <Protein3DViewer target={dockingTarget} compact /> : <ProteinArt />}<div className="confidence-legend"><span>{atlasProtein ? '공개 실험 구조' : '낮은 신뢰도'}</span><i /><span>{atlasProtein ? '출처 검증 완료' : '높은 신뢰도'}</span></div></section>
         <section className="panel structure-card"><header><h2>실험 구조</h2><span>{atlasProtein ? `PDB: ${atlasProtein.pdbId}` : 'PDB: 예시 구조'}</span></header><ProteinArt /><Progress label={atlasProtein ? '출처 검증 단계' : '구조 커버리지'} value={atlasProtein ? 100 : 86} /><dl><div><dt>기반</dt><dd>RCSB 실험 구조</dd></div><div><dt>해석</dt><dd>관찰된 구조 범위 중심</dd></div></dl><p>실험 조건과 구조 해석 범위에 따라 확인되지 않는 영역이 있을 수 있습니다.</p></section>
         <section className="panel structure-card structure-card--wide"><header><h2>{atlasProtein ? 'AI 구조 보완 판단' : 'AI 예측 구조'} <small>{atlasProtein ? '(필요 시에만)' : '(AlphaFold 개념 체험)'}</small></h2><span className="confidence-badge"><strong>{atlasProtein ? 'PDB' : '92'}</strong>{atlasProtein ? '우선' : '/100'}</span></header><ProteinArt uncertain /><Progress label={atlasProtein ? '실험 구조 우선 적용' : '예측 구조 커버리지'} value={atlasProtein ? 100 : 98} /><dl><div><dt>원칙</dt><dd>{atlasProtein ? '실험 구조 우선' : 'AI 기반 구조 예측'}</dd></div><div><dt>AlphaFold</dt><dd>{atlasProtein ? '결손 영역에만 검토' : '영역별 신뢰도 확인'}</dd></div></dl><p>{atlasProtein ? 'PDB 구조가 있으므로 예측을 새로 수행한 것처럼 표시하지 않습니다.' : '예측 구조는 실험 구조를 대체하는 정답이 아닙니다.'}</p></section>
       </div>
