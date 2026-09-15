@@ -292,7 +292,7 @@ function readRecentFamilies() {
 function rememberFamilies(families: string[]) {
   try {
     const previous = readRecentFamilies();
-    const merged = [...families, ...previous.filter((family) => !families.includes(family))].slice(0, 24);
+    const merged = [...families, ...previous.filter((family) => !families.includes(family))].slice(0, 16);
     window.localStorage.setItem(RECENT_FAMILY_KEY, JSON.stringify(merged));
   } catch {
     // no-op
@@ -339,7 +339,7 @@ function makeQuizRounds(): QuizRound[] {
         !usedFamilies.has(question.family),
     );
 
-    // V9: exhibition mode. Direct-recall EASY questions first; NORMAL is fallback only.
+    // V7: slightly easier than V6. EASY first, then NORMAL. HARD is only emergency fallback.
     const ranked = [
       ...shuffled(categoryPool.filter((q) => q.difficulty === 'easy' && !recent.has(q.id) && !recentFamilies.has(q.family))),
       ...shuffled(categoryPool.filter((q) => q.difficulty === 'normal' && !recent.has(q.id) && !recentFamilies.has(q.family))),
@@ -370,9 +370,9 @@ function makeQuizRounds(): QuizRound[] {
   };
 
   choose('booth', 2);
-  choose('infection', 5);
+  choose('infection', 4);
   choose('structure', 2);
-  choose('research', 1);
+  choose('research', 2);
 
   if (selected.length < 10) {
     for (const question of shuffled(megaQuestionPool)) {
@@ -1174,9 +1174,9 @@ export default function LastHopeGameV7() {
                   ZVX-26과 좀비 탈출은 몰입을 위한 가상 스토리이며, 이 부스 설명 자체도 랜덤 문제에 출제될 수 있습니다.
                 </p>
                 <div className="lh4-booth-grid">
-                  <article><b>01</b><strong>부스 + 감염병 지식</strong><span>앞에서 읽은 부스 목적과 감염병 핵심만 문제로 출제됩니다. 전문 암기 문제는 나오지 않습니다.</span></article>
+                  <article><b>01</b><strong>부스 + 감염병 지식</strong><span>부스 목적, ZVX-26 설정, 감염병 도감 내용이 랜덤 문제로 출제됩니다.</span></article>
                   <article><b>02</b><strong>실제 PDB 구조</strong><span>실제 공개 3D 단백질을 눈으로 관찰합니다.</span></article>
-                  <article><b>03</b><strong>미니게임</strong><span>앞에서 설명한 쉬운 핵심 내용을 1000가지 표현으로 바꿔 랜덤 출제하고, 1초 기억·분류·순서·포켓 탐색으로 이어집니다.</span></article>
+                  <article><b>03</b><strong>미니게임</strong><span>1000문제 풀에서 OX·객관식·주관식이 랜덤 출제되고, 1초 기억·분류·순서·포켓 탐색으로 이어집니다.</span></article>
                   <article><b>04</b><strong>연구 의사결정</strong><span>가짜 약효 점수 없이 다음 연구 후보를 선택합니다.</span></article>
                 </div>
                 <div className="lh4-briefing-warning">
@@ -1189,19 +1189,7 @@ export default function LastHopeGameV7() {
             ) : (
               <>
                 <div className="lh4-briefing-kicker">INFECTIOUS DISEASE ARCHIVE · READ BEFORE PLAY</div>
-                <h1>앞에서 본 내용만 나옵니다 · 이 핵심만 기억하세요</h1>
-                <div className="lh9-quiz-prep">
-                  <div><b>COVID-19</b><span>초기 보고 2019 · SARS-CoV-2</span></div>
-                  <div><b>MERS</b><span>2012 · 코로나바이러스</span></div>
-                  <div><b>신종플루</b><span>2009 · H1N1</span></div>
-                  <div><b>결핵</b><span>바이러스 X · 세균 O</span></div>
-                  <div><b>홍역</b><span>바이러스</span></div>
-                  <div><b>수두</b><span>VZV</span></div>
-                  <div><b>노로</b><span>급성 위장관염</span></div>
-                  <div><b>PDB</b><span>단백질 등 3D 구조</span></div>
-                  <div><b>결합 부위</b><span>분자가 결합하는 공간</span></div>
-                  <div><b>후보 선택</b><span>치료 확정 X · 추가 검증 O</span></div>
-                </div>
+                <h1>도감 + 부스 설명에서 10문제가 랜덤 출제됩니다</h1>
                 <div className="lh4-archive-grid">
                   {infectionBriefings.map((item) => (
                     <article key={item.id}>

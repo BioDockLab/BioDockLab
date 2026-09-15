@@ -1,0 +1,52 @@
+/* V9 beginner quiz briefing - compact, readable, no clipping */
+.stage-briefing .lh9-quiz-prep {
+  flex: 0 0 auto;
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 7px;
+  margin: 4px 0 10px;
+}
+.stage-briefing .lh9-quiz-prep > div {
+  min-width: 0;
+  padding: 8px 9px;
+  border: 1px solid rgba(94, 225, 255, .24);
+  border-radius: 10px;
+  background: linear-gradient(145deg, rgba(5,31,58,.88), rgba(8,57,78,.66));
+  box-shadow: inset 0 0 18px rgba(41,210,255,.035);
+}
+.stage-briefing .lh9-quiz-prep b,
+.stage-briefing .lh9-quiz-prep span { display: block; }
+.stage-briefing .lh9-quiz-prep b {
+  color: #70f3ce;
+  font-size: clamp(10px, .78vw, 14px);
+  line-height: 1.1;
+  margin-bottom: 3px;
+}
+.stage-briefing .lh9-quiz-prep span {
+  color: rgba(237,249,255,.92);
+  font-size: clamp(8px, .61vw, 11px);
+  line-height: 1.25;
+  word-break: keep-all;
+}
+.stage-briefing .lh4-archive-grid {
+  flex: 1 1 auto !important;
+  min-height: 0 !important;
+  overflow-y: auto !important;
+}
+/* slightly larger quiz copy for visitors standing back from the kiosk */
+.lh4-quiz-panel h2 {
+  font-size: clamp(25px, 2.15vw, 39px) !important;
+  line-height: 1.16 !important;
+}
+.lh4-choice-grid button span,
+.lh4-ox-grid button,
+.lh4-short-form input {
+  font-size: clamp(16px, 1.22vw, 22px) !important;
+}
+@media (max-width: 1250px), (max-height: 820px) {
+  .stage-briefing .lh9-quiz-prep {
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: 5px;
+  }
+  .stage-briefing .lh9-quiz-prep > div { padding: 6px 7px; }
+}
