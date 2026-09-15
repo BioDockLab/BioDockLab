@@ -84,38 +84,38 @@ type EscapeRouteOption = {
 const CAREER_ROLES: CareerRole[] = [
   {
     id: 'bio-ai',
-    title: 'AI 신약개발 연구원',
-    english: 'AI DRUG DISCOVERY RESEARCHER',
-    description: '단백질 구조와 데이터·AI를 연결해 후속 연구 후보를 탐색합니다.',
-    skill: 'AI · STRUCTURE · DISCOVERY',
+    title: 'AI · 바이오융합 연구원',
+    english: 'AI BIO RESEARCHER',
+    description: '단백질 구조와 AI·데이터를 연결해 연구 문제를 탐색합니다.',
+    skill: 'STRUCTURE · AI · DISCOVERY',
   },
   {
     id: 'bio-data',
     title: '바이오 데이터 연구원',
     english: 'BIO DATA RESEARCHER',
-    description: '감염병·PDB·연구 데이터를 읽고 의미 있는 단서를 찾습니다.',
+    description: '감염병·PDB·실험 데이터를 읽고 의미 있는 단서를 찾습니다.',
     skill: 'DATA · PDB · ANALYSIS',
   },
   {
     id: 'digital-health',
-    title: '감염병 · 구조생물학 연구원',
-    english: 'INFECTIOUS DISEASE · STRUCTURAL BIOLOGY',
-    description: '병원체 정보를 이해하고 단백질 3D 구조를 관찰·비교합니다.',
-    skill: 'PATHOGEN · PROTEIN · STRUCTURE',
+    title: '디지털 헬스케어 연구원',
+    english: 'DIGITAL HEALTH RESEARCHER',
+    description: '의료와 소프트웨어를 연결해 더 나은 헬스케어 시스템을 설계합니다.',
+    skill: 'HEALTH · SOFTWARE · UX',
   },
   {
     id: 'rnd-pm',
     title: '융합 R&D 프로젝트 매니저',
     english: 'R&D PROJECT MANAGER',
-    description: '여러 전공의 연구자를 연결하고 연구 목표와 다음 단계를 설계합니다.',
-    skill: 'PLAN · CONNECT · DECIDE',
+    description: '여러 전공의 연구원을 연결하고 기술 프로젝트의 목표와 실행을 설계합니다.',
+    skill: 'PLAN · CONNECT · EXECUTE',
   },
 ];
 
 const LEADERBOARD_KEY = 'biodocklab-last-hope-leaderboard-v1';
 
 const TOTAL_SECONDS = 90;
-const PASS_COUNT = 6;
+const PASS_COUNT = 7;
 
 const TARGET_IDS: DeepDiveProteinId[] = [
   'sars2-mpro',
@@ -144,75 +144,6 @@ const RESEARCH_SEQUENCE = [
   '표적 단백질 구조 확인',
   '결합 가능 공간 탐색',
   '다음 연구 후보 지정',
-];
-
-
-type MissionJob = {
-  label: 'REAL JOB' | 'GAME STORY';
-  title: string;
-  detail: string;
-};
-
-const MISSION_JOB: Partial<Record<Stage, MissionJob>> = {
-  quiz: {
-    label: 'REAL JOB',
-    title: '감염병 · 바이오 데이터 연구',
-    detail: '병원체와 연구 정보를 읽고 근거를 바탕으로 판단합니다.',
-  },
-  memory: {
-    label: 'REAL JOB',
-    title: '구조생물학 연구',
-    detail: '단백질의 3D 형태를 관찰하고 구조적 특징을 기억합니다.',
-  },
-  match: {
-    label: 'REAL JOB',
-    title: '구조생물학 연구',
-    detail: '공개 단백질 구조를 비교해 동일한 표적을 구별합니다.',
-  },
-  classify: {
-    label: 'REAL JOB',
-    title: '감염병 연구',
-    detail: '질환을 일으키는 병원체의 유형과 특징을 구분합니다.',
-  },
-  sequence: {
-    label: 'REAL JOB',
-    title: '융합 R&D 기획',
-    detail: '연구 목표에서 후속 검증까지의 흐름과 우선순위를 설계합니다.',
-  },
-  pocket: {
-    label: 'REAL JOB',
-    title: '구조기반 신약개발 연구',
-    detail: '단백질 구조에서 분자가 상호작용할 수 있는 공간을 탐색합니다.',
-  },
-  candidate: {
-    label: 'REAL JOB',
-    title: 'AI · 바이오 R&D 의사결정',
-    detail: '분석 결과를 바탕으로 다음 검증 단계로 보낼 연구 후보를 정합니다.',
-  },
-  route: {
-    label: 'GAME STORY',
-    title: 'ZVX-26 탈출 시뮬레이션',
-    detail: '좀비와 탈출은 미래직업 설명이 아닌 몰입을 위한 가상 게임 연출입니다.',
-  },
-  escape: {
-    label: 'GAME STORY',
-    title: '연구 후보 확보 · 현장 탈출',
-    detail: '연구 결과를 확보한 뒤 가상 재난 상황에서 안전 구역으로 이동합니다.',
-  },
-};
-
-const TARGET_PDB: Record<DeepDiveProteinId, string> = {
-  'sars2-mpro': '6LU7',
-  'mers-mpro': '4YLU',
-  'h1n1-neuraminidase': '3TI6',
-};
-
-const CAREER_REPORT_TASKS = [
-  '감염병 정보 해석',
-  '단백질 3D 구조 관찰',
-  '구조 비교 · 병원체 분류',
-  '결합 가능 공간 탐색',
-  '후속 연구 후보 의사결정',
 ];
 
 function shuffled<T>(items: T[]) {
@@ -647,7 +578,6 @@ export default function LastHopeGameV7() {
   const [candidateIndex, setCandidateIndex] = useState<number | null>(null);
   const [failReason, setFailReason] = useState('TIME OVER');
   const [escapeProgress, setEscapeProgress] = useState(0);
-  const [photoMode, setPhotoMode] = useState<'success' | 'fail' | null>(null);
 
   const transitionRef = useRef<number | null>(null);
   const successSavedRef = useRef(false);
@@ -656,7 +586,6 @@ export default function LastHopeGameV7() {
   const candidates = dockingResultByProteinId(targetId)?.candidates ?? [];
   const selectedRole = CAREER_ROLES.find((role) => role.id === roleId) ?? null;
   const round = rounds[questionIndex];
-  const missionJob = MISSION_JOB[stage];
 
   const outbreak = useMemo(() => {
     if (stage === 'recruit' || stage === 'briefing') return 12;
@@ -793,12 +722,10 @@ export default function LastHopeGameV7() {
     setSelectedRoute(null);
     setRouteOptions([]);
     setEscapeProgress(0);
-    setPhotoMode(null);
   };
 
   const startMission = () => {
     clearTransition();
-    setPhotoMode(null);
 
     const nextTarget =
       TARGET_IDS[Math.floor(Math.random() * TARGET_IDS.length)];
@@ -917,8 +844,8 @@ export default function LastHopeGameV7() {
         setStage('classify');
       }, 650);
     } else {
-      setPenalty((value) => value + 3);
-      setFeedback('WRONG SAMPLE · -3 SEC');
+      setPenalty((value) => value + 7);
+      setFeedback('WRONG SAMPLE · -7 SEC');
       setLocked(true);
       transitionRef.current = window.setTimeout(() => {
         setFeedback('');
@@ -933,8 +860,8 @@ export default function LastHopeGameV7() {
     const isCorrect = currentClassify.pathogenType === type;
 
     if (!isCorrect) {
-      setPenalty((value) => value + 2);
-      setFeedback('분류 실패 · -2 SEC');
+      setPenalty((value) => value + 4);
+      setFeedback('분류 실패 · -4 SEC');
       setLocked(true);
       transitionRef.current = window.setTimeout(() => {
         setFeedback('');
@@ -965,8 +892,8 @@ export default function LastHopeGameV7() {
     const expected = RESEARCH_SEQUENCE[sequenceProgress.length];
 
     if (step !== expected) {
-      setPenalty((value) => value + 2);
-      setFeedback('순서 오류 · -2 SEC · 연구 흐름을 다시 판단하세요');
+      setPenalty((value) => value + 3);
+      setFeedback('순서 오류 · -3 SEC · 연구 흐름을 다시 판단하세요');
       setSequenceProgress([]);
       setLocked(true);
       transitionRef.current = window.setTimeout(() => {
@@ -1005,8 +932,8 @@ export default function LastHopeGameV7() {
         setStage('candidate');
       }, 700);
     } else {
-      setPenalty((value) => value + 3);
-      setFeedback('SITE NOT MATCHED · -3 SEC');
+      setPenalty((value) => value + 5);
+      setFeedback('SITE NOT MATCHED · -5 SEC');
       setLocked(true);
       transitionRef.current = window.setTimeout(() => {
         setFeedback('');
@@ -1039,8 +966,8 @@ export default function LastHopeGameV7() {
       return;
     }
 
-    setPenalty((value) => value + 2);
-    setFeedback('ZOMBIE BLOCKADE · -2 SEC · 다른 경로를 선택하세요');
+    setPenalty((value) => value + 3);
+    setFeedback('ZOMBIE BLOCKADE · -3 SEC · 다른 경로를 선택하세요');
     setLocked(true);
     transitionRef.current = window.setTimeout(() => {
       setFeedback('');
@@ -1081,22 +1008,14 @@ export default function LastHopeGameV7() {
           </div>
         )}
 
-        {missionJob && !['recruit', 'briefing', 'success', 'fail'].includes(stage) && (
-          <aside className={`lh8-real-job ${missionJob.label === 'GAME STORY' ? 'story' : ''}`}>
-            <small>{missionJob.label}</small>
-            <strong>{missionJob.title}</strong>
-            <span>{missionJob.detail}</span>
-          </aside>
-        )}
-
         {stage === 'recruit' && (
           <section className="lh7-recruit-overlay">
             <div className="lh7-recruit-main">
               <div className="lh7-kicker">NEXUS × BioDockLab · FUTURE RESEARCHER REGISTRATION</div>
-              <h1>미래 바이오 연구원이 되어<br /><strong>LAST HOPE</strong>에 참여하세요</h1>
+              <h1>NEXUS의 미래 연구원이 되어<br /><strong>LAST HOPE</strong>에 참여하세요</h1>
               <p>
-                닉네임과 미래 직업을 선택하면 NEXUS Bio 연구소의 연구원이 되어 90초 연구 미션에 투입됩니다.
-                실제 연구 직무를 게임으로 체험하고, 마지막 Career Report와 랭킹에 결과가 기록됩니다.
+                닉네임과 미래 직업을 선택하면, 오늘의 역할로 90초 연구 미션에 투입됩니다.
+                직업 선택은 결과 화면과 랭킹에 함께 기록됩니다.
               </p>
 
               <label className="lh7-name-field">
@@ -1169,9 +1088,8 @@ export default function LastHopeGameV7() {
                 <div className="lh4-briefing-kicker">MISSION 00 · BEFORE THE TIMER</div>
                 <h1>BioDockLab은 무엇을 체험하나요?</h1>
                 <p className="lh4-briefing-lead">
-                  BioDockLab은 NEXUS의 미래 바이오 연구원이 되어 실제 공개 단백질 구조(PDB)와 감염병 정보를 활용하는 직업체험입니다.
-                  퀴즈·구조 비교·병원체 분류·결합 공간 탐색·연구 후보 의사결정을 90초 미션으로 경험합니다.
-                  ZVX-26과 좀비 탈출은 몰입을 위한 가상 스토리이며, 이 부스 설명 자체도 랜덤 문제에 출제될 수 있습니다.
+                  BioDockLab은 실제 공개 단백질 구조(PDB)를 관찰하고, 감염병 지식을 단서로 퀴즈·기억·분류·순서·결합 부위 탐색을 거쳐
+                  다음 연구 후보를 결정하는 90초 바이오 방탈출입니다. 이 부스 설명 자체도 랜덤 문제에 출제될 수 있습니다.
                 </p>
                 <div className="lh4-booth-grid">
                   <article><b>01</b><strong>부스 + 감염병 지식</strong><span>부스 목적, ZVX-26 설정, 감염병 도감 내용이 랜덤 문제로 출제됩니다.</span></article>
@@ -1411,71 +1329,37 @@ export default function LastHopeGameV7() {
 
         {stage === 'success' && (
           <>
-            <section className="lh8-career-report">
-              <header>
-                <div>
-                  <small>NEXUS × BioDockLab · FUTURE CAREER REPORT</small>
-                  <h2>{safeNickname(nickname) || 'RESEARCHER'} 연구원</h2>
-                  <strong>{selectedRole?.title ?? 'NEXUS 미래 연구원'}</strong>
-                </div>
-                <div className="lh8-rank-badge"><small>TODAY RANK</small><b>#{personalRank ?? '-'}</b></div>
-              </header>
-
-              <div className="lh8-report-stats">
+            <section className="lh7-success-card">
+              <small>NEXUS FUTURE RESEARCHER</small>
+              <h2>{safeNickname(nickname) || 'RESEARCHER'}</h2>
+              <strong>{selectedRole?.title ?? 'NEXUS 연구원'}</strong>
+              <div className="lh7-success-stats">
+                <span><small>RANK</small><b>#{personalRank ?? '-'}</b></span>
                 <span><small>SCORE</small><b>{score}</b></span>
                 <span><small>TIME LEFT</small><b>{formatTime(remaining)}</b></span>
                 <span><small>QUIZ</small><b>{correctCount}/10</b></span>
-                <span><small>STRUCTURE</small><b>PDB {TARGET_PDB[targetId]}</b></span>
               </div>
-
-              <div className="lh8-report-work">
-                <small>TODAY'S RESEARCH EXPERIENCE</small>
-                <div>{CAREER_REPORT_TASKS.map((task) => <span key={task}>{task}</span>)}</div>
-              </div>
-
-              <p>오늘의 미션은 실제 연구 과정을 단순화한 직업체험입니다. 후보 확보는 치료제 완성을 의미하지 않으며 후속 검증이 필요합니다.</p>
-
-              <div className="lh8-report-actions">
-                <button onClick={() => setPhotoMode('success')}>📸 PHOTO MODE</button>
-                <button onClick={resetMission}>NEXT RESEARCHER →</button>
+              <div className="lh7-success-leaderboard">
+                {leaderboard.slice(0, 5).map((entry, index) => (
+                  <div key={entry.id} className={entry.nickname === safeNickname(nickname) && entry.score === score ? 'me' : ''}>
+                    <b>{index + 1}</b><span>{entry.nickname}</span><small>{entry.score}</small>
+                  </div>
+                ))}
               </div>
             </section>
-
-            <aside className="lh8-mini-ranking">
-              <small>LIVE TOP 5</small>
-              {leaderboard.slice(0, 5).map((entry, index) => (
-                <div key={entry.id} className={entry.nickname === safeNickname(nickname) && entry.score === score ? 'me' : ''}>
-                  <b>{index + 1}</b><span>{entry.nickname}</span><i>{entry.score}</i>
-                </div>
-              ))}
-            </aside>
+            <button className="lh4-next-button" onClick={resetMission}>
+              NEXT RESEARCHER →
+            </button>
           </>
         )}
 
         {stage === 'fail' && (
           <>
             <div className="lh4-fail-reason">{failReason}</div>
-            <div className="lh8-fail-actions">
-              <button onClick={startMission}>RETRY MISSION →</button>
-              <button onClick={() => setPhotoMode('fail')}>📸 INFECTED PHOTO</button>
-              <button onClick={resetMission}>NEXT RESEARCHER</button>
-            </div>
+            <button className="lh4-retry-button" onClick={startMission}>
+              RETRY MISSION →
+            </button>
           </>
-        )}
-
-        {photoMode && (
-          <div className={`lh8-photo-mode ${photoMode === 'fail' ? 'infected' : ''}`}>
-            <button className="lh8-photo-close" onClick={() => setPhotoMode(null)}>×</button>
-            <small>NEXUS × BioDockLab · 2026 미래직업 진로체험</small>
-            <div className="lh8-photo-mark">{photoMode === 'success' ? 'MISSION CLEAR' : 'LAB OVERRUN'}</div>
-            <h2>{photoMode === 'success' ? 'I SURVIVED ZVX-26' : 'ZVX-26 INFECTED'}</h2>
-            <strong>{safeNickname(nickname) || 'RESEARCHER'} · {selectedRole?.title ?? 'NEXUS 미래 연구원'}</strong>
-            <p>{photoMode === 'success' ? '미래 바이오 연구 미션 완료' : '연구실 방어 실패 · 좀비와 감염 인증샷!'}</p>
-            <div className="lh8-photo-footer">
-              <span>함께 촬영: 🧑‍🔬 연구원 + 참가자 + 🧟 좀비</span>
-              <b>본인 휴대폰으로 자유롭게 촬영하세요 📸</b>
-            </div>
-          </div>
         )}
 
         {feedback && !['success', 'fail'].includes(stage) && (

@@ -1,6 +1,5 @@
 import './styles/biodocklab-theme.css';
 import './styles/last-hope-v7.css';
-import './styles/last-hope-v8-final.css';
 
 import LastHopeGameV7 from './screens/LastHopeGameV7';
 

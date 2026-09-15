@@ -1,0 +1,560 @@
+/* =========================================================
+   BioDockLab LAST HOPE V8 FINAL POLISH
+   Add-on only: keep V7 CSS + the user's local hotfixes.
+   ========================================================= */
+
+/* ---------- Real job banner ---------- */
+.lh8-real-job {
+  position: absolute;
+  left: 2.3%;
+  top: 14.6%;
+  z-index: 46;
+  width: 51.4%;
+  min-height: 7.3%;
+  box-sizing: border-box;
+  display: grid;
+  grid-template-columns: auto minmax(0, .8fr) minmax(0, 1.45fr);
+  gap: 1.1%;
+  align-items: center;
+  padding: .55% .85%;
+  color: #e9fbff;
+  border: 1px solid rgba(86, 225, 255, .42);
+  border-left: 4px solid #58e8ff;
+  border-radius: 10px;
+  background: linear-gradient(90deg, rgba(2, 23, 45, .97), rgba(5, 48, 66, .93));
+  box-shadow: 0 0 22px rgba(48, 204, 255, .14);
+  backdrop-filter: blur(10px);
+}
+
+.lh8-real-job small {
+  display: inline-grid;
+  place-items: center;
+  min-width: 67px;
+  padding: 5px 8px;
+  color: #002739;
+  border-radius: 99px;
+  background: #5ce6ff;
+  font-size: clamp(7px, .62vw, 10px);
+  font-weight: 1000;
+  letter-spacing: .08em;
+}
+
+.lh8-real-job strong {
+  min-width: 0;
+  color: #fff;
+  font-size: clamp(11px, 1.05vw, 18px);
+  line-height: 1.08;
+  word-break: keep-all;
+}
+
+.lh8-real-job span {
+  min-width: 0;
+  color: #9abbd0;
+  font-size: clamp(8px, .68vw, 11px);
+  line-height: 1.32;
+  word-break: keep-all;
+}
+
+.lh8-real-job.story {
+  border-color: rgba(255, 117, 90, .45);
+  border-left-color: #ff684d;
+  background: linear-gradient(90deg, rgba(40, 11, 18, .96), rgba(65, 22, 20, .91));
+}
+
+.lh8-real-job.story small {
+  color: #fff;
+  background: #e84d3f;
+}
+
+/* ---------- Career Report ---------- */
+.lh8-career-report {
+  position: absolute;
+  left: 3.1%;
+  top: 17.2%;
+  z-index: 70;
+  width: 59.5%;
+  max-height: 69%;
+  box-sizing: border-box;
+  padding: clamp(15px, 1.5vw, 24px);
+  overflow: hidden;
+  color: #f0fff9;
+  border: 1px solid rgba(83, 241, 185, .55);
+  border-radius: 18px;
+  background: linear-gradient(145deg, rgba(2, 23, 31, .98), rgba(3, 59, 48, .95));
+  box-shadow: 0 0 54px rgba(53, 239, 174, .2);
+}
+
+.lh8-career-report header {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 16px;
+  align-items: start;
+}
+
+.lh8-career-report header small {
+  color: #69f0c0;
+  font-size: clamp(7px, .62vw, 10px);
+  font-weight: 1000;
+  letter-spacing: .11em;
+}
+
+.lh8-career-report h2 {
+  margin: 5px 0 2px;
+  font-size: clamp(27px, 3vw, 50px);
+  line-height: .98;
+}
+
+.lh8-career-report header strong {
+  color: #c5e9db;
+  font-size: clamp(10px, .92vw, 15px);
+}
+
+.lh8-rank-badge {
+  min-width: clamp(92px, 8vw, 132px);
+  padding: 10px 14px;
+  text-align: center;
+  border: 1px solid rgba(99, 245, 190, .4);
+  border-radius: 14px;
+  background: rgba(78, 235, 176, .1);
+}
+
+.lh8-rank-badge small,
+.lh8-rank-badge b {
+  display: block;
+}
+
+.lh8-rank-badge b {
+  margin-top: 2px;
+  color: #69f0bd;
+  font-size: clamp(25px, 2.6vw, 44px);
+}
+
+.lh8-report-stats {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 7px;
+  margin-top: 13px;
+}
+
+.lh8-report-stats span {
+  min-width: 0;
+  padding: 9px 10px;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, .055);
+}
+
+.lh8-report-stats small,
+.lh8-report-stats b {
+  display: block;
+}
+
+.lh8-report-stats small {
+  color: #72a99a;
+  font-size: clamp(6px, .5vw, 8px);
+}
+
+.lh8-report-stats b {
+  margin-top: 3px;
+  overflow: hidden;
+  color: #fff;
+  font-size: clamp(12px, 1.15vw, 19px);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.lh8-report-work {
+  margin-top: 12px;
+  padding: 10px 11px;
+  border: 1px solid rgba(110, 230, 190, .16);
+  border-radius: 12px;
+  background: rgba(0, 0, 0, .13);
+}
+
+.lh8-report-work > small {
+  color: #64eebb;
+  font-size: clamp(6px, .52vw, 9px);
+  font-weight: 1000;
+  letter-spacing: .09em;
+}
+
+.lh8-report-work > div {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  margin-top: 7px;
+}
+
+.lh8-report-work span {
+  padding: 5px 8px;
+  color: #d7f6eb;
+  border: 1px solid rgba(90, 231, 183, .18);
+  border-radius: 99px;
+  background: rgba(78, 232, 178, .07);
+  font-size: clamp(7px, .6vw, 10px);
+  white-space: nowrap;
+}
+
+.lh8-career-report > p {
+  margin: 10px 0 0;
+  color: #8caea4;
+  font-size: clamp(7px, .58vw, 10px);
+  line-height: 1.42;
+}
+
+.lh8-report-actions {
+  display: grid;
+  grid-template-columns: .78fr 1.22fr;
+  gap: 7px;
+  margin-top: 11px;
+}
+
+.lh8-report-actions button {
+  min-height: clamp(42px, 5.4vh, 58px);
+  color: #002a26;
+  border: 0;
+  border-radius: 12px;
+  background: linear-gradient(90deg, #62e8ff, #69f0bd);
+  font: inherit;
+  font-size: clamp(9px, .82vw, 14px);
+  font-weight: 1000;
+  cursor: pointer;
+}
+
+.lh8-report-actions button:first-child {
+  color: #e9fbff;
+  border: 1px solid rgba(93, 222, 255, .4);
+  background: rgba(21, 110, 132, .27);
+}
+
+/* ---------- Small live ranking on report ---------- */
+.lh8-mini-ranking {
+  position: absolute;
+  right: 3.8%;
+  top: 28%;
+  z-index: 69;
+  width: 27%;
+  box-sizing: border-box;
+  padding: clamp(11px, 1vw, 16px);
+  color: #dffdf3;
+  border: 1px solid rgba(89, 235, 181, .25);
+  border-radius: 14px;
+  background: rgba(1, 24, 29, .88);
+  backdrop-filter: blur(10px);
+}
+
+.lh8-mini-ranking > small {
+  color: #62efbd;
+  font-size: clamp(7px, .6vw, 10px);
+  font-weight: 1000;
+  letter-spacing: .11em;
+}
+
+.lh8-mini-ranking div {
+  display: grid;
+  grid-template-columns: 25px 1fr auto;
+  gap: 7px;
+  align-items: center;
+  margin-top: 5px;
+  padding: 7px 8px;
+  color: #99bdb2;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, .035);
+  font-size: clamp(7px, .62vw, 10px);
+}
+
+.lh8-mini-ranking div.me {
+  color: #fff;
+  outline: 1px solid rgba(92, 238, 185, .4);
+  background: rgba(72, 224, 167, .12);
+}
+
+.lh8-mini-ranking div > b { color: #65f1bd; }
+.lh8-mini-ranking div > i { color: #7af5c8; font-style: normal; font-weight: 1000; }
+
+/* ---------- Failure turnover controls ---------- */
+.lh8-fail-actions {
+  position: absolute;
+  left: 31%;
+  top: 76.5%;
+  z-index: 72;
+  width: 38%;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 7px;
+}
+
+.lh8-fail-actions button {
+  min-height: clamp(40px, 5.2vh, 56px);
+  padding: 7px 9px;
+  color: #fff;
+  border: 1px solid rgba(255, 109, 104, .45);
+  border-radius: 10px;
+  background: rgba(70, 10, 18, .88);
+  font: inherit;
+  font-size: clamp(7px, .64vw, 11px);
+  font-weight: 1000;
+  cursor: pointer;
+}
+
+.lh8-fail-actions button:nth-child(2) {
+  border-color: rgba(255, 214, 102, .35);
+  background: rgba(92, 56, 8, .75);
+}
+
+.lh8-fail-actions button:last-child {
+  border-color: rgba(88, 221, 255, .34);
+  background: rgba(5, 43, 67, .8);
+}
+
+/* Hide the V7 standalone fail retry button style if an old duplicate remains. */
+.stage-fail .lh4-retry-button { display: none !important; }
+
+/* ---------- Full-screen photo mode ---------- */
+.lh8-photo-mode {
+  position: absolute;
+  inset: 0;
+  z-index: 250;
+  display: grid;
+  place-content: center;
+  justify-items: center;
+  padding: 6%;
+  box-sizing: border-box;
+  overflow: hidden;
+  text-align: center;
+  color: #fff;
+  background:
+    radial-gradient(circle at 50% 44%, rgba(59, 245, 177, .22), transparent 26%),
+    linear-gradient(145deg, rgba(0, 18, 25, .99), rgba(2, 71, 54, .98));
+}
+
+.lh8-photo-mode::before,
+.lh8-photo-mode::after {
+  content: '';
+  position: absolute;
+  width: 42%;
+  aspect-ratio: 1;
+  border: 1px solid rgba(89, 242, 185, .15);
+  border-radius: 50%;
+  box-shadow: 0 0 80px rgba(58, 232, 175, .12);
+}
+
+.lh8-photo-mode::before { left: -18%; top: -25%; }
+.lh8-photo-mode::after { right: -17%; bottom: -32%; }
+
+.lh8-photo-mode.infected {
+  background:
+    radial-gradient(circle at 50% 42%, rgba(255, 62, 75, .24), transparent 27%),
+    linear-gradient(145deg, rgba(30, 2, 9, .99), rgba(92, 9, 16, .98));
+}
+
+.lh8-photo-close {
+  position: absolute;
+  top: 4%;
+  right: 3%;
+  z-index: 4;
+  width: 48px;
+  height: 48px;
+  color: #fff;
+  border: 1px solid rgba(255,255,255,.25);
+  border-radius: 50%;
+  background: rgba(0,0,0,.25);
+  font-size: 30px;
+  cursor: pointer;
+}
+
+.lh8-photo-mode > small,
+.lh8-photo-mode > strong,
+.lh8-photo-mode > p,
+.lh8-photo-mode > h2,
+.lh8-photo-mode > .lh8-photo-mark,
+.lh8-photo-footer {
+  position: relative;
+  z-index: 2;
+}
+
+.lh8-photo-mode > small {
+  color: #7af2ca;
+  font-size: clamp(10px, 1vw, 17px);
+  font-weight: 1000;
+  letter-spacing: .13em;
+}
+
+.lh8-photo-mark {
+  margin-top: clamp(18px, 2.4vh, 28px);
+  padding: 8px 18px;
+  color: #002a24;
+  border-radius: 99px;
+  background: #69f0bd;
+  font-size: clamp(11px, 1.05vw, 18px);
+  font-weight: 1000;
+  letter-spacing: .12em;
+}
+
+.infected .lh8-photo-mark {
+  color: #fff;
+  background: #e84a4a;
+}
+
+.lh8-photo-mode h2 {
+  margin: clamp(14px, 2vh, 24px) 0 4px;
+  font-size: clamp(52px, 7.2vw, 122px);
+  line-height: .88;
+  letter-spacing: -.055em;
+}
+
+.lh8-photo-mode > strong {
+  margin-top: 10px;
+  color: #d6f8ed;
+  font-size: clamp(18px, 2vw, 34px);
+  word-break: keep-all;
+}
+
+.lh8-photo-mode > p {
+  margin: 8px 0 0;
+  color: #91b9ab;
+  font-size: clamp(12px, 1.2vw, 20px);
+}
+
+.lh8-photo-footer {
+  display: grid;
+  gap: 4px;
+  margin-top: clamp(28px, 4vh, 48px);
+  padding: 13px 20px;
+  border: 1px solid rgba(255,255,255,.12);
+  border-radius: 14px;
+  background: rgba(0,0,0,.18);
+}
+
+.lh8-photo-footer span {
+  color: #d8f6ec;
+  font-size: clamp(11px, 1vw, 17px);
+}
+
+.lh8-photo-footer b {
+  color: #67edbd;
+  font-size: clamp(10px, .9vw, 15px);
+}
+
+/* ---------- Expo usability / clipping guard ---------- */
+.stage-briefing .lh4-briefing-overlay {
+  top: 12.8% !important;
+  height: 75% !important;
+  max-height: 75% !important;
+  box-sizing: border-box !important;
+  display: flex !important;
+  flex-direction: column !important;
+  overflow: hidden !important;
+}
+
+.stage-briefing .lh4-booth-grid,
+.stage-briefing .lh4-archive-grid {
+  flex: 1 1 auto !important;
+  min-height: 0 !important;
+}
+
+.stage-briefing .lh4-archive-grid {
+  overflow-y: auto !important;
+  overflow-x: hidden !important;
+}
+
+.stage-briefing .lh4-briefing-next,
+.stage-briefing .lh4-archive-footer {
+  flex: 0 0 auto !important;
+}
+
+@media (max-height: 860px) {
+  .lh8-real-job {
+    top: 13.5%;
+    min-height: 6.8%;
+    padding-top: .4%;
+    padding-bottom: .4%;
+  }
+
+  .lh8-real-job span { font-size: clamp(7px, .61vw, 10px); }
+
+  .lh8-career-report {
+    top: 13.5%;
+    max-height: 73%;
+    padding: 13px 16px;
+  }
+
+  .lh8-report-stats { margin-top: 9px; }
+  .lh8-report-work { margin-top: 8px; padding: 8px 9px; }
+  .lh8-career-report > p { margin-top: 7px; }
+  .lh8-report-actions { margin-top: 8px; }
+
+  .lh8-mini-ranking { top: 24%; }
+
+  .stage-briefing .lh4-briefing-overlay {
+    top: 11.8% !important;
+    height: 77% !important;
+    max-height: 77% !important;
+    padding-top: .8% !important;
+    padding-bottom: .8% !important;
+  }
+
+  .stage-briefing .lh4-briefing-overlay h1 {
+    margin-top: .25% !important;
+    margin-bottom: .45% !important;
+    font-size: clamp(28px, 2.55vw, 43px) !important;
+  }
+
+  .stage-briefing .lh4-briefing-lead {
+    margin-bottom: .5% !important;
+    font-size: clamp(9px, .79vw, 13px) !important;
+    line-height: 1.38 !important;
+  }
+
+  .stage-briefing .lh4-booth-grid article {
+    padding: 2.6% 3.2% !important;
+  }
+
+  .stage-briefing .lh4-booth-grid span {
+    font-size: clamp(7px, .61vw, 10px) !important;
+  }
+
+  .stage-briefing .lh4-briefing-warning {
+    margin-top: .5% !important;
+    padding-top: .5% !important;
+    padding-bottom: .5% !important;
+  }
+
+  .lh7-recruit-overlay {
+    top: 8% !important;
+    bottom: 5% !important;
+    max-height: 87% !important;
+    overflow: hidden !important;
+  }
+
+  .lh7-recruit-main {
+    min-height: 0 !important;
+    overflow-y: auto !important;
+  }
+
+  .lh7-career-grid button {
+    min-height: 108px !important;
+  }
+}
+
+@media (max-width: 1100px) {
+  .lh8-real-job {
+    width: 92%;
+    grid-template-columns: auto 1fr;
+  }
+
+  .lh8-real-job span { display: none; }
+
+  .lh8-career-report {
+    left: 4%;
+    width: 92%;
+  }
+
+  .lh8-mini-ranking { display: none; }
+
+  .lh8-report-stats { grid-template-columns: repeat(2, 1fr); }
+
+  .lh8-fail-actions {
+    left: 10%;
+    width: 80%;
+  }
+}
