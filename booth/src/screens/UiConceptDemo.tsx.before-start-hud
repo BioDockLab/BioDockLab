@@ -97,193 +97,119 @@ function HomeScreen({
 }) {
   return (
     <div className="bd-main bd-escape-home">
-      <section className="bd-escape-start bd-escape-start-v2">
+      <section className="bd-escape-start">
         <div className="bd-escape-start__alert">
           <span className="bd-alert-dot" />
-          BIODOCKLAB · VIRUS RESPONSE LAB
+          BIODOCKLAB EMERGENCY MISSION
         </div>
 
         <div className="bd-escape-start__content">
-          <div className="bd-escape-start__mission">
+          <div>
             <div className="bd-eyebrow">
               2026 미래직업 진로체험 박람회
             </div>
 
             <h2 className="bd-escape-start__title">
-              <span>90초 안에</span>
+              제한시간
+              <strong> 90초</strong>
               <br />
               바이러스 단백질의
               <br />
-              <strong>약점을 찾아라.</strong>
+              약점을 찾아라.
             </h2>
 
             <p className="bd-escape-start__copy">
-              실제 공개 단백질 구조를 직접 움직이고,
-              결합 부위를 찾아 후보물질을 비교한 뒤
+              실제 공개 단백질 구조를 직접 조작하고,
+              결합 부위를 찾고,
+              후보물질을 비교해
               제한시간 안에 연구 결정을 내려보세요.
             </p>
 
-            <div className="bd-mission-status-grid">
-              <div>
-                <small>LAB STATUS</small>
-                <strong className="locked">
-                  ● LOCKED
-                </strong>
-              </div>
-
-              <div>
-                <small>TARGET</small>
-                <strong>UNKNOWN</strong>
-              </div>
-
-              <div>
-                <small>MISSION</small>
-                <strong>FIND THE POCKET</strong>
-              </div>
-
-              <div>
-                <small>DATA</small>
-                <strong>REAL PDB</strong>
-              </div>
+            <div className="bd-escape-start__tags">
+              <span>REAL PDB DATA</span>
+              <span>3D PROTEIN</span>
+              <span>DOCKING CHALLENGE</span>
+              <span>90 SEC</span>
             </div>
           </div>
 
-          <div className="bd-escape-control-panel">
-            <div className="bd-escape-countdown-preview">
-              <small>
-                MISSION TIME LIMIT
-              </small>
-
-              <strong>
-                01:30
-              </strong>
-
-              <span>
-                시간이 끝나기 전에
-                연구 결정을 완료하세요.
-              </span>
-            </div>
-
-            <button
-              type="button"
-              className="bd-escape-start-button bd-escape-start-button-v2"
-              onClick={goVirus}
-            >
-              <div>
-                <span>
-                  MISSION START
-                </span>
-
-                <strong>
-                  90초 도전 시작
-                </strong>
-              </div>
-
-              <i>→</i>
-            </button>
-
-            <div className="bd-escape-difficulty">
-              <span>난이도</span>
-
-              <strong>
-                ★★★☆☆
-              </strong>
-
-              <small>
-                제한시간형 바이오 미션
-              </small>
-            </div>
+          <div className="bd-escape-countdown-preview">
+            <small>MISSION TIME LIMIT</small>
+            <strong>01:30</strong>
+            <span>
+              시간이 끝나기 전에
+              연구 결정을 완료하세요.
+            </span>
           </div>
         </div>
+
+        <button
+          type="button"
+          className="bd-escape-start-button"
+          onClick={goVirus}
+        >
+          <span>MISSION START</span>
+          <strong>90초 도전 시작</strong>
+          <i>→</i>
+        </button>
       </section>
 
-      <section className="bd-escape-rules bd-escape-rules-v2">
+      <section className="bd-escape-rules">
         <div className="bd-escape-rule">
           <span>01</span>
-
           <div>
-            <strong>
-              TARGET
-            </strong>
-
-            <small>
-              바이러스 선택
-            </small>
+            <strong>바이러스 선택</strong>
+            <small>연구할 대상을 고르세요.</small>
           </div>
         </div>
 
-        <div className="bd-escape-rule-arrow">
-          →
-        </div>
+        <div className="bd-escape-rule-arrow">→</div>
 
         <div className="bd-escape-rule">
           <span>02</span>
-
           <div>
-            <strong>
-              EXPLORE
-            </strong>
-
-            <small>
-              실제 3D 구조 조작
-            </small>
+            <strong>실제 단백질 탐색</strong>
+            <small>3D 구조를 직접 움직여보세요.</small>
           </div>
         </div>
 
-        <div className="bd-escape-rule-arrow">
-          →
-        </div>
+        <div className="bd-escape-rule-arrow">→</div>
 
         <div className="bd-escape-rule">
           <span>03</span>
-
           <div>
-            <strong>
-              FIND
-            </strong>
-
-            <small>
-              결합 부위 발견
-            </small>
+            <strong>약점 발견</strong>
+            <small>결합 가능한 공간을 찾으세요.</small>
           </div>
         </div>
 
-        <div className="bd-escape-rule-arrow">
-          →
-        </div>
+        <div className="bd-escape-rule-arrow">→</div>
 
         <div className="bd-escape-rule">
           <span>04</span>
-
           <div>
-            <strong>
-              DOCK
-            </strong>
-
-            <small>
-              후보 A/B/C 비교
-            </small>
+            <strong>후보 도킹</strong>
+            <small>A/B/C를 직접 비교하세요.</small>
           </div>
         </div>
 
-        <div className="bd-escape-rule-arrow">
-          →
-        </div>
+        <div className="bd-escape-rule-arrow">→</div>
 
         <div className="bd-escape-rule">
           <span>05</span>
-
           <div>
-            <strong>
-              DECIDE
-            </strong>
-
-            <small>
-              최종 결정 잠금
-            </small>
+            <strong>결정 잠금</strong>
+            <small>제한시간 안에 선택하세요.</small>
           </div>
         </div>
       </section>
+
+      <div className="bd-escape-home-note">
+        <strong>오늘 당신의 역할</strong>
+        <span>
+          미래 신약개발 연구원 · 실제 공개 구조 데이터 기반 교육 체험
+        </span>
+      </div>
     </div>
   );
 }

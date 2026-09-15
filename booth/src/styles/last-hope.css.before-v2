@@ -1,0 +1,504 @@
+:root {
+  --lh-white: #f7fbff;
+  --lh-ice: #e9f6ff;
+
+  --lh-navy-950: #020915;
+  --lh-navy-900: #06152b;
+  --lh-navy-800: #092b55;
+
+  --lh-blue: #168cff;
+  --lh-cyan: #45ddff;
+  --lh-green: #36e4a4;
+
+  --lh-red: #ff4155;
+  --lh-red-dark: #8d1024;
+
+  --lh-text: #f6fbff;
+  --lh-muted: #8ba7c7;
+
+  --lh-radius-xl: 26px;
+  --lh-radius-lg: 18px;
+
+  --lh-line:
+    rgba(84, 192, 255, 0.22);
+}
+
+/* ---------------------------------------------------------
+   GAME ROOT
+   --------------------------------------------------------- */
+
+.lh-app {
+  width: 100%;
+  min-height: 100vh;
+  padding: 14px 18px 10px;
+
+  overflow: hidden;
+
+  color: var(--lh-text);
+
+  background:
+    radial-gradient(
+      circle at 70% 0%,
+      rgba(32, 160, 255, 0.14),
+      transparent 34%
+    ),
+    linear-gradient(
+      180deg,
+      var(--lh-white) 0 10%,
+      #ddecfa 10% 100%
+    );
+}
+
+.lh-app * {
+  box-sizing: border-box;
+}
+
+/* ---------------------------------------------------------
+   BRAND HEADER
+   --------------------------------------------------------- */
+
+.lh-header {
+  max-width: 1600px;
+  height: 70px;
+
+  margin: 0 auto 8px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  color: #08275b;
+}
+
+.lh-brand {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+}
+
+.lh-brand strong {
+  font-size: 36px;
+  letter-spacing: -0.055em;
+}
+
+.lh-brand b {
+  color: var(--lh-blue);
+  font-size: 27px;
+  font-weight: 1000;
+}
+
+.lh-brand span {
+  display: none;
+}
+
+.lh-header-copy {
+  color: #6483aa;
+  font-size: 11px;
+  font-weight: 900;
+}
+
+/* ---------------------------------------------------------
+   MASTER HUD
+   --------------------------------------------------------- */
+
+.lh-top-hud {
+  position: relative;
+  z-index: 50;
+
+  max-width: 1600px;
+  height: 86px;
+
+  margin: 0 auto;
+
+  display: grid;
+
+  grid-template-columns:
+    230px
+    1fr
+    180px;
+
+  align-items: center;
+  gap: 12px;
+
+  padding: 10px 14px;
+
+  border-radius:
+    22px 22px 5px 5px;
+
+  border:
+    1px solid var(--lh-line);
+
+  background:
+    linear-gradient(
+      90deg,
+      #041126,
+      #073260,
+      #041126
+    );
+
+  box-shadow:
+    0 14px 30px
+    rgba(0, 40, 90, 0.17);
+}
+
+.lh-time-box small,
+.lh-score-box small {
+  display: block;
+
+  color: #77a0c7;
+
+  font-size: 9px;
+  font-weight: 950;
+
+  letter-spacing: 0.12em;
+}
+
+.lh-time-box strong {
+  display: block;
+
+  margin-top: 1px;
+
+  font-family:
+    ui-monospace,
+    "SFMono-Regular",
+    monospace;
+
+  font-size: 50px;
+  line-height: 0.9;
+
+  letter-spacing: -0.075em;
+
+  color: var(--lh-cyan);
+
+  text-shadow:
+    0 0 22px
+    rgba(65, 220, 255, 0.18);
+}
+
+.lh-score-box {
+  text-align: right;
+}
+
+.lh-score-box strong {
+  display: block;
+
+  margin-top: 2px;
+
+  font-size: 31px;
+}
+
+/* ---------------------------------------------------------
+   MISSION ROUTE
+   --------------------------------------------------------- */
+
+.lh-route-mini {
+  display: grid;
+
+  grid-template-columns:
+    repeat(5, 1fr);
+
+  gap: 6px;
+}
+
+.lh-route-mini__node {
+  min-height: 52px;
+
+  display: flex;
+  align-items: center;
+
+  gap: 8px;
+
+  padding: 8px 9px;
+
+  border-radius: 12px;
+
+  color: #627c9b;
+
+  background:
+    rgba(255,255,255,0.035);
+
+  border:
+    1px solid
+    rgba(255,255,255,0.045);
+}
+
+.lh-route-mini__node i {
+  width: 28px;
+  height: 28px;
+
+  flex: 0 0 28px;
+
+  display: grid;
+  place-items: center;
+
+  border-radius: 9px;
+
+  color: #7695b7;
+
+  background: #112741;
+
+  font-size: 10px;
+  font-weight: 1000;
+
+  font-style: normal;
+}
+
+.lh-route-mini__node span {
+  font-size: 9px;
+  font-weight: 950;
+}
+
+.lh-route-mini__node.active {
+  color: white;
+
+  border-color:
+    rgba(68, 222, 255, 0.3);
+
+  background:
+    rgba(38, 170, 210, 0.1);
+}
+
+.lh-route-mini__node.active i {
+  color: #00203b;
+
+  background:
+    var(--lh-cyan);
+
+  box-shadow:
+    0 0 18px
+    rgba(65, 220, 255, 0.34);
+}
+
+/* ---------------------------------------------------------
+   TIME BAR
+   --------------------------------------------------------- */
+
+.lh-time-line {
+  max-width: 1600px;
+  height: 7px;
+
+  margin: 0 auto 9px;
+
+  overflow: hidden;
+
+  background: #06162a;
+}
+
+.lh-time-line i {
+  display: block;
+
+  height: 100%;
+
+  transition:
+    width 0.2s linear;
+
+  background:
+    linear-gradient(
+      90deg,
+      var(--lh-green),
+      var(--lh-cyan)
+    );
+}
+
+.is-danger .lh-time-line i {
+  background:
+    #ffad46;
+}
+
+.is-critical .lh-time-line i {
+  background:
+    var(--lh-red);
+}
+
+/* ---------------------------------------------------------
+   MAIN GAME LAYOUT
+   --------------------------------------------------------- */
+
+.lh-layout {
+  max-width: 1600px;
+
+  min-height: 675px;
+
+  margin: 0 auto;
+
+  display: grid;
+
+  grid-template-columns:
+    minmax(0, 1.72fr)
+    minmax(355px, 0.68fr);
+
+  gap: 11px;
+}
+
+.lh-game-panel {
+  min-width: 0;
+}
+
+/* ---------------------------------------------------------
+   GAME PANEL
+   --------------------------------------------------------- */
+
+.lh-stage,
+.lh-intro,
+.lh-success,
+.lh-fail {
+  position: relative;
+
+  min-height: 675px;
+
+  overflow: hidden;
+
+  padding: 28px;
+
+  border-radius:
+    var(--lh-radius-xl);
+
+  border:
+    1px solid var(--lh-line);
+
+  background:
+    radial-gradient(
+      circle at 85% 5%,
+      rgba(26, 157, 255, 0.13),
+      transparent 32%
+    ),
+    linear-gradient(
+      145deg,
+      #06162d,
+      #03101f
+    );
+
+  box-shadow:
+    0 25px 60px
+    rgba(0, 48, 100, 0.17);
+}
+
+/* ---------------------------------------------------------
+   STAGE TITLE
+   --------------------------------------------------------- */
+
+.lh-stage-title small {
+  color: var(--lh-cyan);
+
+  font-size: 10px;
+  font-weight: 950;
+
+  letter-spacing: 0.12em;
+}
+
+.lh-stage-title h1 {
+  margin: 5px 0;
+
+  font-size: 40px;
+  line-height: 1.05;
+
+  letter-spacing: -0.045em;
+}
+
+.lh-stage-title p {
+  margin: 0;
+
+  color: var(--lh-muted);
+
+  font-size: 13px;
+}
+
+/* ---------------------------------------------------------
+   CITY PANEL
+   --------------------------------------------------------- */
+
+.lh-city {
+  min-height: 675px;
+
+  overflow: hidden;
+
+  border-radius:
+    var(--lh-radius-xl);
+
+  border:
+    1px solid
+    rgba(255, 68, 88, 0.18);
+
+  background:
+    linear-gradient(
+      160deg,
+      #081a30,
+      #020812
+    );
+
+  box-shadow:
+    0 25px 60px
+    rgba(0, 30, 70, 0.17);
+}
+
+.lh-outbreak {
+  border:
+    1px solid
+    rgba(255, 64, 85, 0.28);
+
+  background:
+    rgba(138, 12, 32, 0.24);
+}
+
+.lh-outbreak strong {
+  color: var(--lh-red);
+
+  font-size: 38px;
+}
+
+/* ---------------------------------------------------------
+   DANGER MODE
+   --------------------------------------------------------- */
+
+.is-critical {
+  animation:
+    lhEmergencyScreen
+    0.8s ease-in-out
+    infinite alternate;
+}
+
+@keyframes lhEmergencyScreen {
+  from {
+    box-shadow:
+      inset 0 0 0
+      rgba(255, 50, 70, 0);
+  }
+
+  to {
+    box-shadow:
+      inset 0 0 90px
+      rgba(255, 45, 65, 0.14);
+  }
+}
+
+.is-critical
+.lh-time-box strong {
+  color: var(--lh-red);
+
+  animation:
+    lhTimePulse
+    0.5s ease-in-out
+    infinite alternate;
+}
+
+@keyframes lhTimePulse {
+  to {
+    transform: scale(1.07);
+  }
+}
+
+/* ---------------------------------------------------------
+   FOOTER
+   --------------------------------------------------------- */
+
+.lh-footer {
+  max-width: 1600px;
+
+  margin: 7px auto 0;
+
+  text-align: center;
+
+  color: #6381a3;
+
+  font-size: 9px;
+}

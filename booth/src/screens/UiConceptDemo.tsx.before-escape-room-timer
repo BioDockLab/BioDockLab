@@ -90,200 +90,130 @@ const diseaseCards = [
   },
 ] as const;
 
-function HomeScreen({
-  goVirus,
-}: {
-  goVirus: () => void;
-}) {
+function HomeScreen({ goVirus }: { goVirus: () => void }) {
   return (
-    <div className="bd-main bd-escape-home">
-      <section className="bd-escape-start bd-escape-start-v2">
-        <div className="bd-escape-start__alert">
-          <span className="bd-alert-dot" />
-          BIODOCKLAB · VIRUS RESPONSE LAB
-        </div>
+    <div className="bd-main">
+      <div className="bd-grid home-top">
+        <div className="bd-card pad-lg">
+          <div className="bd-eyebrow">
+            2026 미래직업 진로체험 박람회
+          </div>
 
-        <div className="bd-escape-start__content">
-          <div className="bd-escape-start__mission">
-            <div className="bd-eyebrow">
-              2026 미래직업 진로체험 박람회
+          <h2 className="bd-title">
+            <strong>90초 AI 신약개발 미션</strong>
+            <br />
+            바이러스 단백질의 약점을 찾아라
+          </h2>
+
+          <p className="bd-subtitle">
+            지금부터 당신은 AI 신약개발 연구원입니다.
+            실제 공개 단백질 구조를 확인하고,
+            결합 부위를 살펴본 뒤
+            다음 연구 후보를 직접 선택해보세요.
+          </p>
+
+          <div
+            className="bd-info-box"
+            style={{ marginTop: 18 }}
+          >
+            <div className="bd-info-icon">
+              ⏱
             </div>
 
-            <h2 className="bd-escape-start__title">
-              <span>90초 안에</span>
-              <br />
-              바이러스 단백질의
-              <br />
-              <strong>약점을 찾아라.</strong>
-            </h2>
+            <div>
+              <h3 style={{ marginBottom: 8 }}>
+                약 90초 · 미래직업 체험
+              </h3>
 
-            <p className="bd-escape-start__copy">
-              실제 공개 단백질 구조를 직접 움직이고,
-              결합 부위를 찾아 후보물질을 비교한 뒤
-              제한시간 안에 연구 결정을 내려보세요.
+              <p
+                className="bd-subtitle"
+                style={{ fontSize: 16 }}
+              >
+                실제 공개 구조 데이터를 활용해
+                신약개발 연구자의 사고 과정을 체험합니다.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div className="bd-grid home-cta">
+          <button
+            className="bd-card bd-cta-card blue pad-lg"
+            onClick={goVirus}
+          >
+            <div className="bd-card-arrow">
+              ›
+            </div>
+
+            <div className="bd-visual protein" />
+
+            <div className="bd-cta-title">
+              90초 미션 시작
+            </div>
+
+            <p className="bd-cta-sub">
+              AI DRUG DISCOVERY MISSION
             </p>
+          </button>
 
-            <div className="bd-mission-status-grid">
-              <div>
-                <small>LAB STATUS</small>
-                <strong className="locked">
-                  ● LOCKED
-                </strong>
-              </div>
-
-              <div>
-                <small>TARGET</small>
-                <strong>UNKNOWN</strong>
-              </div>
-
-              <div>
-                <small>MISSION</small>
-                <strong>FIND THE POCKET</strong>
-              </div>
-
-              <div>
-                <small>DATA</small>
-                <strong>REAL PDB</strong>
-              </div>
-            </div>
-          </div>
-
-          <div className="bd-escape-control-panel">
-            <div className="bd-escape-countdown-preview">
-              <small>
-                MISSION TIME LIMIT
-              </small>
-
-              <strong>
-                01:30
-              </strong>
-
-              <span>
-                시간이 끝나기 전에
-                연구 결정을 완료하세요.
-              </span>
+          <div className="bd-card pad-lg bd-career-panel">
+            <div className="bd-eyebrow">
+              FUTURE CAREER
             </div>
 
-            <button
-              type="button"
-              className="bd-escape-start-button bd-escape-start-button-v2"
-              onClick={goVirus}
+            <div className="bd-cta-title">
+              오늘 체험하는 미래직업
+            </div>
+
+            <div className="bd-career-list">
+              <div>AI 신약개발 연구원</div>
+              <div>바이오 데이터 연구원</div>
+              <div>디지털 바이오 연구원</div>
+            </div>
+
+            <p
+              className="bd-subtitle"
+              style={{
+                fontSize: 15,
+                marginBottom: 0,
+              }}
             >
-              <div>
-                <span>
-                  MISSION START
-                </span>
+              실제 데이터를 보고 판단하는
+              연구자의 사고 과정을 체험합니다.
+            </p>
+          </div>
+        </div>
+      </div>
 
-                <strong>
-                  90초 도전 시작
-                </strong>
+      <div className="bd-card pad-lg">
+        <h3 className="bd-section-title">
+          당신의 90초 미션
+        </h3>
+
+        <div className="bd-process">
+          {[
+            ['1', '바이러스 선택', '분석 대상을 선택해요'],
+            ['2', '실제 구조 확인', '3D 단백질을 살펴봐요'],
+            ['3', '약점 발견', '결합할 수 있는 공간을 찾아요'],
+            ['4', '후보 선택', '다음 연구 대상을 직접 골라요'],
+            ['5', '미션 완료', 'Research Trail을 확인해요'],
+          ].map(([num, title, sub]) => (
+            <div
+              className="bd-process-item"
+              key={num}
+            >
+              <div className="bd-process-num">
+                {num}
               </div>
 
-              <i>→</i>
-            </button>
-
-            <div className="bd-escape-difficulty">
-              <span>난이도</span>
-
-              <strong>
-                ★★★☆☆
-              </strong>
-
-              <small>
-                제한시간형 바이오 미션
-              </small>
+              <div>
+                <strong>{title}</strong>
+                <div>{sub}</div>
+              </div>
             </div>
-          </div>
+          ))}
         </div>
-      </section>
-
-      <section className="bd-escape-rules bd-escape-rules-v2">
-        <div className="bd-escape-rule">
-          <span>01</span>
-
-          <div>
-            <strong>
-              TARGET
-            </strong>
-
-            <small>
-              바이러스 선택
-            </small>
-          </div>
-        </div>
-
-        <div className="bd-escape-rule-arrow">
-          →
-        </div>
-
-        <div className="bd-escape-rule">
-          <span>02</span>
-
-          <div>
-            <strong>
-              EXPLORE
-            </strong>
-
-            <small>
-              실제 3D 구조 조작
-            </small>
-          </div>
-        </div>
-
-        <div className="bd-escape-rule-arrow">
-          →
-        </div>
-
-        <div className="bd-escape-rule">
-          <span>03</span>
-
-          <div>
-            <strong>
-              FIND
-            </strong>
-
-            <small>
-              결합 부위 발견
-            </small>
-          </div>
-        </div>
-
-        <div className="bd-escape-rule-arrow">
-          →
-        </div>
-
-        <div className="bd-escape-rule">
-          <span>04</span>
-
-          <div>
-            <strong>
-              DOCK
-            </strong>
-
-            <small>
-              후보 A/B/C 비교
-            </small>
-          </div>
-        </div>
-
-        <div className="bd-escape-rule-arrow">
-          →
-        </div>
-
-        <div className="bd-escape-rule">
-          <span>05</span>
-
-          <div>
-            <strong>
-              DECIDE
-            </strong>
-
-            <small>
-              최종 결정 잠금
-            </small>
-          </div>
-        </div>
-      </section>
+      </div>
     </div>
   );
 }

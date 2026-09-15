@@ -1,6 +1,8 @@
 import './styles/biodocklab-theme.css';
-import UiConceptDemo from './screens/UiConceptDemo';
+import './styles/last-hope-v7.css';
+
+import LastHopeGameV7 from './screens/LastHopeGameV7';
 
 export default function App() {
-  return <UiConceptDemo />;
+  return <LastHopeGameV7 />;
 }

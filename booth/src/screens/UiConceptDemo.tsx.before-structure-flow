@@ -1,0 +1,1138 @@
+import { useState } from 'react';
+import { KioskShell } from '../components/ui/KioskShell';
+import { Protein3DViewer } from '../components/Protein3DViewer';
+import {
+  dockingTargetByProteinId,
+  type DeepDiveProteinId,
+} from '../data/dockingTargets';
+import { dockingResultByProteinId } from '../data/dockingResults';
+
+type Screen =
+  | 'home'
+  | 'atlas'
+  | 'structure'
+  | 'binding'
+  | 'compare'
+  | 'report'
+  | 'done';
+
+const CANDIDATE_INDEX_KEY =
+  'biodocklab-selected-candidate-index';
+
+function readSelectedCandidateIndex(): number {
+  try {
+    const raw = localStorage.getItem(
+      CANDIDATE_INDEX_KEY,
+    );
+
+    const value = Number(raw);
+
+    if (
+      Number.isInteger(value) &&
+      value >= 0 &&
+      value <= 2
+    ) {
+      return value;
+    }
+  } catch {
+    // continue with default
+  }
+
+  return 1;
+}
+
+function saveSelectedCandidateIndex(
+  index: number,
+) {
+  try {
+    localStorage.setItem(
+      CANDIDATE_INDEX_KEY,
+      String(index),
+    );
+  } catch {
+    // kiosk remains usable without storage
+  }
+}
+
+
+const diseaseCards = [
+  {
+    label: 'COVID-19',
+    proteinId: 'sars2-mpro' as DeepDiveProteinId,
+    protein: 'SARS‑CoV‑2 Mpro',
+    sub: 'Main protease (Mpro)',
+    pdb: '6LU7',
+    color: 'red',
+    note: '바이러스가 복제될 때 꼭 필요한 단백질로, 구조 기반 치료제 후보 탐색의 핵심 표적입니다.',
+  },
+  {
+    label: 'MERS',
+    proteinId: 'mers-mpro' as DeepDiveProteinId,
+    protein: 'MERS‑CoV Mpro',
+    sub: 'Main protease (Mpro)',
+    pdb: '4YLU',
+    color: 'green',
+    note: 'MERS 바이러스의 복제에 필수적인 단백질을 표적으로, 새로운 치료제 개발 가능성을 탐색합니다.',
+  },
+  {
+    label: 'H1N1',
+    proteinId: 'h1n1-neuraminidase' as DeepDiveProteinId,
+    protein: 'H1N1 Neuraminidase',
+    sub: 'Neuraminidase (NA)',
+    pdb: '3TI6',
+    color: 'purple',
+    note: '바이러스가 세포 밖으로 빠져나갈 때 필요한 단백질을 이해하고 감염 확산 억제를 탐색합니다.',
+  },
+] as const;
+
+function HomeScreen({ goVirus }: { goVirus: () => void }) {
+  return (
+    <div className="bd-main">
+      <div className="bd-grid home-top">
+        <div className="bd-card pad-lg">
+          <div className="bd-eyebrow">
+            2026 미래직업 진로체험 박람회
+          </div>
+
+          <h2 className="bd-title">
+            <strong>90초 AI 신약개발 미션</strong>
+            <br />
+            바이러스 단백질의 약점을 찾아라
+          </h2>
+
+          <p className="bd-subtitle">
+            지금부터 당신은 AI 신약개발 연구원입니다.
+            실제 공개 단백질 구조를 확인하고,
+            결합 부위를 살펴본 뒤
+            다음 연구 후보를 직접 선택해보세요.
+          </p>
+
+          <div
+            className="bd-info-box"
+            style={{ marginTop: 18 }}
+          >
+            <div className="bd-info-icon">
+              ⏱
+            </div>
+
+            <div>
+              <h3 style={{ marginBottom: 8 }}>
+                약 90초 · 미래직업 체험
+              </h3>
+
+              <p
+                className="bd-subtitle"
+                style={{ fontSize: 16 }}
+              >
+                실제 공개 구조 데이터를 활용해
+                신약개발 연구자의 사고 과정을 체험합니다.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div className="bd-grid home-cta">
+          <button
+            className="bd-card bd-cta-card blue pad-lg"
+            onClick={goVirus}
+          >
+            <div className="bd-card-arrow">
+              ›
+            </div>
+
+            <div className="bd-visual protein" />
+
+            <div className="bd-cta-title">
+              90초 미션 시작
+            </div>
+
+            <p className="bd-cta-sub">
+              AI DRUG DISCOVERY MISSION
+            </p>
+          </button>
+
+          <div className="bd-card bd-cta-card green pad-lg">
+            <div className="bd-visual cell" />
+
+            <div className="bd-cta-title">
+              오늘의 미래직업
+            </div>
+
+            <p className="bd-cta-sub">
+              AI 신약개발 연구원
+              <br />
+              바이오 데이터 연구원
+              <br />
+              디지털 바이오 연구원
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div className="bd-card pad-lg">
+        <h3 className="bd-section-title">
+          당신의 90초 미션
+        </h3>
+
+        <div className="bd-process">
+          {[
+            ['1', '바이러스 선택', '분석 대상을 선택해요'],
+            ['2', '실제 구조 확인', '3D 단백질을 살펴봐요'],
+            ['3', '약점 발견', '결합할 수 있는 공간을 찾아요'],
+            ['4', '후보 선택', '다음 연구 대상을 직접 골라요'],
+            ['5', '미션 완료', 'Research Trail을 확인해요'],
+          ].map(([num, title, sub]) => (
+            <div
+              className="bd-process-item"
+              key={num}
+            >
+              <div className="bd-process-num">
+                {num}
+              </div>
+
+              <div>
+                <strong>{title}</strong>
+                <div>{sub}</div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+
+function AtlasScreen({
+  selectProtein,
+}: {
+  selectProtein: (proteinId: DeepDiveProteinId) => void;
+}) {
+  return (
+    <div className="bd-main">
+      <div className="bd-card pad-lg">
+        <div className="bd-eyebrow">
+          MISSION 01 · TARGET SELECT
+        </div>
+
+        <h2
+          className="bd-title"
+          style={{ fontSize: 54 }}
+        >
+          어떤 바이러스를 분석하시겠습니까?
+          <br />
+          <strong>
+            오늘의 연구 대상을 선택해주세요.
+          </strong>
+        </h2>
+
+        <p className="bd-subtitle">
+          하나를 선택하면 실제 공개 단백질 구조를
+          불러와 다음 미션을 시작합니다.
+        </p>
+      </div>
+
+      <div className="bd-grid atlas">
+        <div className="bd-card pad-lg">
+          <div className="bd-disease-grid">
+            {diseaseCards.map((card) => (
+              <button
+                key={card.label}
+                className="bd-disease-card"
+                onClick={() =>
+                  selectProtein(card.proteinId)
+                }
+                style={{
+                  textAlign: 'left',
+                  cursor: 'pointer',
+                }}
+              >
+                <div
+                  className={`virus ${card.color}`}
+                />
+
+                <div className="bd-chip">
+                  {card.label}
+                </div>
+
+                <div className="bd-protein-preview" />
+
+                <div>
+                  <h3
+                    style={{
+                      marginBottom: 6,
+                    }}
+                  >
+                    {card.protein}
+                  </h3>
+
+                  <p
+                    className="bd-subtitle"
+                    style={{ fontSize: 15 }}
+                  >
+                    {card.sub}
+                  </p>
+                </div>
+
+                <div className="bd-mini-item">
+                  <strong>공개 구조</strong>
+                  <span>PDB {card.pdb}</span>
+                </div>
+
+                <p
+                  className="bd-subtitle"
+                  style={{
+                    fontSize: 15,
+                    marginBottom: 0,
+                  }}
+                >
+                  {card.note}
+                </p>
+
+                <div
+                  className="bd-btn primary"
+                  style={{ minHeight: 46 }}
+                >
+                  이 바이러스로 분석하기 →
+                </div>
+              </button>
+            ))}
+          </div>
+        </div>
+
+        <div className="bd-side-stack">
+          <div className="bd-card pad-md">
+            <h3 className="bd-section-title">
+              오늘의 미션
+            </h3>
+
+            <p
+              className="bd-subtitle"
+              style={{
+                fontSize: 16,
+                lineHeight: 1.9,
+              }}
+            >
+              ① 바이러스를 선택하고
+              <br />
+              ② 실제 단백질 구조를 확인하고
+              <br />
+              ③ 결합 가능한 약점을 찾은 뒤
+              <br />
+              ④ 다음 연구 후보를 직접 선택합니다.
+            </p>
+          </div>
+
+          <div className="bd-card pad-md">
+            <h3 className="bd-section-title">
+              실제 데이터를 사용합니다
+            </h3>
+
+            <p
+              className="bd-subtitle"
+              style={{ fontSize: 15 }}
+            >
+              화면에 등장하는 단백질은
+              실제 공개 구조 데이터를 기반으로 합니다.
+              이 체험은 신약개발 연구 과정을
+              이해하기 위한 교육용 콘텐츠입니다.
+            </p>
+          </div>
+
+          <div className="bd-card pad-md">
+            <div className="bd-mascot">
+              <div className="bd-mascot-ball">
+                <div className="bd-mascot-sprout" />
+              </div>
+
+              <div className="bd-note">
+                90초 안에
+                <br />
+                단백질의 약점을 찾고
+                <br />
+                다음 후보를 선택하세요!
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+
+function StructureScreen({
+  proteinId,
+  next,
+}: {
+  proteinId: DeepDiveProteinId;
+  next: () => void;
+}) {
+  const dockingTarget =
+    dockingTargetByProteinId(proteinId);
+
+  if (!dockingTarget) {
+    return null;
+  }
+
+  return (
+    <div className="bd-main">
+      <div className="bd-card pad-lg">
+        <div className="bd-eyebrow">
+          MISSION 02 · REAL PROTEIN STRUCTURE
+        </div>
+
+        <h2
+          className="bd-title"
+          style={{ fontSize: 52 }}
+        >
+          이것이 실제
+          <br />
+          <strong>
+            바이러스 단백질의 3차원 구조입니다.
+          </strong>
+        </h2>
+
+        <p className="bd-subtitle">
+          바이러스도 활동하고 복제하기 위해
+          단백질을 사용합니다.
+          연구자는 이 단백질의 모양을 살펴보며
+          어디를 집중적으로 분석할지 찾습니다.
+        </p>
+      </div>
+
+      <div className="bd-grid structure">
+        <div className="bd-card pad-lg">
+          <div
+            style={{
+              display: 'flex',
+              justifyContent: 'space-between',
+              gap: 16,
+              alignItems: 'center',
+              marginBottom: 16,
+            }}
+          >
+            <div>
+              <div className="bd-chip">
+                {dockingTarget.disease}
+              </div>
+
+              <h3
+                style={{
+                  margin: '12px 0 6px',
+                  fontSize: 28,
+                }}
+              >
+                {dockingTarget.proteinName}
+              </h3>
+
+              <div className="bd-subtitle">
+                {dockingTarget.virus}
+              </div>
+            </div>
+
+            <div className="bd-pill">
+              실제 공개 구조 · PDB {dockingTarget.pdbId}
+            </div>
+          </div>
+
+          <div className="bd-dark-viewer">
+            <Protein3DViewer
+              target={dockingTarget}
+            />
+
+            <div className="bd-controls">
+              <div className="bd-control">
+                <strong>돌려보기</strong>
+                <br />
+                손가락이나 마우스로 구조를 움직여보세요.
+              </div>
+
+              <div className="bd-control">
+                <strong>확대하기</strong>
+                <br />
+                단백질의 세부 구조를 살펴보세요.
+              </div>
+
+              <div className="bd-control">
+                <strong>기준 분자</strong>
+                <br />
+                {dockingTarget.referenceLigand.name}
+              </div>
+
+              <div className="bd-control">
+                <strong>데이터 출처</strong>
+                <br />
+                RCSB Protein Data Bank
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div className="bd-side-stack">
+          <div className="bd-card pad-md">
+            <h3 className="bd-section-title">
+              지금 무엇을 보고 있나요?
+            </h3>
+
+            <div className="bd-mini-list">
+              <div className="bd-mini-item">
+                <strong>감염병</strong>
+                <span>{dockingTarget.disease}</span>
+              </div>
+
+              <div className="bd-mini-item">
+                <strong>바이러스</strong>
+                <span>{dockingTarget.virus}</span>
+              </div>
+
+              <div className="bd-mini-item">
+                <strong>표적 단백질</strong>
+                <span>{dockingTarget.proteinName}</span>
+              </div>
+
+              <div className="bd-mini-item">
+                <strong>공개 구조</strong>
+                <span>PDB {dockingTarget.pdbId}</span>
+              </div>
+            </div>
+          </div>
+
+          <div className="bd-card pad-md">
+            <h3 className="bd-section-title">
+              왜 3D 구조를 볼까요?
+            </h3>
+
+            <p
+              className="bd-subtitle"
+              style={{
+                fontSize: 16,
+                marginBottom: 0,
+              }}
+            >
+              단백질의 기능은 모양과 밀접한 관련이 있습니다.
+              연구자는 단백질 전체를 무작정 보는 것이 아니라,
+              다른 분자가 들어갈 수 있는 공간을
+              구조에서 찾아봅니다.
+            </p>
+          </div>
+
+          <div className="bd-card pad-md">
+            <div className="bd-note">
+              다음 미션
+              <br />
+              <strong>
+                “이 단백질에서 분자가 들어갈 수 있는
+                약점 후보를 찾아보세요.”
+              </strong>
+            </div>
+          </div>
+
+          <button
+            className="bd-btn primary"
+            onClick={next}
+          >
+            약점 후보 찾기 →
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+
+function BindingScreen({
+  proteinId,
+  next,
+}: {
+  proteinId: DeepDiveProteinId;
+  next: () => void;
+}) {
+  const dockingTarget =
+    dockingTargetByProteinId(proteinId);
+
+  if (!dockingTarget) {
+    return null;
+  }
+
+  return (
+    <div className="bd-main">
+      <div className="bd-card pad-lg">
+        <div className="bd-eyebrow">
+          MISSION 03 · FIND THE BINDING SITE
+        </div>
+
+        <h2
+          className="bd-title"
+          style={{ fontSize: 52 }}
+        >
+          단백질 전체가 아니라,
+          <br />
+          <strong>
+            분자가 들어갈 수 있는 공간을 찾습니다.
+          </strong>
+        </h2>
+
+        <p className="bd-subtitle">
+          단백질 표면에는 다른 분자가 들어갈 수 있는
+          공간이 있습니다.
+          이런 위치는 새로운 후보물질을 비교할 때
+          중요한 출발점이 됩니다.
+        </p>
+      </div>
+
+      <div className="bd-grid binding">
+        <div className="bd-card pad-md bd-binding-box">
+          <div className="bd-chip">
+            STEP 1
+          </div>
+
+          <h3
+            className="bd-section-title"
+            style={{ marginTop: 14 }}
+          >
+            실제 구조 확인
+          </h3>
+
+          <div className="bd-binding-visual" />
+
+          <div
+            className="bd-mini-list"
+            style={{ marginTop: 16 }}
+          >
+            <div className="bd-mini-item">
+              <strong>단백질</strong>
+              <span>
+                {dockingTarget.proteinName}
+              </span>
+            </div>
+
+            <div className="bd-mini-item">
+              <strong>PDB</strong>
+              <span>
+                {dockingTarget.pdbId}
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <div className="bd-card pad-md bd-binding-box">
+          <div className="bd-chip">
+            STEP 2
+          </div>
+
+          <h3
+            className="bd-section-title"
+            style={{ marginTop: 14 }}
+          >
+            기준 분자 확인
+          </h3>
+
+          <div
+            className="bd-pill"
+            style={{ marginBottom: 16 }}
+          >
+            {dockingTarget.referenceLigand.name}
+          </div>
+
+          <p
+            className="bd-subtitle"
+            style={{ fontSize: 16 }}
+          >
+            이 공개 구조에는 단백질과 함께 관찰되는
+            기준 분자 정보가 포함되어 있습니다.
+            우리는 이 위치를 참고해
+            결합 부위를 이해합니다.
+          </p>
+
+          <div className="bd-checks">
+            <div className="bd-check">
+              <i>✓</i>
+              <span>
+                실제 공개 PDB 구조 사용
+              </span>
+            </div>
+
+            <div className="bd-check">
+              <i>✓</i>
+              <span>
+                기준 분자 위치 확인
+              </span>
+            </div>
+
+            <div className="bd-check">
+              <i>✓</i>
+              <span>
+                주변 결합 공간 관찰
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <div className="bd-card pad-md bd-binding-box">
+          <div className="bd-chip">
+            STEP 3
+          </div>
+
+          <h3
+            className="bd-section-title"
+            style={{ marginTop: 14 }}
+          >
+            약점 후보 발견
+          </h3>
+
+          <div
+            className="bd-info-box"
+            style={{
+              marginTop: 10,
+              marginBottom: 16,
+            }}
+          >
+            <div className="bd-info-icon">
+              🎯
+            </div>
+
+            <div>
+              <strong>
+                결합 부위 후보
+              </strong>
+
+              <p
+                className="bd-subtitle"
+                style={{
+                  fontSize: 15,
+                  margin: '6px 0 0',
+                }}
+              >
+                기준 분자 주변의 공간을
+                다음 후보물질 비교의 기준으로 사용합니다.
+              </p>
+            </div>
+          </div>
+
+          <div className="bd-note">
+            단백질이 자물쇠라면,
+            <br />
+            후보물질은 이 공간에 맞춰보는
+            <br />
+            <strong>열쇠 후보</strong>와 같습니다.
+          </div>
+        </div>
+      </div>
+
+      <div className="bd-card pad-lg">
+        <h3 className="bd-section-title">
+          약점 후보를 찾았습니다.
+        </h3>
+
+        <p
+          className="bd-subtitle"
+          style={{ fontSize: 17 }}
+        >
+          이제 같은 결합 부위를 기준으로
+          세 개의 후보물질을 비교해보겠습니다.
+          어떤 후보를 다음 연구 대상으로 선택할지는
+          여러분이 결정합니다.
+        </p>
+
+        <button
+          className="bd-btn primary"
+          onClick={next}
+        >
+          후보 3개 비교하기 →
+        </button>
+      </div>
+    </div>
+  );
+}
+
+
+function CompareScreen({
+  proteinId,
+  next,
+}: {
+  proteinId: DeepDiveProteinId;
+  next: () => void;
+}) {
+  const dockingTarget = dockingTargetByProteinId(proteinId);
+  const dockingResult = dockingResultByProteinId(proteinId);
+
+  const candidates = dockingResult?.candidates ?? [];
+
+  const [
+    selectedCandidateIndex,
+    setSelectedCandidateIndex,
+  ] = useState(() => readSelectedCandidateIndex());
+
+  const selectCandidate = (index: number) => {
+    setSelectedCandidateIndex(index);
+    saveSelectedCandidateIndex(index);
+  };
+
+  return (
+    <div className="bd-main">
+      <div className="bd-card pad-lg">
+        <h2 className="bd-title" style={{ fontSize: 52 }}>후보물질 비교</h2>
+        <p className="bd-subtitle">
+          사전 계산된 도킹 결과를 바탕으로 후보물질을 비교하고 있습니다.
+        </p>
+      </div>
+
+      <div className="bd-grid compare">
+        <div className="bd-card pad-lg">
+          <div className="bd-candidates">
+            {candidates.map((card, index) => (
+              <div
+                key={card.code}
+                className={['bd-candidate', index === selectedCandidateIndex ? 'selected' : ''].join(' ')}
+                onClick={() => selectCandidate(index)}
+              >
+                <div className="bd-candidate-top">
+                  <div>
+                    <div className="bd-chip">후보물질</div>
+                    <h3 style={{ margin: '10px 0 4px' }}>{card.name}</h3>
+                    <div>{card.code}</div>
+                  </div>
+                  {index === selectedCandidateIndex && <div className="bd-pill">다음 연구 방향 선택</div>}
+                </div>
+
+                <div className="bd-candidate-molecule" />
+
+                <div className="bd-mini-item">
+                  <strong>Vina 점수</strong>
+                  <span>
+                    {card.vinaScore == null
+                      ? '검증 대기'
+                      : `${card.vinaScore.toFixed(2)} kcal/mol`}
+                  </span>
+                </div>
+
+                <div className="bd-checks" style={{ marginTop: 0 }}>
+                  {card.interactions.length > 0 ? (
+                    card.interactions.map((interaction) => (
+                      <div className="bd-check" key={interaction}>
+                        <i>✓</i>
+                        <span>{interaction}</span>
+                      </div>
+                    ))
+                  ) : (
+                    <div className="bd-check">
+                      <i>·</i>
+                      <span>{card.note}</span>
+                    </div>
+                  )}
+                </div>
+
+                <button
+                  className={index === selectedCandidateIndex ? 'bd-btn secondary' : 'bd-btn ghost'}
+                  onClick={next}
+                >
+                  {index === selectedCandidateIndex ? '선택됨' : '이 후보물질 선택'}
+                </button>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <div className="bd-side-stack">
+          <div className="bd-card pad-md">
+            <h3 className="bd-section-title">타겟 단백질 정보</h3>
+            <div className="bd-thumbnail" />
+            <div className="bd-mini-list" style={{ marginTop: 12 }}>
+              <div className="bd-mini-item"><strong>단백질</strong><span>SARS‑CoV‑2 Mpro (6LU7)</span></div>
+              <div className="bd-mini-item"><strong>기준 리간드</strong><span>{dockingTarget?.referenceLigand.name ?? '-'}</span></div>
+            </div>
+          </div>
+
+          <div className="bd-card pad-md">
+            <h3 className="bd-section-title">꼭 확인하세요!</h3>
+            <p className="bd-subtitle" style={{ fontSize: 14 }}>
+              본 결과는 교육 및 체험용으로 사전 계산된 도킹 결과를 기반으로 합니다.
+              실제 약물 개발을 위해서는 추가적인 실험 검증과 전문적인 연구가 필요합니다.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function ReportScreen({
+  proteinId,
+  next,
+}: {
+  proteinId: DeepDiveProteinId;
+  next: () => void;
+}) {
+  const dockingTarget = dockingTargetByProteinId(proteinId);
+  const dockingResult = dockingResultByProteinId(proteinId);
+
+  const selectedCandidate =
+    dockingResult?.candidates?.[readSelectedCandidateIndex()] ??
+    dockingResult?.candidates?.[0] ??
+    null;
+
+  return (
+    <div className="bd-main">
+      <div className="bd-card pad-lg">
+        <h2 className="bd-title" style={{ fontSize: 54 }}>
+          <strong>Research Trail 리포트</strong>
+        </h2>
+        <p className="bd-subtitle">
+          당신의 연구 결과를 확인하고, 리포트와 연구원 카드를 받아가세요.
+        </p>
+      </div>
+
+      <div className="bd-grid report">
+        <div className="bd-card pad-md">
+          <h3 className="bd-section-title">연구자 정보</h3>
+          <div className="bd-mini-list">
+            <div className="bd-mini-item"><strong>연구자 이름</strong><span>이영준 / Lee Young Jun</span></div>
+            <div className="bd-mini-item"><strong>관심 분야</strong><span>감염병 · 항바이러스 치료제</span></div>
+            <div className="bd-mini-item"><strong>연구 질문</strong><span>SARS‑CoV‑2 Mpro에 결합하는 후보는?</span></div>
+            <div className="bd-mini-item"><strong>선택 단백질</strong><span>SARS‑CoV‑2 Mpro</span></div>
+            <div className="bd-mini-item"><strong>PDB ID</strong><span>6LU7</span></div>
+            <div className="bd-mini-item"><strong>선택 후보</strong><span>COVID Candidate B</span></div>
+            <div className="bd-mini-item"><strong>분석 일시</strong><span>2026. 9. 16. 14:22</span></div>
+          </div>
+        </div>
+
+        <div className="bd-card pad-md">
+          <h3 className="bd-section-title">A4 리포트 미리보기</h3>
+          <div className="bd-report-sheet">
+            <div className="bd-report-top">
+              <div>
+                <h3>Bio AI Analysis Report</h3>
+                <div>바이오 AI 분석 리포트</div>
+              </div>
+              <div className="bd-thumbnail" style={{ height: 100 }} />
+            </div>
+
+            <div className="bd-report-lines">
+              <div className="bd-report-line"><strong>연구 주제</strong><span>COVID‑19 치료제 후보 물질 탐색</span></div>
+              <div className="bd-report-line"><strong>선택 단백질</strong><span>Main protease (Mpro)</span></div>
+              <div className="bd-report-line"><strong>PDB ID</strong><span>6LU7</span></div>
+              <div className="bd-report-line"><strong>기준 리간드</strong><span>N3</span></div>
+              <div className="bd-report-line"><strong>선택 후보물질</strong><span>COVID Candidate B</span></div>
+              <div className="bd-report-line"><strong>계산 엔진</strong><span>Molecular Docking (AutoDock Vina)</span></div>
+            </div>
+
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'end', marginTop: 16 }}>
+              <div>
+                <strong>주요 결과 요약</strong>
+                <ul style={{ margin: '10px 0 0', paddingLeft: 18 }}>
+                  <li>선택 후보물질의 결합 가능성 확인</li>
+                  <li>기준 리간드와의 결합 포즈 유사성 분석</li>
+                  <li>후속 탐색 방향 제안</li>
+                </ul>
+              </div>
+              <div className="bd-qr" />
+            </div>
+          </div>
+        </div>
+
+        <div className="bd-side-stack">
+          <div className="bd-researcher-card">
+            <div className="bd-chip" style={{ background: 'rgba(255,255,255,0.12)', color: 'white' }}>
+              스마트 연구원 카드 (NFC)
+            </div>
+            <h4>BioDockLab</h4>
+            <p style={{ marginTop: 0 }}>RESEARCHER · LEE YOUNG JUN</p>
+            <p style={{ opacity: 0.84 }}>QR로 온라인 접속 (오프라인도 OK)</p>
+          </div>
+
+          <div className="bd-action-stack">
+            <button className="bd-btn primary" onClick={next}>A4 리포트 출력</button>
+            <button className="bd-btn secondary" onClick={next}>연구원 카드 발급</button>
+            <button className="bd-btn ghost">이전으로</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function DoneScreen({
+  proteinId,
+  home,
+}: {
+  proteinId: DeepDiveProteinId;
+  home: () => void;
+}) {
+  const dockingTarget = dockingTargetByProteinId(proteinId);
+  const dockingResult = dockingResultByProteinId(proteinId);
+
+  const selectedCandidate =
+    dockingResult?.candidates?.[readSelectedCandidateIndex()] ??
+    dockingResult?.candidates?.[0] ??
+    null;
+
+  return (
+    <div className="bd-main">
+      <div className="bd-card pad-lg">
+        <h2 className="bd-title" style={{ fontSize: 58 }}>
+          <strong>Research Trail 완료</strong>
+        </h2>
+        <p className="bd-subtitle">
+          체험이 완료되었습니다. 리포트와 연구원 카드를 받아가세요!
+        </p>
+      </div>
+
+      <div className="bd-grid done">
+        <div className="bd-card pad-md">
+          <h3 className="bd-section-title">오늘의 연구 경로</h3>
+          <div className="bd-mini-list">
+            <div className="bd-mini-item"><strong>감염병</strong><span>COVID‑19</span></div>
+            <div className="bd-mini-item"><strong>바이러스</strong><span>SARS‑CoV‑2</span></div>
+            <div className="bd-mini-item"><strong>단백질</strong><span>Main protease (Mpro)</span></div>
+            <div className="bd-mini-item"><strong>PDB ID</strong><span>6LU7</span></div>
+            <div className="bd-mini-item"><strong>기준 리간드</strong><span>N3</span></div>
+            <div className="bd-mini-item"><strong>선택 후보</strong><span>COVID Candidate B</span></div>
+            <div className="bd-mini-item"><strong>결과 상태</strong><span>교육용 결과 표시</span></div>
+          </div>
+        </div>
+
+        <div className="bd-card pad-md">
+          <h3 className="bd-section-title">AI 분석 리포트 미리보기</h3>
+          <div className="bd-report-sheet" style={{ aspectRatio: '1 / 0.92' }}>
+            <div className="bd-report-top">
+              <div>
+                <h3>Bio AI Analysis Report</h3>
+                <div>오늘의 탐험이 한 장의 리포트로 정리되었습니다.</div>
+              </div>
+              <div className="bd-thumbnail" style={{ height: 92 }} />
+            </div>
+
+            <div className="bd-report-lines">
+              <div className="bd-report-line"><strong>연구 주제</strong><span>COVID‑19 치료제 후보 물질 탐색</span></div>
+              <div className="bd-report-line"><strong>단백질 표적</strong><span>Main protease (Mpro)</span></div>
+              <div className="bd-report-line"><strong>선택 후보</strong><span>COVID Candidate B</span></div>
+              <div className="bd-report-line"><strong>출처</strong><span>RCSB PDB / 6LU7</span></div>
+            </div>
+
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: 14 }}>
+              <div>
+                <strong>주요 결과</strong>
+                <ul style={{ margin: '8px 0 0', paddingLeft: 18 }}>
+                  <li>결합 가능성 확인</li>
+                  <li>구조 기반 후속 탐색 방향 제안</li>
+                </ul>
+              </div>
+              <div className="bd-qr" />
+            </div>
+          </div>
+        </div>
+
+        <div className="bd-side-stack">
+          <div className="bd-card pad-md">
+            <h3 className="bd-section-title">받아가기</h3>
+            <div className="bd-action-stack">
+              <button className="bd-btn primary">A4 리포트 출력</button>
+              <button className="bd-btn secondary">연구원 카드 발급</button>
+              <button className="bd-btn ghost" onClick={home}>처음으로</button>
+            </div>
+          </div>
+
+          <div className="bd-card pad-md">
+            <div className="bd-mascot">
+              <div className="bd-mascot-ball">
+                <div className="bd-mascot-sprout" />
+              </div>
+              <div className="bd-note">
+                탐구하는 당신이 만드는
+                <br />
+                더 건강한 내일!
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+export default function UiConceptDemo() {
+  const [screen, setScreen] = useState<Screen>('home');
+  const [selectedProteinId, setSelectedProteinId] =
+    useState<DeepDiveProteinId>('sars2-mpro');
+
+  const activeStep =
+    screen === 'atlas'
+      ? 1
+      : screen === 'structure'
+      ? 2
+      : screen === 'binding'
+      ? 3
+      : screen === 'compare'
+      ? 4
+      : screen === 'report' || screen === 'done'
+      ? 5
+      : 0;
+
+  return (
+    <KioskShell showSteps={screen !== 'home'} activeStep={activeStep}>
+      <div className="bd-dev-nav">
+        {[
+          ['home', '메인'],
+          ['atlas', '바이러스 선택'],
+          ['structure', '실제 구조'],
+          ['binding', '약점 발견'],
+          ['compare', '후보 선택'],
+          ['done', '미션 완료'],
+        ].map(([key, label]) => (
+          <button
+            key={key}
+            className={['bd-dev-tab', screen === key ? 'active' : ''].join(' ')}
+            onClick={() => setScreen(key as Screen)}
+          >
+            {label}
+          </button>
+        ))}
+      </div>
+
+      {screen === 'home' && <HomeScreen goVirus={() => setScreen('atlas')} />}
+      {screen === 'atlas' && (
+        <AtlasScreen
+          selectProtein={(proteinId) => {
+            setSelectedProteinId(proteinId);
+            setScreen('structure');
+          }}
+        />
+      )}
+
+      {screen === 'structure' && (
+        <StructureScreen
+          proteinId={selectedProteinId}
+          next={() => setScreen('binding')}
+        />
+      )}
+
+      {screen === 'binding' && (
+        <BindingScreen
+          proteinId={selectedProteinId}
+          next={() => setScreen('compare')}
+        />
+      )}
+
+      {screen === 'compare' && (
+        <CompareScreen
+          proteinId={selectedProteinId}
+          next={() => setScreen('report')}
+        />
+      )}
+      {screen === 'report' && (
+        <ReportScreen
+          proteinId={selectedProteinId}
+          next={() => setScreen('done')}
+        />
+      )}
+
+      {screen === 'done' && (
+        <DoneScreen
+          proteinId={selectedProteinId}
+          home={() => setScreen('home')}
+        />
+      )}
+    </KioskShell>
+  );
+}

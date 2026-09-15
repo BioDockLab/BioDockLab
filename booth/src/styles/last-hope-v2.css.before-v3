@@ -1,0 +1,2032 @@
+:root {
+  --lh2-navy: #04152d;
+  --lh2-deep: #020914;
+  --lh2-blue: #168dff;
+  --lh2-cyan: #54e4ff;
+  --lh2-green: #43e8a8;
+  --lh2-red: #ff4357;
+  --lh2-text: #f6fbff;
+  --lh2-muted: #87a5c6;
+}
+
+body {
+  margin: 0;
+  background: #eaf6ff;
+}
+
+.lh2 {
+  min-height: 100vh;
+  padding: 12px 18px 8px;
+  color: var(--lh2-text);
+  background:
+    radial-gradient(circle at 67% 0%, rgba(88,197,255,.19), transparent 28%),
+    linear-gradient(180deg,#f9fdff 0 11%,#e6f3fd 11% 100%);
+}
+
+.lh2 * {
+  box-sizing: border-box;
+}
+
+.lh2-brandbar {
+  max-width: 1600px;
+  height: 91px;
+  margin: auto;
+  display: flex;
+  align-items: center;
+  gap: 28px;
+  color: #082a61;
+}
+
+.lh2-brandbar > div:first-child {
+  display: grid;
+}
+
+.lh2-brandbar small {
+  font-size: 10px;
+  font-weight: 900;
+}
+
+.lh2-brandbar strong {
+  font-size: 49px;
+  line-height: .9;
+  letter-spacing: -.06em;
+}
+
+.lh2-brandbar strong span {
+  color: #168dff;
+}
+
+.lh2-brandcopy {
+  font-size: 18px;
+  font-weight: 950;
+}
+
+.lh2-brandcopy span {
+  display: block;
+  margin-top: 3px;
+  color: #7992b1;
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.lh2-brandmotto {
+  margin-left: auto;
+  text-align: right;
+  color: #1a67ba;
+  font-size: 11px;
+  font-weight: 900;
+  letter-spacing: .18em;
+}
+
+.lh2-hud {
+  max-width: 1600px;
+  height: 102px;
+  margin: auto;
+  display: grid;
+  grid-template-columns: 250px 280px 220px 1fr;
+  border-radius: 24px 24px 7px 7px;
+  overflow: hidden;
+  border: 1px solid rgba(42,154,238,.36);
+  background: linear-gradient(90deg,#051a36,#073c70,#06234a);
+  box-shadow: 0 15px 38px rgba(20,82,140,.18);
+}
+
+.lh2-time,
+.lh2-outbreak-hud,
+.lh2-score {
+  display: flex;
+  align-items: center;
+  gap: 13px;
+  padding: 13px 18px;
+  border-right: 1px solid rgba(110,202,255,.18);
+}
+
+.lh2-hud-icon,
+.lh2-outbreak-hud > span,
+.lh2-score > span {
+  font-size: 34px;
+  color: var(--lh2-cyan);
+}
+
+.lh2-hud small {
+  display: block;
+  color: #75a6ce;
+  font-size: 9px;
+  font-weight: 950;
+}
+
+.lh2-time strong {
+  display: block;
+  font-family: ui-monospace, monospace;
+  font-size: 49px;
+  line-height: .92;
+  letter-spacing: -.06em;
+}
+
+.lh2-outbreak-hud strong,
+.lh2-score strong {
+  display: block;
+  margin-top: 3px;
+  font-size: 33px;
+}
+
+.lh2-outbreak-hud strong {
+  color: #ff6473;
+}
+
+.lh2-outbreak-hud i {
+  flex: 1;
+  height: 6px;
+  overflow: hidden;
+  border-radius: 99px;
+  background: #273d58;
+}
+
+.lh2-outbreak-hud i b {
+  display: block;
+  height: 100%;
+  background: var(--lh2-red);
+}
+
+.lh2-mission-route {
+  display: grid;
+  grid-template-columns: repeat(5,1fr);
+  align-items: center;
+  padding: 10px;
+  background: #f5fbff;
+}
+
+.lh2-mission-route div {
+  color: #7991af;
+  text-align: center;
+}
+
+.lh2-mission-route b {
+  width: 38px;
+  height: 38px;
+  display: grid;
+  place-items: center;
+  margin: 0 auto 5px;
+  border-radius: 50%;
+  border: 2px solid #b5cae1;
+  color: #6c8cad;
+  background: white;
+}
+
+.lh2-mission-route span {
+  display: block;
+  font-size: 9px;
+  font-weight: 900;
+}
+
+.lh2-mission-route .current b {
+  color: white;
+  border-color: #168dff;
+  background: #168dff;
+  box-shadow: 0 0 18px rgba(22,141,255,.28);
+}
+
+.lh2-mission-route .current span,
+.lh2-mission-route .done span {
+  color: #126ed0;
+}
+
+.lh2-mission-route .done b {
+  border-color: #63ddbb;
+  color: #0b775c;
+}
+
+.lh2-timebar {
+  max-width: 1600px;
+  height: 6px;
+  margin: 0 auto 9px;
+  overflow: hidden;
+  background: #9cb2c9;
+}
+
+.lh2-timebar i {
+  display: block;
+  height: 100%;
+  background: linear-gradient(90deg,#41e7ae,#45cfff);
+  transition: width .2s linear;
+}
+
+.lh2-danger .lh2-timebar i {
+  background: #ffae42;
+}
+
+.lh2-critical .lh2-timebar i {
+  background: var(--lh2-red);
+}
+
+.lh2-critical .lh2-time strong {
+  color: #ff5365;
+  animation: lh2Pulse .5s infinite alternate ease-in-out;
+}
+
+@keyframes lh2Pulse {
+  to {
+    transform: scale(1.07);
+  }
+}
+
+.lh2-grid {
+  max-width: 1600px;
+  margin: auto;
+  display: grid;
+  grid-template-columns: minmax(0,1.5fr) minmax(400px,.72fr);
+  gap: 10px;
+}
+
+.lh2-game,
+.lh2-city {
+  min-height: 690px;
+  border-radius: 24px;
+  overflow: hidden;
+  border: 1px solid rgba(50,161,236,.28);
+  box-shadow: 0 20px 55px rgba(22,75,126,.14);
+}
+
+.lh2-game {
+  background: linear-gradient(145deg,#061c3a,#031020);
+}
+
+.lh2-stage {
+  position: relative;
+  min-height: 690px;
+  padding: 26px;
+}
+
+.lh2-stagehead {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 18px;
+}
+
+.lh2-stagehead small {
+  color: #55ddff;
+  font-size: 10px;
+  font-weight: 950;
+  letter-spacing: .08em;
+}
+
+.lh2-stagehead h1 {
+  margin: 5px 0;
+  font-size: 39px;
+  line-height: 1;
+  letter-spacing: -.045em;
+}
+
+.lh2-stagehead p {
+  margin: 0;
+  color: #89a7c5;
+  font-size: 13px;
+}
+
+.lh2-stagehead > span {
+  align-self: flex-start;
+  padding: 7px 11px;
+  border: 1px solid rgba(255,81,99,.25);
+  border-radius: 999px;
+  color: #ff8290;
+  font-size: 8px;
+  font-weight: 950;
+}
+
+.lh2-question {
+  min-height: 290px;
+  display: grid;
+  grid-template-columns: 170px 1fr;
+  align-items: center;
+  gap: 30px;
+  padding: 30px;
+  border-radius: 22px;
+  background: rgba(255,255,255,.045);
+  border: 1px solid rgba(85,210,255,.16);
+}
+
+.lh2-virus-symbol {
+  width: 150px;
+  height: 150px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  color: #ff6372;
+  border: 3px solid #ff495e;
+  background: rgba(135,10,30,.26);
+  box-shadow: 0 0 45px rgba(255,50,65,.17);
+  font-size: 65px;
+}
+
+.lh2-question small {
+  color: #7095bc;
+  font-size: 9px;
+  font-weight: 950;
+}
+
+.lh2-question span {
+  display: block;
+  margin-top: 15px;
+  color: #55dfff;
+  font-size: 24px;
+  font-weight: 1000;
+}
+
+.lh2-question h2 {
+  margin: 3px 0;
+  font-size: 36px;
+  line-height: 1.2;
+}
+
+.lh2-ox {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 13px;
+  margin-top: 14px;
+}
+
+.lh2-ox button {
+  min-height: 155px;
+  cursor: pointer;
+  border-radius: 20px;
+  font: inherit;
+}
+
+.lh2-ox strong,
+.lh2-ox span {
+  display: block;
+}
+
+.lh2-ox strong {
+  font-size: 70px;
+  line-height: .9;
+}
+
+.lh2-ox span {
+  margin-top: 7px;
+  font-weight: 900;
+}
+
+.lh2-ox .o {
+  color: #67efff;
+  border: 2px solid #28aaff;
+  background: linear-gradient(145deg,#0875d3,#0b95f0);
+}
+
+.lh2-ox .x {
+  color: white;
+  border: 2px solid #ff5266;
+  background: linear-gradient(145deg,#b51b32,#eb344b);
+}
+
+.lh2-rule,
+.lh2-match-rule {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+  margin-top: 13px;
+  padding: 13px 16px;
+  border-radius: 14px;
+  color: #8caaca;
+  background: rgba(255,255,255,.035);
+}
+
+.lh2-rule span:first-child,
+.lh2-match-rule span:first-child {
+  color: #4de6ae;
+  font-weight: 900;
+}
+
+.lh2-rule span:nth-child(2),
+.lh2-match-rule span:nth-child(2) {
+  color: #ff6979;
+  font-weight: 900;
+}
+
+.lh2-rule b {
+  margin-left: auto;
+  font-size: 11px;
+}
+
+.lh2-memory {
+  display: grid;
+  grid-template-columns: 1fr 230px;
+  gap: 13px;
+}
+
+.lh2-memory-view {
+  position: relative;
+  min-height: 535px;
+  overflow: hidden;
+  border-radius: 22px;
+  background: #020914;
+  border: 1px solid rgba(68,210,255,.21);
+}
+
+.lh2-memory-view .protein-3d,
+.lh2-memory-view .protein-3d__canvas {
+  height: 535px;
+}
+
+.lh2-target-id {
+  position: absolute;
+  left: 18px;
+  top: 18px;
+  z-index: 9;
+  padding: 13px 15px;
+  border-radius: 13px;
+  background: rgba(3,18,40,.83);
+  backdrop-filter: blur(10px);
+}
+
+.lh2-target-id small,
+.lh2-target-id strong,
+.lh2-target-id span {
+  display: block;
+}
+
+.lh2-target-id small {
+  color: #52dfff;
+  font-size: 8px;
+  font-weight: 900;
+}
+
+.lh2-target-id strong {
+  margin-top: 4px;
+  font-size: 17px;
+}
+
+.lh2-target-id span {
+  color: #8ca7c5;
+  font-size: 11px;
+}
+
+.lh2-scan-ring {
+  position: absolute;
+  z-index: 5;
+  left: 50%;
+  top: 50%;
+  width: 390px;
+  height: 390px;
+  transform: translate(-50%,-50%);
+  pointer-events: none;
+  border-radius: 50%;
+  border: 1px solid rgba(71,216,255,.3);
+  box-shadow:
+    0 0 0 35px rgba(43,177,255,.025),
+    0 0 0 70px rgba(43,177,255,.018);
+}
+
+.lh2-memory-timer {
+  display: grid;
+  align-content: center;
+  padding: 18px;
+  text-align: center;
+  border-radius: 22px;
+  background: rgba(0,11,26,.7);
+  border: 1px solid rgba(79,213,255,.2);
+}
+
+.lh2-memory-timer small {
+  color: #55dfff;
+  font-size: 9px;
+  font-weight: 950;
+}
+
+.lh2-memory-timer strong {
+  margin: 15px 0;
+  font-family: ui-monospace, monospace;
+  font-size: 125px;
+  line-height: .8;
+}
+
+.lh2-memory-timer span {
+  color: #aac0d6;
+  font-weight: 900;
+}
+
+.lh2-memory-timer i {
+  margin-top: 22px;
+  color: #617f9f;
+  font-size: 10px;
+  font-style: normal;
+}
+
+.lh2-match {
+  display: grid;
+  grid-template-columns: repeat(3,1fr);
+  gap: 11px;
+}
+
+.lh2-match > button {
+  position: relative;
+  min-width: 0;
+  padding: 10px;
+  color: white;
+  border-radius: 20px;
+  border: 1px solid rgba(64,190,255,.24);
+  background: rgba(255,255,255,.03);
+  cursor: pointer;
+  font: inherit;
+  transition: .16s ease;
+}
+
+.lh2-match > button:hover {
+  transform: translateY(-5px);
+  border-color: #49dfff;
+  box-shadow: 0 16px 40px rgba(30,170,230,.14);
+}
+
+.lh2-match > button > b {
+  position: absolute;
+  left: 20px;
+  top: 20px;
+  z-index: 15;
+  width: 52px;
+  height: 52px;
+  display: grid;
+  place-items: center;
+  color: #02233c;
+  border-radius: 13px;
+  background: #49dfff;
+  font-size: 28px;
+}
+
+.lh2-match > button > div {
+  height: 450px;
+  overflow: hidden;
+  border-radius: 14px;
+  background: #020914;
+}
+
+.lh2-match .protein-3d,
+.lh2-match .protein-3d__canvas {
+  height: 100%;
+}
+
+.lh2-match .protein-3d__legend {
+  display: none;
+}
+
+.lh2-match > button > span {
+  display: block;
+  padding: 10px 0 3px;
+  color: #91abc5;
+  font-size: 11px;
+  font-weight: 900;
+}
+
+.lh2-feedback {
+  position: absolute;
+  left: 50%;
+  bottom: 22px;
+  z-index: 50;
+  transform: translateX(-50%);
+  min-width: 420px;
+  padding: 17px 25px;
+  text-align: center;
+  border-radius: 16px;
+  font-size: 17px;
+  font-weight: 1000;
+  box-shadow: 0 20px 45px rgba(0,0,0,.35);
+}
+
+.lh2-feedback.good {
+  color: #6ff3c9;
+  border: 1px solid rgba(72,239,184,.4);
+  background: rgba(3,87,63,.96);
+}
+
+.lh2-feedback.bad {
+  color: #ff8793;
+  border: 1px solid rgba(255,73,91,.4);
+  background: rgba(100,7,21,.96);
+}
+
+.lh2-city {
+  background: #06182d;
+}
+
+.lh2-city > header {
+  height: 101px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 15px 17px;
+  background: rgba(0,0,0,.14);
+}
+
+.lh2-city header small {
+  display: block;
+  color: #7092b7;
+  font-size: 8px;
+  font-weight: 950;
+}
+
+.lh2-city header strong {
+  display: block;
+  margin-top: 3px;
+  font-size: 19px;
+}
+
+.lh2-city-outbreak {
+  min-width: 140px;
+  padding: 10px;
+  text-align: center;
+  border-radius: 15px;
+  border: 1px solid rgba(255,67,87,.33);
+  background: rgba(125,7,25,.29);
+}
+
+.lh2-city-outbreak strong {
+  color: #ff5364;
+  font-size: 37px !important;
+  line-height: 1;
+}
+
+.lh2-cityvisual {
+  position: relative;
+  height: 520px;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 30% 35%,rgba(33,151,212,.16),transparent 26%),
+    linear-gradient(145deg,#09243f,#061426);
+}
+
+.lh2-cityblocks {
+  position: absolute;
+  inset: -10%;
+  opacity: .58;
+  background:
+    linear-gradient(28deg,transparent 47%,rgba(69,125,171,.19) 48% 52%,transparent 53%),
+    linear-gradient(90deg,rgba(18,57,90,.9) 18%,transparent 18% 23%,rgba(12,45,75,.8) 23% 40%,transparent 40% 45%,rgba(13,49,82,.9) 45% 62%,transparent 62% 68%,rgba(16,53,84,.85) 68%);
+  background-size: 90px 70px;
+  transform: perspective(500px) rotateX(8deg) rotateZ(-3deg);
+}
+
+.lh2-path {
+  position: absolute;
+  inset: 0;
+  z-index: 6;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.lh2-path path {
+  fill: none;
+  stroke: #53e3ff;
+  stroke-width: 1.5;
+  stroke-dasharray: 4 3;
+  filter: drop-shadow(0 0 4px #33d7ff);
+}
+
+.lh2-location {
+  position: absolute;
+  z-index: 12;
+  transform: translate(-50%,-50%);
+  text-align: center;
+}
+
+.lh2-location i {
+  width: 54px;
+  height: 54px;
+  display: grid;
+  place-items: center;
+  margin: auto;
+  border-radius: 50%;
+  color: #6d9abf;
+  border: 3px solid #36658b;
+  background: rgba(4,25,48,.92);
+  font-size: 21px;
+  font-style: normal;
+}
+
+.lh2-location span {
+  display: block;
+  margin-top: 5px;
+  padding: 5px 8px;
+  border-radius: 8px;
+  color: #7694b4;
+  background: rgba(2,13,29,.88);
+  font-size: 9px;
+  font-weight: 900;
+}
+
+.lh2-location.active i {
+  color: #baf8ff;
+  border-color: #50dcff;
+  box-shadow: 0 0 25px rgba(50,215,255,.35);
+}
+
+.lh2-location.current i {
+  color: #052c2e;
+  border-color: #79f1cb;
+  background: #4be2b1;
+}
+
+.lh2-you {
+  position: absolute;
+  z-index: 20;
+  transform: translate(-50%,-50%);
+  transition: left .7s ease,top .7s ease;
+  font-size: 38px;
+  filter: drop-shadow(0 4px 8px rgba(0,0,0,.4));
+}
+
+.lh2-you span {
+  display: block;
+  margin-top: -4px;
+  padding: 3px 6px;
+  border-radius: 99px;
+  text-align: center;
+  color: #062039;
+  background: #66eaff;
+  font-size: 8px;
+  font-weight: 1000;
+}
+
+.lh2-infection-layer {
+  position: absolute;
+  inset: 0;
+  opacity: calc(var(--infection) * .9);
+  pointer-events: none;
+  transition: opacity .4s linear;
+  background:
+    radial-gradient(circle at 77% 22%,rgba(255,35,51,.88),transparent 16%),
+    radial-gradient(circle at 71% 66%,rgba(255,35,51,.72),transparent 22%),
+    radial-gradient(circle at 30% 22%,rgba(255,38,55,.42),transparent 12%),
+    radial-gradient(circle at 42% 80%,rgba(255,35,52,.45),transparent 15%);
+  mix-blend-mode: screen;
+}
+
+.lh2-city > footer {
+  height: 67px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  color: #7090af;
+  font-size: 9px;
+  font-weight: 900;
+}
+
+.lh2-city > footer span:first-child {
+  color: #ff6372;
+}
+
+.lh2-intro {
+  max-width: 1600px;
+  min-height: 790px;
+  margin: auto;
+  display: grid;
+  grid-template-columns: 1.05fr .95fr;
+  gap: 11px;
+}
+
+.lh2-intro > section {
+  border-radius: 26px;
+  overflow: hidden;
+  border: 1px solid rgba(38,157,235,.28);
+}
+
+.lh2-intro > section:first-child {
+  padding: 38px;
+  color: white;
+  background:
+    radial-gradient(circle at 86% 30%,rgba(255,46,64,.14),transparent 25%),
+    linear-gradient(145deg,#06192f,#07355e);
+}
+
+.lh2-alert {
+  display: inline-flex;
+  gap: 8px;
+  align-items: center;
+  padding: 7px 11px;
+  border-radius: 99px;
+  color: #ff8a96;
+  border: 1px solid rgba(255,67,85,.23);
+  background: rgba(255,60,80,.07);
+  font-size: 9px;
+  font-weight: 950;
+}
+
+.lh2-alert i {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #ff465b;
+  box-shadow: 0 0 13px #ff465b;
+}
+
+.lh2-intro > section:first-child > small {
+  display: block;
+  margin-top: 25px;
+  color: #54ddff;
+  font-weight: 900;
+}
+
+.lh2-intro h1 {
+  margin: 5px 0;
+  font-size: 112px;
+  line-height: .76;
+  letter-spacing: -.075em;
+}
+
+.lh2-intro h1 strong {
+  color: #53e1ff;
+}
+
+.lh2-intro h2 {
+  max-width: 630px;
+  margin: 25px 0 10px;
+  font-size: 34px;
+  line-height: 1.14;
+}
+
+.lh2-intro p {
+  max-width: 620px;
+  color: #9eb5cf;
+  font-size: 15px;
+  line-height: 1.7;
+}
+
+.lh2-start {
+  width: 100%;
+  min-height: 90px;
+  margin-top: 30px;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  gap: 15px;
+  align-items: center;
+  padding: 0 23px;
+  color: white;
+  border: 0;
+  border-radius: 19px;
+  cursor: pointer;
+  background: linear-gradient(90deg,#b71b2d,#fb344a,#a80f22);
+  box-shadow: 0 18px 45px rgba(230,40,55,.2);
+  font: inherit;
+}
+
+.lh2-start > span {
+  font-size: 35px;
+}
+
+.lh2-start small,
+.lh2-start strong {
+  display: block;
+  text-align: left;
+}
+
+.lh2-start small {
+  font-size: 9px;
+  letter-spacing: .12em;
+}
+
+.lh2-start strong {
+  margin-top: 2px;
+  font-size: 25px;
+}
+
+.lh2-start > b {
+  font-size: 30px;
+}
+
+.lh2-intro-map {
+  position: relative;
+  background: #06172b;
+}
+
+.lh2-intro-map .lh2-cityvisual {
+  height: 100%;
+}
+
+.lh2-intro-clock {
+  position: absolute;
+  z-index: 25;
+  left: 24px;
+  top: 24px;
+  padding: 15px 20px;
+  border-radius: 18px;
+  color: white;
+  border: 1px solid rgba(78,220,255,.28);
+  background: rgba(2,17,38,.91);
+}
+
+.lh2-intro-clock small,
+.lh2-intro-clock strong {
+  display: block;
+}
+
+.lh2-intro-clock small {
+  color: #62dfff;
+  font-size: 9px;
+  font-weight: 900;
+}
+
+.lh2-intro-clock strong {
+  font-family: ui-monospace, monospace;
+  font-size: 51px;
+}
+
+.lh2-coming {
+  display: grid;
+  place-content: center;
+  text-align: center;
+}
+
+.lh2-coming small {
+  color: #54ddff;
+  font-weight: 950;
+}
+
+.lh2-coming h1 {
+  margin: 8px 0;
+  color: #52e5b6;
+  font-size: 55px;
+}
+
+.lh2-coming p {
+  color: #8faac5;
+}
+
+.lh2-footer {
+  max-width: 1600px;
+  margin: 7px auto 0;
+  text-align: center;
+  color: #6683a3;
+  font-size: 9px;
+}
+
+@media (max-width: 1200px) {
+  .lh2-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .lh2-hud {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+
+  .lh2-mission-route {
+    display: none;
+  }
+}
+
+/* =========================================================
+   LAST HOPE V3 — richer quiz system
+   ========================================================= */
+
+.lh2-question-progress {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  gap: 14px;
+  align-items: center;
+  margin-bottom: 11px;
+}
+
+.lh2-question-progress > span {
+  color: #54dfff;
+  font-size: 10px;
+  font-weight: 950;
+  letter-spacing: .1em;
+}
+
+.lh2-question-progress > div {
+  display: flex;
+  gap: 6px;
+}
+
+.lh2-question-progress i {
+  height: 6px;
+  flex: 1;
+  border-radius: 99px;
+  background: #18324f;
+}
+
+.lh2-question-progress i.active {
+  background:
+    linear-gradient(
+      90deg,
+      #48e2b1,
+      #48d9ff
+    );
+}
+
+.lh2-question-progress > b {
+  padding: 6px 9px;
+  border-radius: 8px;
+  color: #ffbd6d;
+  background: rgba(255,167,63,.09);
+  border: 1px solid rgba(255,170,70,.16);
+  font-size: 8px;
+  letter-spacing: .1em;
+}
+
+.lh2-question-v3 {
+  min-height: 250px;
+}
+
+.lh2-choice-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-top: 13px;
+}
+
+.lh2-choice-grid button {
+  min-height: 105px;
+  display: grid;
+  grid-template-columns: 50px 1fr;
+  gap: 14px;
+  align-items: center;
+  padding: 14px;
+  text-align: left;
+  color: white;
+  cursor: pointer;
+  border-radius: 16px;
+  border: 1px solid rgba(70,190,255,.19);
+  background:
+    linear-gradient(
+      145deg,
+      rgba(14,56,96,.76),
+      rgba(5,23,46,.82)
+    );
+  font: inherit;
+  transition: .14s ease;
+}
+
+.lh2-choice-grid button:hover:not(:disabled) {
+  transform: translateY(-3px);
+  border-color: #4bdfff;
+  box-shadow:
+    0 12px 28px
+    rgba(30,170,230,.12);
+}
+
+.lh2-choice-grid button:disabled,
+.lh2-ox button:disabled {
+  cursor: default;
+  opacity: .72;
+}
+
+.lh2-choice-grid b {
+  width: 48px;
+  height: 48px;
+  display: grid;
+  place-items: center;
+  border-radius: 13px;
+  color: #02233c;
+  background: #4adfff;
+  font-size: 20px;
+}
+
+.lh2-choice-grid span {
+  font-size: 14px;
+  font-weight: 850;
+  line-height: 1.45;
+}
+
+
+/* Structure-match challenge:
+   visual recognition only */
+
+.lh2-match .protein-3d__legend,
+.lh2-match .protein-3d__overlay span {
+  display: none !important;
+}
+
+.lh2-match .protein-3d__overlay strong {
+  font-size: 11px;
+}
+
+.lh2-match > button > span {
+  text-align: center;
+  font-size: 13px;
+  letter-spacing: .09em;
+}
+
+
+/* =========================================================
+   10-question security challenge
+   ========================================================= */
+
+.lh2-briefing-card {
+  margin-bottom: 10px;
+  padding: 13px 17px;
+  border-radius: 14px;
+
+  background:
+    linear-gradient(
+      90deg,
+      rgba(20,126,195,.16),
+      rgba(19,67,112,.08)
+    );
+
+  border:
+    1px solid
+    rgba(68,205,255,.18);
+}
+
+.lh2-briefing-card small {
+  display: block;
+
+  color: #50dcff;
+
+  font-size: 8px;
+  font-weight: 950;
+
+  letter-spacing: .12em;
+}
+
+.lh2-briefing-card strong {
+  display: block;
+
+  margin-top: 4px;
+
+  color: #bad4ea;
+
+  font-size: 12px;
+  line-height: 1.55;
+}
+
+.lh2-quiz-score {
+  display: flex;
+  gap: 7px;
+  align-items: center;
+}
+
+.lh2-quiz-score span,
+.lh2-quiz-score b {
+  padding: 6px 9px;
+
+  border-radius: 8px;
+
+  font-size: 9px;
+  font-weight: 950;
+}
+
+.lh2-quiz-score span {
+  color: #57e7bd;
+
+  background:
+    rgba(55,225,170,.08);
+
+  border:
+    1px solid
+    rgba(55,225,170,.17);
+}
+
+.lh2-quiz-score b {
+  color: #ffbc65;
+
+  background:
+    rgba(255,175,70,.08);
+
+  border:
+    1px solid
+    rgba(255,175,70,.17);
+}
+
+.lh2-question-v3 {
+  min-height: 210px !important;
+}
+
+.lh2-question-v3 h2 {
+  font-size: 30px !important;
+}
+
+.lh2-choice-grid button {
+  min-height: 83px !important;
+}
+
+.lh2-ox button {
+  min-height: 115px !important;
+}
+
+
+/* =========================================================
+   LAST HOPE — MISSION BRIEFING FIRST
+   ========================================================= */
+
+.lh2-briefing-screen {
+  min-height: 800px;
+}
+
+.lh2-briefing-main {
+  position: relative;
+  padding: 26px 28px !important;
+
+  background:
+    linear-gradient(
+      90deg,
+      rgba(1, 11, 25, .96),
+      rgba(4, 30, 57, .91)
+    ),
+    radial-gradient(
+      circle at 80% 20%,
+      rgba(255, 38, 58, .18),
+      transparent 30%
+    ) !important;
+}
+
+.lh2-briefing-heading {
+  position: relative;
+  margin-top: 15px;
+}
+
+.lh2-briefing-heading > small {
+  display: block;
+
+  color: #4ee4ff;
+
+  font-size: 10px;
+  font-weight: 950;
+
+  letter-spacing: .11em;
+}
+
+.lh2-briefing-heading h1 {
+  margin: 4px 0 9px !important;
+
+  font-size: 50px !important;
+  line-height: .92 !important;
+
+  letter-spacing: -.055em !important;
+}
+
+.lh2-briefing-heading h1 strong {
+  color: #ffffff;
+}
+
+.lh2-briefing-heading p {
+  margin: 5px 0 !important;
+
+  max-width: 760px !important;
+
+  color: #b0c5da !important;
+
+  font-size: 13px !important;
+  line-height: 1.6 !important;
+}
+
+.lh2-briefing-heading p b {
+  color: #ff5568;
+}
+
+.lh2-briefing-callout {
+  display: block;
+
+  margin-top: 8px;
+
+  color: #4ee4ff;
+
+  font-size: 13px;
+}
+
+.lh2-virus-atlas-title {
+  display: flex;
+  justify-content: space-between;
+  align-items: end;
+
+  margin-top: 18px;
+  margin-bottom: 8px;
+
+  padding-bottom: 8px;
+
+  border-bottom:
+    1px solid rgba(67, 210, 255, .18);
+}
+
+.lh2-virus-atlas-title small,
+.lh2-virus-atlas-title strong {
+  display: block;
+}
+
+.lh2-virus-atlas-title small {
+  color: #4adfff;
+
+  font-size: 8px;
+  font-weight: 950;
+
+  letter-spacing: .12em;
+}
+
+.lh2-virus-atlas-title strong {
+  margin-top: 2px;
+
+  font-size: 17px;
+}
+
+.lh2-virus-atlas-title > span {
+  color: #7596b7;
+
+  font-size: 9px;
+}
+
+.lh2-virus-atlas {
+  display: grid;
+
+  grid-template-columns:
+    repeat(3, minmax(0, 1fr));
+
+  gap: 8px;
+}
+
+.lh2-virus-atlas article {
+  min-width: 0;
+
+  padding: 12px;
+
+  border-radius: 15px;
+
+  border:
+    1px solid rgba(68, 197, 255, .2);
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(10, 53, 91, .7),
+      rgba(3, 18, 37, .78)
+    );
+}
+
+.lh2-virus-orb {
+  width: 47px;
+  height: 47px;
+
+  display: grid;
+  place-items: center;
+
+  margin-bottom: 7px;
+
+  border-radius: 50%;
+
+  font-size: 22px;
+}
+
+.lh2-virus-orb.blue {
+  color: #76e9ff;
+
+  background:
+    radial-gradient(
+      circle,
+      #126eb9,
+      #052e59
+    );
+
+  box-shadow:
+    0 0 20px
+    rgba(50, 193, 255, .2);
+}
+
+.lh2-virus-orb.green {
+  color: #74f4c0;
+
+  background:
+    radial-gradient(
+      circle,
+      #167b5c,
+      #07382e
+    );
+
+  box-shadow:
+    0 0 20px
+    rgba(50, 238, 170, .18);
+}
+
+.lh2-virus-orb.violet {
+  color: #d98bff;
+
+  background:
+    radial-gradient(
+      circle,
+      #713bb4,
+      #311653
+    );
+
+  box-shadow:
+    0 0 20px
+    rgba(180, 80, 255, .18);
+}
+
+.lh2-virus-atlas article > small {
+  color: #6588aa;
+
+  font-size: 7px;
+  font-weight: 950;
+}
+
+.lh2-virus-atlas article h3 {
+  margin: 3px 0;
+
+  font-size: 16px;
+}
+
+.lh2-virus-atlas article h3 span {
+  margin-left: 5px;
+
+  color: #54ddff;
+
+  font-size: 10px;
+}
+
+.lh2-virus-atlas article > p {
+  min-height: 40px;
+
+  margin: 5px 0 !important;
+
+  color: #9cb5ce !important;
+
+  font-size: 10px !important;
+  line-height: 1.45 !important;
+}
+
+.lh2-virus-atlas article > div:last-child {
+  min-height: 55px;
+
+  padding: 8px;
+
+  border-radius: 10px;
+
+  background:
+    rgba(1, 11, 25, .42);
+}
+
+.lh2-virus-atlas article > div:last-child b,
+.lh2-virus-atlas article > div:last-child span {
+  display: block;
+}
+
+.lh2-virus-atlas article > div:last-child b {
+  color: #4fe2ff;
+
+  font-size: 8px;
+}
+
+.lh2-virus-atlas article > div:last-child span {
+  margin-top: 3px;
+
+  color: #8fa9c2;
+
+  font-size: 9px;
+  line-height: 1.4;
+}
+
+.lh2-protein-clue {
+  display: grid;
+
+  grid-template-columns:
+    75px 1fr 105px;
+
+  gap: 13px;
+  align-items: center;
+
+  margin-top: 9px;
+
+  padding: 11px 13px;
+
+  border-radius: 14px;
+
+  border:
+    1px solid rgba(66, 214, 255, .18);
+
+  background:
+    linear-gradient(
+      90deg,
+      rgba(12, 83, 126, .22),
+      rgba(4, 25, 51, .48)
+    );
+}
+
+.lh2-protein-clue-graphic {
+  position: relative;
+
+  width: 65px;
+  height: 55px;
+
+  display: grid;
+  place-items: center;
+}
+
+.lh2-protein-clue-graphic > span {
+  color: #58dfff;
+
+  font-size: 50px;
+  line-height: 1;
+
+  transform: rotate(-17deg);
+
+  text-shadow:
+    0 0 18px
+    rgba(70, 220, 255, .35);
+}
+
+.lh2-protein-clue-graphic i {
+  position: absolute;
+
+  width: 7px;
+  height: 7px;
+
+  border-radius: 50%;
+
+  background: #57e5ff;
+}
+
+.lh2-protein-clue-graphic i:nth-child(2) {
+  left: 8px;
+  top: 8px;
+}
+
+.lh2-protein-clue-graphic i:nth-child(3) {
+  right: 5px;
+  top: 16px;
+}
+
+.lh2-protein-clue-graphic i:nth-child(4) {
+  left: 26px;
+  bottom: 3px;
+}
+
+.lh2-protein-clue small,
+.lh2-protein-clue strong,
+.lh2-protein-clue p {
+  display: block;
+}
+
+.lh2-protein-clue small {
+  color: #4ddfff;
+
+  font-size: 8px;
+  font-weight: 950;
+}
+
+.lh2-protein-clue strong {
+  margin-top: 2px;
+
+  font-size: 14px;
+}
+
+.lh2-protein-clue p {
+  margin: 3px 0 0 !important;
+
+  color: #91acc6 !important;
+
+  font-size: 9px !important;
+  line-height: 1.4 !important;
+}
+
+.lh2-briefing-rule {
+  text-align: center;
+}
+
+.lh2-briefing-rule b {
+  display: block;
+
+  color: #54e4ff;
+
+  font-family:
+    ui-monospace,
+    monospace;
+
+  font-size: 21px;
+}
+
+.lh2-briefing-rule span {
+  display: block;
+
+  margin-top: 2px;
+
+  color: #7998b5;
+
+  font-size: 8px;
+}
+
+.lh2-briefing-start {
+  min-height: 70px !important;
+
+  margin-top: 10px !important;
+
+  background:
+    linear-gradient(
+      90deg,
+      #087bd9,
+      #0ea8f7,
+      #056bc8
+    ) !important;
+
+  box-shadow:
+    0 0 0 2px
+    rgba(81, 220, 255, .16),
+    0 15px 40px
+    rgba(10, 140, 230, .27) !important;
+}
+
+.lh2-briefing-start:hover {
+  filter: brightness(1.08);
+}
+
+.lh2-before-start-note {
+  margin-top: 6px;
+
+  text-align: center;
+
+  color: #6587a8;
+
+  font-size: 8px;
+}
+
+.lh2-briefing-map {
+  position: relative;
+}
+
+.lh2-map-alert {
+  position: absolute;
+
+  left: 20px;
+  top: 20px;
+
+  z-index: 30;
+
+  width: calc(100% - 40px);
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  padding: 13px 15px;
+
+  border-radius: 14px;
+
+  border:
+    1px solid rgba(255, 70, 88, .34);
+
+  background:
+    linear-gradient(
+      90deg,
+      rgba(104, 8, 25, .91),
+      rgba(45, 4, 15, .83)
+    );
+
+  backdrop-filter:
+    blur(8px);
+}
+
+.lh2-map-alert small,
+.lh2-map-alert strong,
+.lh2-map-alert span {
+  display: block;
+}
+
+.lh2-map-alert small {
+  color: #ff6c7b;
+
+  font-size: 10px;
+  font-weight: 950;
+
+  letter-spacing: .08em;
+}
+
+.lh2-map-alert strong {
+  margin-top: 1px;
+
+  font-size: 17px;
+}
+
+.lh2-map-alert span {
+  margin-top: 2px;
+
+  color: #d49aa1;
+
+  font-size: 9px;
+}
+
+.lh2-map-alert > b {
+  color: #ff5969;
+
+  font-size: 37px;
+}
+
+.lh2-map-mission {
+  position: absolute;
+
+  right: 18px;
+  bottom: 18px;
+
+  z-index: 30;
+
+  width: 230px;
+
+  padding: 13px;
+
+  border-radius: 14px;
+
+  border:
+    1px solid rgba(70, 218, 255, .28);
+
+  background:
+    rgba(2, 20, 42, .9);
+}
+
+.lh2-map-mission small,
+.lh2-map-mission strong {
+  display: block;
+}
+
+.lh2-map-mission small {
+  color: #54ddff;
+
+  font-size: 8px;
+  font-weight: 950;
+}
+
+.lh2-map-mission strong {
+  margin-top: 4px;
+
+  color: #e9f8ff;
+
+  font-size: 11px;
+  line-height: 1.5;
+}
+
+@media (max-width: 1200px) {
+  .lh2-virus-atlas {
+    grid-template-columns: 1fr;
+  }
+
+  .lh2-protein-clue {
+    grid-template-columns: 1fr;
+  }
+}
+
+
+/* =========================================================
+   INFECTIOUS DISEASE ARCHIVE — 3 x 3
+   ========================================================= */
+
+.lh2-disease-atlas {
+  grid-template-columns:
+    repeat(3, minmax(0, 1fr)) !important;
+
+  gap: 7px !important;
+}
+
+.lh2-disease-card {
+  position: relative;
+
+  min-height: 154px !important;
+
+  padding: 10px !important;
+
+  overflow: hidden;
+}
+
+.lh2-disease-card::after {
+  content: "";
+
+  position: absolute;
+
+  inset: auto -35px -45px auto;
+
+  width: 105px;
+  height: 105px;
+
+  border-radius: 50%;
+
+  opacity: .12;
+
+  background: currentColor;
+
+  filter: blur(25px);
+
+  pointer-events: none;
+}
+
+.lh2-disease-card.blue {
+  color: #4edcff;
+}
+
+.lh2-disease-card.green {
+  color: #54e6ae;
+}
+
+.lh2-disease-card.violet {
+  color: #c274ff;
+}
+
+.lh2-disease-card.red {
+  color: #ff6171;
+}
+
+.lh2-disease-card.orange {
+  color: #ffb35b;
+}
+
+.lh2-disease-card.cyan {
+  color: #68edf7;
+}
+
+.lh2-disease-card
+.lh2-virus-orb {
+  width: 35px;
+  height: 35px;
+
+  margin-bottom: 4px;
+
+  font-size: 16px;
+}
+
+.lh2-virus-orb.red {
+  color: #ff8390;
+
+  background:
+    radial-gradient(
+      circle,
+      #a11d31,
+      #490a16
+    );
+}
+
+.lh2-virus-orb.orange {
+  color: #ffd08a;
+
+  background:
+    radial-gradient(
+      circle,
+      #a45a13,
+      #472305
+    );
+}
+
+.lh2-virus-orb.cyan {
+  color: #7ef6ff;
+
+  background:
+    radial-gradient(
+      circle,
+      #167e92,
+      #06333e
+    );
+}
+
+.lh2-disease-head {
+  display: flex !important;
+
+  justify-content:
+    space-between;
+
+  min-height: auto !important;
+
+  padding: 0 !important;
+
+  background:
+    transparent !important;
+}
+
+.lh2-disease-head small {
+  color: #668baa !important;
+
+  font-size: 6px !important;
+  font-weight: 950;
+}
+
+.lh2-disease-head span {
+  color: currentColor !important;
+
+  font-size: 7px !important;
+  font-weight: 950;
+}
+
+.lh2-disease-card h3 {
+  margin: 2px 0 0 !important;
+
+  color: #f6fbff;
+
+  font-size: 14px !important;
+}
+
+.lh2-pathogen-name {
+  display: block;
+
+  margin-top: 1px;
+
+  color: currentColor;
+
+  font-size: 7px;
+}
+
+.lh2-disease-card > p {
+  min-height: 30px !important;
+
+  margin: 4px 0 !important;
+
+  color: #9eb5cb !important;
+
+  font-size: 8px !important;
+  line-height: 1.35 !important;
+}
+
+.lh2-transmission {
+  display: grid !important;
+
+  grid-template-columns:
+    30px 1fr;
+
+  gap: 4px;
+
+  min-height: auto !important;
+
+  margin-top: 3px;
+
+  padding: 4px 5px !important;
+
+  border-radius: 6px !important;
+
+  background:
+    rgba(0, 9, 21, .3) !important;
+}
+
+.lh2-transmission small {
+  color: currentColor !important;
+
+  font-size: 6px !important;
+  font-weight: 950;
+}
+
+.lh2-transmission span {
+  color: #849db7 !important;
+
+  font-size: 6.5px !important;
+  line-height: 1.3 !important;
+}
+
+.lh2-disease-clue {
+  display: grid !important;
+
+  grid-template-columns:
+    40px 1fr;
+
+  gap: 4px;
+
+  min-height: auto !important;
+
+  margin-top: 3px;
+
+  padding: 4px 5px !important;
+
+  border-radius: 6px !important;
+
+  background:
+    rgba(8, 44, 75, .54) !important;
+}
+
+.lh2-disease-clue b {
+  color: currentColor !important;
+
+  font-size: 6px !important;
+}
+
+.lh2-disease-clue span {
+  color: #adc3d6 !important;
+
+  font-size: 6.5px !important;
+  line-height: 1.3 !important;
+}
+
+/* Briefing is information-first,
+   so reduce top copy to make room. */
+
+.lh2-briefing-heading h1 {
+  font-size: 42px !important;
+}
+
+.lh2-briefing-heading p {
+  font-size: 11px !important;
+}
+
+.lh2-virus-atlas-title {
+  margin-top: 10px !important;
+}
+
+/* Atlas may scroll on smaller screens */
+
+@media (max-height: 850px) {
+  .lh2-disease-atlas {
+    max-height: 390px;
+
+    overflow-y: auto;
+
+    padding-right: 4px;
+  }
+
+  .lh2-disease-atlas::-webkit-scrollbar {
+    width: 5px;
+  }
+
+  .lh2-disease-atlas::-webkit-scrollbar-thumb {
+    border-radius: 99px;
+
+    background: #1b7eb5;
+  }
+}
+

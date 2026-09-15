@@ -1,8 +1,4 @@
-import {
-  useEffect,
-  useState,
-  type DragEvent,
-} from 'react';
+import { useState } from 'react';
 import { KioskShell } from '../components/ui/KioskShell';
 import { Protein3DViewer } from '../components/Protein3DViewer';
 import {
@@ -14,7 +10,6 @@ import { dockingResultByProteinId } from '../data/dockingResults';
 type Screen =
   | 'home'
   | 'atlas'
-  | 'scan'
   | 'structure'
   | 'binding'
   | 'compare'
@@ -90,200 +85,130 @@ const diseaseCards = [
   },
 ] as const;
 
-function HomeScreen({
-  goVirus,
-}: {
-  goVirus: () => void;
-}) {
+function HomeScreen({ goVirus }: { goVirus: () => void }) {
   return (
-    <div className="bd-main bd-escape-home">
-      <section className="bd-escape-start bd-escape-start-v2">
-        <div className="bd-escape-start__alert">
-          <span className="bd-alert-dot" />
-          BIODOCKLAB · VIRUS RESPONSE LAB
-        </div>
+    <div className="bd-main">
+      <div className="bd-grid home-top">
+        <div className="bd-card pad-lg">
+          <div className="bd-eyebrow">
+            2026 미래직업 진로체험 박람회
+          </div>
 
-        <div className="bd-escape-start__content">
-          <div className="bd-escape-start__mission">
-            <div className="bd-eyebrow">
-              2026 미래직업 진로체험 박람회
+          <h2 className="bd-title">
+            <strong>90초 AI 신약개발 미션</strong>
+            <br />
+            바이러스 단백질의 약점을 찾아라
+          </h2>
+
+          <p className="bd-subtitle">
+            지금부터 당신은 AI 신약개발 연구원입니다.
+            실제 공개 단백질 구조를 확인하고,
+            결합 부위를 살펴본 뒤
+            다음 연구 후보를 직접 선택해보세요.
+          </p>
+
+          <div
+            className="bd-info-box"
+            style={{ marginTop: 18 }}
+          >
+            <div className="bd-info-icon">
+              ⏱
             </div>
 
-            <h2 className="bd-escape-start__title">
-              <span>90초 안에</span>
-              <br />
-              바이러스 단백질의
-              <br />
-              <strong>약점을 찾아라.</strong>
-            </h2>
+            <div>
+              <h3 style={{ marginBottom: 8 }}>
+                약 90초 · 미래직업 체험
+              </h3>
 
-            <p className="bd-escape-start__copy">
-              실제 공개 단백질 구조를 직접 움직이고,
-              결합 부위를 찾아 후보물질을 비교한 뒤
-              제한시간 안에 연구 결정을 내려보세요.
+              <p
+                className="bd-subtitle"
+                style={{ fontSize: 16 }}
+              >
+                실제 공개 구조 데이터를 활용해
+                신약개발 연구자의 사고 과정을 체험합니다.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div className="bd-grid home-cta">
+          <button
+            className="bd-card bd-cta-card blue pad-lg"
+            onClick={goVirus}
+          >
+            <div className="bd-card-arrow">
+              ›
+            </div>
+
+            <div className="bd-visual protein" />
+
+            <div className="bd-cta-title">
+              90초 미션 시작
+            </div>
+
+            <p className="bd-cta-sub">
+              AI DRUG DISCOVERY MISSION
             </p>
+          </button>
 
-            <div className="bd-mission-status-grid">
-              <div>
-                <small>LAB STATUS</small>
-                <strong className="locked">
-                  ● LOCKED
-                </strong>
-              </div>
-
-              <div>
-                <small>TARGET</small>
-                <strong>UNKNOWN</strong>
-              </div>
-
-              <div>
-                <small>MISSION</small>
-                <strong>FIND THE POCKET</strong>
-              </div>
-
-              <div>
-                <small>DATA</small>
-                <strong>REAL PDB</strong>
-              </div>
-            </div>
-          </div>
-
-          <div className="bd-escape-control-panel">
-            <div className="bd-escape-countdown-preview">
-              <small>
-                MISSION TIME LIMIT
-              </small>
-
-              <strong>
-                01:30
-              </strong>
-
-              <span>
-                시간이 끝나기 전에
-                연구 결정을 완료하세요.
-              </span>
+          <div className="bd-card pad-lg bd-career-panel">
+            <div className="bd-eyebrow">
+              FUTURE CAREER
             </div>
 
-            <button
-              type="button"
-              className="bd-escape-start-button bd-escape-start-button-v2"
-              onClick={goVirus}
+            <div className="bd-cta-title">
+              오늘 체험하는 미래직업
+            </div>
+
+            <div className="bd-career-list">
+              <div>AI 신약개발 연구원</div>
+              <div>바이오 데이터 연구원</div>
+              <div>디지털 바이오 연구원</div>
+            </div>
+
+            <p
+              className="bd-subtitle"
+              style={{
+                fontSize: 15,
+                marginBottom: 0,
+              }}
             >
-              <div>
-                <span>
-                  MISSION START
-                </span>
+              실제 데이터를 보고 판단하는
+              연구자의 사고 과정을 체험합니다.
+            </p>
+          </div>
+        </div>
+      </div>
 
-                <strong>
-                  90초 도전 시작
-                </strong>
+      <div className="bd-card pad-lg">
+        <h3 className="bd-section-title">
+          당신의 90초 미션
+        </h3>
+
+        <div className="bd-process">
+          {[
+            ['1', '바이러스 선택', '분석 대상을 선택해요'],
+            ['2', '실제 구조 확인', '3D 단백질을 살펴봐요'],
+            ['3', '약점 발견', '결합할 수 있는 공간을 찾아요'],
+            ['4', '후보 선택', '다음 연구 대상을 직접 골라요'],
+            ['5', '미션 완료', 'Research Trail을 확인해요'],
+          ].map(([num, title, sub]) => (
+            <div
+              className="bd-process-item"
+              key={num}
+            >
+              <div className="bd-process-num">
+                {num}
               </div>
 
-              <i>→</i>
-            </button>
-
-            <div className="bd-escape-difficulty">
-              <span>난이도</span>
-
-              <strong>
-                ★★★☆☆
-              </strong>
-
-              <small>
-                제한시간형 바이오 미션
-              </small>
+              <div>
+                <strong>{title}</strong>
+                <div>{sub}</div>
+              </div>
             </div>
-          </div>
+          ))}
         </div>
-      </section>
-
-      <section className="bd-escape-rules bd-escape-rules-v2">
-        <div className="bd-escape-rule">
-          <span>01</span>
-
-          <div>
-            <strong>
-              TARGET
-            </strong>
-
-            <small>
-              바이러스 선택
-            </small>
-          </div>
-        </div>
-
-        <div className="bd-escape-rule-arrow">
-          →
-        </div>
-
-        <div className="bd-escape-rule">
-          <span>02</span>
-
-          <div>
-            <strong>
-              EXPLORE
-            </strong>
-
-            <small>
-              실제 3D 구조 조작
-            </small>
-          </div>
-        </div>
-
-        <div className="bd-escape-rule-arrow">
-          →
-        </div>
-
-        <div className="bd-escape-rule">
-          <span>03</span>
-
-          <div>
-            <strong>
-              FIND
-            </strong>
-
-            <small>
-              결합 부위 발견
-            </small>
-          </div>
-        </div>
-
-        <div className="bd-escape-rule-arrow">
-          →
-        </div>
-
-        <div className="bd-escape-rule">
-          <span>04</span>
-
-          <div>
-            <strong>
-              DOCK
-            </strong>
-
-            <small>
-              후보 A/B/C 비교
-            </small>
-          </div>
-        </div>
-
-        <div className="bd-escape-rule-arrow">
-          →
-        </div>
-
-        <div className="bd-escape-rule">
-          <span>05</span>
-
-          <div>
-            <strong>
-              DECIDE
-            </strong>
-
-            <small>
-              최종 결정 잠금
-            </small>
-          </div>
-        </div>
-      </section>
+      </div>
     </div>
   );
 }
@@ -410,248 +335,6 @@ function AtlasScreen({
   );
 }
 
-
-
-function SampleScanScreen({
-  proteinId,
-  next,
-}: {
-  proteinId: DeepDiveProteinId;
-  next: () => void;
-}) {
-  const dockingTarget =
-    dockingTargetByProteinId(proteinId);
-
-  const [progress, setProgress] =
-    useState(0);
-
-  const [phase, setPhase] =
-    useState<
-      'scan' |
-      'loading' |
-      'target'
-    >('scan');
-
-  useEffect(() => {
-    let cancelled = false;
-
-    const run = async () => {
-      setPhase('scan');
-      setProgress(12);
-
-      await new Promise((resolve) =>
-        setTimeout(resolve, 700)
-      );
-
-      if (cancelled) return;
-
-      setPhase('loading');
-      setProgress(34);
-
-      await new Promise((resolve) =>
-        setTimeout(resolve, 550)
-      );
-
-      if (cancelled) return;
-      setProgress(61);
-
-      await new Promise((resolve) =>
-        setTimeout(resolve, 550)
-      );
-
-      if (cancelled) return;
-      setProgress(84);
-
-      await new Promise((resolve) =>
-        setTimeout(resolve, 500)
-      );
-
-      if (cancelled) return;
-
-      setProgress(100);
-      setPhase('target');
-
-      await new Promise((resolve) =>
-        setTimeout(resolve, 900)
-      );
-
-      if (cancelled) return;
-
-      next();
-    };
-
-    run();
-
-    return () => {
-      cancelled = true;
-    };
-  }, [proteinId]);
-
-  if (!dockingTarget) {
-    return null;
-  }
-
-  return (
-    <div className="bd-main bd-scan-screen">
-      <div className="bd-card pad-md">
-        <div className="bd-eyebrow">
-          BIODOCKLAB · MISSION CONSOLE
-        </div>
-
-        <h2
-          className="bd-title"
-          style={{
-            fontSize: 46,
-            marginBottom: 8,
-          }}
-        >
-          바이러스 샘플을
-          <strong> 분석하고 있습니다.</strong>
-        </h2>
-
-        <p
-          className="bd-subtitle"
-          style={{
-            fontSize: 17,
-            marginBottom: 0,
-          }}
-        >
-          선택한 샘플에 연결된 실제 공개
-          단백질 구조 데이터를 로컬에서 불러옵니다.
-        </p>
-      </div>
-
-      <div className="bd-scan-console">
-        <div className="bd-scan-frame">
-          <div className="bd-scan-corners" />
-
-          <div className="bd-scan-radar">
-            <div className="bd-scan-line" />
-
-            <div className="bd-sample-badge">
-              {dockingTarget.disease}
-            </div>
-
-            <div className="bd-scan-virus">
-              ◉
-            </div>
-
-            <div className="bd-scan-status">
-              {phase === 'scan' &&
-                'SAMPLE DETECTED'}
-
-              {phase === 'loading' &&
-                'LOADING STRUCTURE DATA'}
-
-              {phase === 'target' &&
-                'TARGET ACQUIRED'}
-            </div>
-          </div>
-        </div>
-
-        <div className="bd-console-panel">
-          <div className="bd-console-system">
-            <div className="bd-console-led" />
-
-            <div>
-              <span>
-                LOCAL ANALYSIS SYSTEM
-              </span>
-
-              <strong>
-                Raspberry Pi 5
-              </strong>
-            </div>
-          </div>
-
-          <div className="bd-console-lines">
-            <div>
-              <span>SAMPLE</span>
-              <strong>
-                {dockingTarget.disease}
-              </strong>
-            </div>
-
-            <div>
-              <span>VIRUS</span>
-              <strong>
-                {dockingTarget.virus}
-              </strong>
-            </div>
-
-            <div>
-              <span>TARGET</span>
-              <strong>
-                {dockingTarget.proteinName}
-              </strong>
-            </div>
-
-            <div>
-              <span>STRUCTURE</span>
-              <strong>
-                PDB {dockingTarget.pdbId}
-              </strong>
-            </div>
-          </div>
-
-          <div className="bd-analysis-label">
-            {phase === 'scan' &&
-              '샘플 확인 중...'}
-
-            {phase === 'loading' &&
-              '공개 구조 데이터 불러오는 중...'}
-
-            {phase === 'target' &&
-              '분석 대상 확인 완료'}
-          </div>
-
-          <div className="bd-analysis-progress">
-            <div
-              style={{
-                width: `${progress}%`,
-              }}
-            />
-          </div>
-
-          <div className="bd-analysis-percent">
-            {progress}%
-          </div>
-
-          {phase === 'target' && (
-            <div className="bd-target-acquired">
-              <span>✓</span>
-
-              <div>
-                <small>
-                  TARGET ACQUIRED
-                </small>
-
-                <strong>
-                  {dockingTarget.proteinName}
-                </strong>
-              </div>
-            </div>
-          )}
-        </div>
-      </div>
-
-      <div className="bd-card pad-md">
-        <p
-          className="bd-subtitle"
-          style={{
-            fontSize: 14,
-            marginBottom: 0,
-            textAlign: 'center',
-          }}
-        >
-          실제 공개 구조 데이터를 사용하는
-          교육용 로컬 연구 콘솔입니다.
-          진단 또는 치료 결과를 생성하지 않습니다.
-        </p>
-      </div>
-    </div>
-  );
-}
 
 function StructureScreen({
   proteinId,
@@ -1064,475 +747,108 @@ function CompareScreen({
   proteinId: DeepDiveProteinId;
   next: () => void;
 }) {
-  const dockingTarget =
-    dockingTargetByProteinId(proteinId);
+  const dockingTarget = dockingTargetByProteinId(proteinId);
+  const dockingResult = dockingResultByProteinId(proteinId);
 
-  const dockingResult =
-    dockingResultByProteinId(proteinId);
-
-  const candidates =
-    dockingResult?.candidates ?? [];
+  const candidates = dockingResult?.candidates ?? [];
 
   const [
     selectedCandidateIndex,
     setSelectedCandidateIndex,
-  ] = useState(() =>
-    readSelectedCandidateIndex()
-  );
+  ] = useState(() => readSelectedCandidateIndex());
 
-  const [loadedCandidateIndex, setLoadedCandidateIndex] =
-    useState<number | null>(null);
-
-  const [triedCandidates, setTriedCandidates] =
-    useState<number[]>([]);
-
-  const [isDragOver, setIsDragOver] =
-    useState(false);
-
-  const [missionStart] =
-    useState(() => Date.now());
-
-  const loadCandidate = (index: number) => {
-    setLoadedCandidateIndex(index);
-
-    setTriedCandidates((current) =>
-      current.includes(index)
-        ? current
-        : [...current, index]
-    );
-  };
-
-  const chooseCandidate = (index: number) => {
+  const selectCandidate = (index: number) => {
     setSelectedCandidateIndex(index);
     saveSelectedCandidateIndex(index);
   };
 
-  const handleDragStart = (
-    event: DragEvent,
-    index: number
-  ) => {
-    event.dataTransfer.setData(
-      'text/plain',
-      String(index)
-    );
-
-    event.dataTransfer.effectAllowed = 'move';
-  };
-
-  const handleDrop = (
-    event: DragEvent
-  ) => {
-    event.preventDefault();
-
-    setIsDragOver(false);
-
-    const index = Number(
-      event.dataTransfer.getData('text/plain')
-    );
-
-    if (
-      Number.isInteger(index) &&
-      index >= 0 &&
-      index < candidates.length
-    ) {
-      loadCandidate(index);
-    }
-  };
-
-  const missionScore =
-    100 +
-    triedCandidates.length * 150 +
-    (selectedCandidateIndex >= 0 ? 200 : 0);
-
-  const loadedCandidate =
-    loadedCandidateIndex !== null
-      ? candidates[loadedCandidateIndex]
-      : null;
-
-  const selectedCandidate =
-    selectedCandidateIndex >= 0
-      ? candidates[selectedCandidateIndex]
-      : null;
-
-  const allTried =
-    candidates.length > 0 &&
-    triedCandidates.length === candidates.length;
-
   return (
-    <div className="bd-main bd-docking-game">
-      <div className="bd-card pad-md bd-game-header">
-        <div>
-          <div className="bd-eyebrow">
-            MISSION 04 · DOCKING CHALLENGE
-          </div>
-
-          <h2
-            className="bd-title"
-            style={{
-              fontSize: 44,
-              marginBottom: 8,
-            }}
-          >
-            후보를 잡아서
-            <strong> 단백질 포켓에 넣어보세요.</strong>
-          </h2>
-
-          <p
-            className="bd-subtitle"
-            style={{
-              fontSize: 16,
-              marginBottom: 0,
-            }}
-          >
-            A, B, C 후보를 직접 드래그해
-            같은 결합 부위에서 비교합니다.
-          </p>
-        </div>
-
-        <div className="bd-score-box">
-          <small>MISSION SCORE</small>
-          <strong>{missionScore}</strong>
-          <span>체험 점수 · 과학적 결합 점수 아님</span>
-        </div>
+    <div className="bd-main">
+      <div className="bd-card pad-lg">
+        <h2 className="bd-title" style={{ fontSize: 52 }}>후보물질 비교</h2>
+        <p className="bd-subtitle">
+          사전 계산된 도킹 결과를 바탕으로 후보물질을 비교하고 있습니다.
+        </p>
       </div>
 
-      <div className="bd-game-layout">
-        <div className="bd-card pad-md">
-          <div className="bd-game-protein-head">
-            <div>
-              <div className="bd-chip">
-                TARGET
-              </div>
-
-              <h3>
-                {dockingTarget?.proteinName ?? '-'}
-              </h3>
-
-              <p>
-                PDB {dockingTarget?.pdbId ?? '-'}
-                {' · '}
-                Reference{' '}
-                {dockingTarget?.referenceLigand.name ?? '-'}
-              </p>
-            </div>
-
-            <div className="bd-pill">
-              실제 공개 단백질 구조
-            </div>
-          </div>
-
-          <div
-            className={[
-              'bd-docking-drop-zone',
-              isDragOver ? 'drag-over' : '',
-              loadedCandidate ? 'loaded' : '',
-            ]
-              .filter(Boolean)
-              .join(' ')}
-            onDragOver={(event) => {
-              event.preventDefault();
-              setIsDragOver(true);
-            }}
-            onDragLeave={() =>
-              setIsDragOver(false)
-            }
-            onDrop={handleDrop}
-          >
-            {dockingTarget && (
-              <Protein3DViewer
-                target={dockingTarget}
-              />
-            )}
-
-            <div className="bd-pocket-target">
-              <div className="bd-pocket-rings">
-                <i />
-                <i />
-                <i />
-              </div>
-
-              <strong>
-                BINDING POCKET
-              </strong>
-
-              <span>
-                후보를 이 영역으로 드래그
-              </span>
-            </div>
-
-            {loadedCandidate && (
-              <div className="bd-loaded-candidate">
-                <div className="bd-loaded-pulse" />
-
-                <small>
-                  CANDIDATE LOADED
-                </small>
-
-                <strong>
-                  {loadedCandidate.name}
-                </strong>
-
-                <span>
-                  구조 비교 모드
-                </span>
-              </div>
-            )}
-          </div>
-
-          <div className="bd-game-instruction">
-            <strong>
-              직접 해보세요
-            </strong>
-
-            <span>
-              단백질을 돌려보고 →
-              후보 카드를 잡고 →
-              가운데 포켓으로 옮겨보세요.
-            </span>
-          </div>
-        </div>
-
-        <div className="bd-card pad-md">
-          <div className="bd-candidate-bank-head">
-            <div>
-              <div className="bd-eyebrow">
-                CANDIDATE BANK
-              </div>
-
-              <h3 className="bd-section-title">
-                후보 3개
-              </h3>
-            </div>
-
-            <div className="bd-try-counter">
-              {triedCandidates.length}
-              <span>/ {candidates.length} 비교</span>
-            </div>
-          </div>
-
-          <div className="bd-drag-candidate-list">
-            {candidates.map((card, index) => {
-              const tried =
-                triedCandidates.includes(index);
-
-              const loaded =
-                loadedCandidateIndex === index;
-
-              const selected =
-                selectedCandidateIndex === index;
-
-              return (
-                <div
-                  key={card.code}
-                  className={[
-                    'bd-drag-candidate',
-                    tried ? 'tried' : '',
-                    loaded ? 'loaded' : '',
-                    selected ? 'selected' : '',
-                  ]
-                    .filter(Boolean)
-                    .join(' ')}
-                  draggable
-                  onDragStart={(event) =>
-                    handleDragStart(
-                      event,
-                      index
-                    )
-                  }
-                  onClick={() =>
-                    loadCandidate(index)
-                  }
-                >
-                  <div className="bd-drag-handle">
-                    ⋮⋮
+      <div className="bd-grid compare">
+        <div className="bd-card pad-lg">
+          <div className="bd-candidates">
+            {candidates.map((card, index) => (
+              <div
+                key={card.code}
+                className={['bd-candidate', index === selectedCandidateIndex ? 'selected' : ''].join(' ')}
+                onClick={() => selectCandidate(index)}
+              >
+                <div className="bd-candidate-top">
+                  <div>
+                    <div className="bd-chip">후보물질</div>
+                    <h3 style={{ margin: '10px 0 4px' }}>{card.name}</h3>
+                    <div>{card.code}</div>
                   </div>
+                  {index === selectedCandidateIndex && <div className="bd-pill">다음 연구 방향 선택</div>}
+                </div>
 
-                  <div className="bd-candidate-orb">
-                    {String.fromCharCode(
-                      65 + index
-                    )}
-                  </div>
+                <div className="bd-candidate-molecule" />
 
-                  <div className="bd-drag-copy">
-                    <small>
-                      CANDIDATE{' '}
-                      {String.fromCharCode(
-                        65 + index
-                      )}
-                    </small>
+                <div className="bd-mini-item">
+                  <strong>Vina 점수</strong>
+                  <span>
+                    {card.vinaScore == null
+                      ? '검증 대기'
+                      : `${card.vinaScore.toFixed(2)} kcal/mol`}
+                  </span>
+                </div>
 
-                    <strong>
-                      {card.name}
-                    </strong>
-
-                    <span>
-                      {tried
-                        ? '비교 완료 ✓'
-                        : '잡아서 포켓에 넣어보세요'}
-                    </span>
-                  </div>
-
-                  {loaded && (
-                    <div className="bd-live-badge">
-                      LOADED
+                <div className="bd-checks" style={{ marginTop: 0 }}>
+                  {card.interactions.length > 0 ? (
+                    card.interactions.map((interaction) => (
+                      <div className="bd-check" key={interaction}>
+                        <i>✓</i>
+                        <span>{interaction}</span>
+                      </div>
+                    ))
+                  ) : (
+                    <div className="bd-check">
+                      <i>·</i>
+                      <span>{card.note}</span>
                     </div>
                   )}
                 </div>
-              );
-            })}
+
+                <button
+                  className={index === selectedCandidateIndex ? 'bd-btn secondary' : 'bd-btn ghost'}
+                  onClick={next}
+                >
+                  {index === selectedCandidateIndex ? '선택됨' : '이 후보물질 선택'}
+                </button>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <div className="bd-side-stack">
+          <div className="bd-card pad-md">
+            <h3 className="bd-section-title">타겟 단백질 정보</h3>
+            <div className="bd-thumbnail" />
+            <div className="bd-mini-list" style={{ marginTop: 12 }}>
+              <div className="bd-mini-item"><strong>단백질</strong><span>SARS‑CoV‑2 Mpro (6LU7)</span></div>
+              <div className="bd-mini-item"><strong>기준 리간드</strong><span>{dockingTarget?.referenceLigand.name ?? '-'}</span></div>
+            </div>
           </div>
 
-          <div className="bd-game-feedback">
-            {!loadedCandidate && (
-              <>
-                <strong>
-                  후보를 아직 넣지 않았습니다.
-                </strong>
-
-                <span>
-                  카드 하나를 드래그하거나 터치해보세요.
-                </span>
-              </>
-            )}
-
-            {loadedCandidate && (
-              <>
-                <strong>
-                  {loadedCandidate.name}
-                  {' '}비교 중
-                </strong>
-
-                <span>
-                  실제 연구에서는 계산과 실험으로
-                  결합 가능성을 추가 검증합니다.
-                </span>
-              </>
-            )}
+          <div className="bd-card pad-md">
+            <h3 className="bd-section-title">꼭 확인하세요!</h3>
+            <p className="bd-subtitle" style={{ fontSize: 14 }}>
+              본 결과는 교육 및 체험용으로 사전 계산된 도킹 결과를 기반으로 합니다.
+              실제 약물 개발을 위해서는 추가적인 실험 검증과 전문적인 연구가 필요합니다.
+            </p>
           </div>
         </div>
       </div>
-
-      <div className="bd-card pad-md bd-research-decision">
-        <div>
-          <div className="bd-eyebrow">
-            RESEARCH DECISION
-          </div>
-
-          <h3 className="bd-section-title">
-            어떤 후보를 다음 연구로 보낼까요?
-          </h3>
-
-          <p className="bd-subtitle">
-            가능하면 세 후보를 모두 비교한 뒤
-            하나를 선택해보세요.
-          </p>
-        </div>
-
-        <div className="bd-decision-buttons">
-          {candidates.map((candidate, index) => (
-            <button
-              type="button"
-              key={candidate.code}
-              className={[
-                'bd-decision-button',
-                selectedCandidateIndex === index
-                  ? 'selected'
-                  : '',
-              ]
-                .filter(Boolean)
-                .join(' ')}
-              onClick={() =>
-                chooseCandidate(index)
-              }
-            >
-              <small>
-                CANDIDATE
-              </small>
-
-              <strong>
-                {String.fromCharCode(
-                  65 + index
-                )}
-              </strong>
-            </button>
-          ))}
-        </div>
-      </div>
-
-      <div className="bd-card pad-md bd-lock-panel">
-        <div>
-          {selectedCandidate ? (
-            <>
-              <strong>
-                {selectedCandidate.name}
-                {' '}선택
-              </strong>
-
-              <span>
-                {allTried
-                  ? '세 후보 비교 완료 · 최종 결정을 확정하세요.'
-                  : '선택했습니다. 다른 후보도 비교해볼 수 있습니다.'}
-              </span>
-            </>
-          ) : (
-            <>
-              <strong>
-                최종 결정 대기
-              </strong>
-
-              <span>
-                후보 A/B/C 중 하나를 선택해주세요.
-              </span>
-            </>
-          )}
-        </div>
-
-        <button
-          type="button"
-          className="bd-btn primary bd-lock-button"
-          disabled={!selectedCandidate}
-          onClick={() => {
-            const elapsed =
-              Date.now() - missionStart;
-
-            try {
-              localStorage.setItem(
-                'biodocklab-last-mission-score',
-                String(missionScore)
-              );
-
-              localStorage.setItem(
-                'biodocklab-last-mission-ms',
-                String(elapsed)
-              );
-            } catch {
-              // continue without persistence
-            }
-
-            next();
-          }}
-        >
-          {selectedCandidate
-            ? 'LOCK DECISION →'
-            : '후보를 선택해주세요'}
-        </button>
-      </div>
-
-      <p
-        className="bd-subtitle"
-        style={{
-          textAlign: 'center',
-          fontSize: 13,
-          marginBottom: 0,
-        }}
-      >
-        MISSION SCORE는 체험 행동에 따른 게임 점수이며
-        실제 결합친화도·약효·도킹 점수가 아닙니다.
-      </p>
     </div>
   );
 }
-
 
 function ReportScreen({
   proteinId,
@@ -1904,8 +1220,7 @@ export default function UiConceptDemo() {
   const activeStep =
     screen === 'atlas'
       ? 1
-      : screen === 'scan' ||
-        screen === 'structure'
+      : screen === 'structure'
       ? 2
       : screen === 'binding'
       ? 3
@@ -1944,13 +1259,6 @@ export default function UiConceptDemo() {
             setSelectedProteinId(proteinId);
             setScreen('structure');
           }}
-        />
-      )}
-
-      {screen === 'scan' && (
-        <SampleScanScreen
-          proteinId={selectedProteinId}
-          next={() => setScreen('structure')}
         />
       )}
 
