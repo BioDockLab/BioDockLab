@@ -20,6 +20,9 @@ import type {
 } from '../types';
 import './PrintOutputs.css';
 import { proteinById } from '../data/proteinAtlas';
+import { dockingTargetByProteinId } from '../data/dockingTargets';
+import { dockingResultByProteinId } from '../data/dockingResults';
+import { QRCodeSVG } from 'qrcode.react';
 
 type PrintProps = {
   session: ResearchSession;
@@ -120,11 +123,59 @@ export function PrintOutputs({
       ? '3D Brain Organoid'
       : '2D Cell Model';
   const atlasProtein = proteinById(session.proteinId);
-  const researchQuestion = atlasProtein?.researchQuestion ?? disease.title;
+
+  const dockingTarget =
+    dockingTargetByProteinId(
+      session.proteinId,
+    );
+
+  const dockingResult =
+    dockingResultByProteinId(
+      session.proteinId,
+    );
+
+  const selectedDockingResult =
+    dockingResult?.candidates.find(
+      (item) =>
+        item.id ===
+        session.selectedCandidateId,
+    );
+
+  const researchQuestion =
+    atlasProtein?.researchQuestion ??
+    disease.title;
   const researchModel = atlasProtein ? 'Public experimental structure' : modelName;
   const proteinLabel = atlasProtein
     ? `${atlasProtein.nameKo} (PDB ${atlasProtein.pdbId})`
     : 'EGFR (P00533)';
+
+  const proteinShortLabel =
+    atlasProtein
+      ? `${atlasProtein.nameKo} · ${atlasProtein.pdbId}`
+      : 'EGFR';
+
+  const candidateName =
+    selectedDockingResult?.name ??
+    candidate.name;
+
+  const candidateCode =
+    selectedDockingResult?.code ??
+    candidate.code;
+
+  const dockingScoreText =
+    selectedDockingResult
+      ? selectedDockingResult.vinaScore === null
+        ? '검증 대기'
+        : `${selectedDockingResult.vinaScore} kcal/mol`
+      : `${candidate.dockingScore} kcal/mol`;
+
+  const dockingVersion =
+    dockingResult?.calculation.version ??
+    '검증 전';
+
+  const dockingDate =
+    dockingResult?.calculation.computedAt ??
+    '검증 전';
 
   const issuedDate =
     new Date().toLocaleDateString(
@@ -219,6 +270,35 @@ export function PrintOutputs({
                 <dd>{proteinLabel}</dd>
               </div>
 
+              {dockingTarget && (
+                <>
+                  <div>
+                    <dt>기준 리간드</dt>
+                    <dd>
+                      {
+                        dockingTarget
+                          .referenceLigand
+                          .name
+                      }
+                    </dd>
+                  </div>
+
+                  <div>
+                    <dt>Vina 버전</dt>
+                    <dd>
+                      {dockingVersion}
+                    </dd>
+                  </div>
+
+                  <div>
+                    <dt>계산일</dt>
+                    <dd>
+                      {dockingDate}
+                    </dd>
+                  </div>
+                </>
+              )}
+
               <div>
                 <dt>체험 완료일</dt>
                 <dd>{issuedDate}</dd>
@@ -271,12 +351,9 @@ export function PrintOutputs({
             </h2>
 
             <p>
-              {disease.title} 연구 질문을
-              선택하고 {modelName}을 연구
-              모델로 비교한 뒤, EGFR
-              단백질 구조와 세 후보의 구조적
-              상호작용을 교육용 시각화로
-              탐색했습니다.
+              {atlasProtein
+                ? `${atlasProtein.virus}의 ${atlasProtein.nameKo} 구조를 선택하고 PDB ${atlasProtein.pdbId} 공개 실험 구조를 확인한 뒤, 단백질별 후보 결과를 교육용으로 비교했습니다.`
+                : `${disease.title} 연구 질문을 선택하고 ${modelName}을 연구 모델로 비교했습니다.`}
             </p>
 
             <h2>
@@ -285,8 +362,8 @@ export function PrintOutputs({
 
             <ul>
               <li>
-                {candidate.name}{' '}
-                ({candidate.code})
+                {candidateName}{' '}
+                ({candidateCode})
               </li>
 
               <li>
@@ -294,9 +371,9 @@ export function PrintOutputs({
               </li>
 
               <li>
-                구조 비교 참고값:{' '}
-                {candidate.dockingScore}{' '}
-                kcal/mol
+                {dockingTarget
+                  ? `Vina 결과: ${dockingScoreText}`
+                  : `구조 비교 참고값: ${dockingScoreText}`}
               </li>
             </ul>
 
@@ -331,7 +408,9 @@ export function PrintOutputs({
             </div>
 
             <div>
-              <strong>EGFR</strong>
+              <strong>
+                {proteinShortLabel}
+              </strong>
               <span>
                 Protein Target
               </span>
@@ -339,7 +418,7 @@ export function PrintOutputs({
 
             <div>
               <strong>
-                {candidate.name}
+                {candidateName}
               </strong>
               <span>
                 Next Direction
@@ -423,11 +502,11 @@ export function PrintOutputs({
               </span>
 
               <span className="result-field result-field--protein">
-                EGFR
+                {proteinShortLabel}
               </span>
 
               <span className="result-field result-field--candidate">
-                {candidate.name}
+                {candidateName}
               </span>
 
               <span className="result-field result-field--time">
@@ -439,7 +518,17 @@ export function PrintOutputs({
               </span>
 
               <div className="collector-card__qr">
+                {dockingTarget ? (
+                <QRCodeSVG
+                  value={
+                    dockingTarget.sourceUrl
+                  }
+                  size={64}
+                  marginSize={1}
+                />
+              ) : (
                 <QrPlaceholder />
+              )}
               </div>
             </div>
           </section>

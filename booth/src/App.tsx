@@ -35,7 +35,10 @@ import { CellScopeExperience } from './components/CellScopeExperience';
 import type { CellModelId, DiseaseId, ExperienceTrack, ResearchSession, ThemeId } from './types';
 import { aiAnalysisByDisease } from './data/aiAnalysis';
 import { ProteinAtlas } from './components/ProteinAtlas';
+import { Protein3DViewer } from './components/Protein3DViewer';
 import { proteinById, type ProteinAtlasEntry } from './data/proteinAtlas';
+import { dockingTargetByProteinId } from './data/dockingTargets';
+import { dockingResultByProteinId } from './data/dockingResults';
 
 const createSessionId = () => {
   const now = new Date();
@@ -259,6 +262,7 @@ function OrganoidScreen({ session, updateDisease, updateCellModel, previous, nex
 
 function ProteinScreen({ proteinId, diseaseName, previous, next }: { proteinId: string; diseaseName: string; previous: () => void; next: () => void }) {
   const atlasProtein = proteinById(proteinId);
+  const dockingTarget = dockingTargetByProteinId(proteinId);
   const title = atlasProtein?.nameKo ?? 'EGFR';
   const subtitle = atlasProtein?.name ?? 'Epidermal Growth Factor Receptor';
   const sourceId = atlasProtein ? `PDB ID: ${atlasProtein.pdbId}` : 'UniProt ID: P00533';
@@ -267,8 +271,17 @@ function ProteinScreen({ proteinId, diseaseName, previous, next }: { proteinId: 
       <div className="content-with-summary">
         <section className="panel protein-viewer">
           <div className="viewer-header"><div><small>선택 단백질</small><h1>{title}</h1><p>{subtitle}</p><span>{sourceId}</span></div><button type="button">뷰 옵션⌄</button></div>
-          <ProteinArt />
-          <div className="viewer-toolbar"><span>↻ 회전</span><span>＋ 줌</span><span>✣ 이동</span><span>⌖ 측정</span><span>○ 리셋</span></div>
+          {dockingTarget ? (
+            <Protein3DViewer target={dockingTarget} />
+          ) : (
+            <ProteinArt />
+          )}
+          <div className="viewer-toolbar">
+            <span>↻ 드래그 회전</span>
+            <span>＋ 핀치/스크롤 줌</span>
+            <span>● 기준 리간드 강조</span>
+            <span>○ 로컬 PDB</span>
+          </div>
         </section>
         <aside className="panel structure-info">
           <span className="eyebrow"><Atom /> 단백질 구조 확인</span><h1>왜 단백질 구조를 살펴볼까요?</h1>
@@ -356,31 +369,267 @@ function PredictionScreen({ session, diseaseName, previous, next }: { session: R
   );
 }
 
-function CandidateScreen({ proteinId, selectedId, select, previous, next }: { proteinId: string; selectedId: ResearchSession['selectedCandidateId']; select: (id: ResearchSession['selectedCandidateId']) => void; previous: () => void; next: () => void }) {
-  const atlasProtein = proteinById(proteinId);
+function CandidateScreen({
+  proteinId,
+  selectedId,
+  select,
+  previous,
+  next,
+}: {
+  proteinId: string;
+  selectedId:
+    ResearchSession['selectedCandidateId'];
+  select: (
+    id:
+      ResearchSession['selectedCandidateId'],
+  ) => void;
+  previous: () => void;
+  next: () => void;
+}) {
+  const atlasProtein =
+    proteinById(proteinId);
+
+  const resultSet =
+    dockingResultByProteinId(
+      proteinId,
+    );
+
+  const viralCandidates =
+    resultSet?.candidates;
+
   return (
     <div className="screen screen--candidate">
       <section className="panel candidate-workspace">
-        <header className="section-header"><div><h1>{atlasProtein ? `${atlasProtein.nameKo} 결합 후보 비교` : '후보물질 비교'}</h1><p>후보 구조의 계산상 상호작용과 참고 지표를 비교하고, 더 탐색하고 싶은 연구 방향을 선택하세요.</p></div><span className="educational-chip">사전 계산 · 교육용</span></header>
-        <div className="candidate-cards">
-          {candidates.map((item, index) => (
-            <button key={item.id} type="button" className={`candidate-card candidate-card--${item.accent} ${selectedId === item.id ? 'is-selected' : ''}`} onClick={() => select(item.id)}>
-              <header><div><h2>{item.name}</h2><span>{item.code}</span></div>{selectedId === item.id && <CheckCircle2 />}</header>
-              <ChemicalSketch variant={(index + 1) as 1 | 2 | 3} />
-              <div className="candidate-score"><span>Docking Score</span><strong>{item.dockingScore} <small>kcal/mol</small></strong></div>
-              <Rating value={item.stability} label="예측 결합 안정성" />
-              <div className="candidate-details"><strong>주요 상호작용</strong>{item.interactions.map((text) => <p key={text}>• {text}</p>)}<em>{item.feature}</em></div>
-            </button>
-          ))}
-        </div>
-        <ComparisonTable />
+        <header className="section-header">
+          <div>
+            <h1>
+              {atlasProtein
+                ? `${atlasProtein.nameKo} 결합 후보 비교`
+                : '후보물질 비교'}
+            </h1>
+
+            <p>
+              사전 계산 데이터와 구조적
+              상호작용 정보를 단백질별로
+              분리해 비교합니다.
+            </p>
+          </div>
+
+          <span className="educational-chip">
+            사전 계산 · 교육용
+          </span>
+        </header>
+
+        {viralCandidates ? (
+          <div className="candidate-cards">
+            {viralCandidates.map(
+              (item, index) => (
+                <button
+                  key={item.id}
+                  type="button"
+                  className={`candidate-card candidate-card--${
+                    ['blue', 'cyan', 'purple'][index]
+                  } ${
+                    selectedId === item.id
+                      ? 'is-selected'
+                      : ''
+                  }`}
+                  onClick={() =>
+                    select(item.id)
+                  }
+                >
+                  <header>
+                    <div>
+                      <h2>{item.name}</h2>
+                      <span>{item.code}</span>
+                    </div>
+
+                    {selectedId ===
+                      item.id && (
+                      <CheckCircle2 />
+                    )}
+                  </header>
+
+                  <ChemicalSketch
+                    variant={
+                      (index + 1) as
+                        | 1
+                        | 2
+                        | 3
+                    }
+                  />
+
+                  <div className="candidate-score">
+                    <span>
+                      Vina Score
+                    </span>
+
+                    <strong>
+                      {item.vinaScore === null
+                        ? '검증 대기'
+                        : item.vinaScore}
+
+                      {item.vinaScore !==
+                        null && (
+                        <small>
+                          {' '}
+                          kcal/mol
+                        </small>
+                      )}
+                    </strong>
+                  </div>
+
+                  <div className="candidate-details">
+                    <strong>
+                      계산 상태
+                    </strong>
+
+                    <p>
+                      • AutoDock Vina
+                      사전 계산 결과
+                    </p>
+
+                    <p>
+                      • 단백질별 독립
+                      결과 세트
+                    </p>
+
+                    <em>
+                      {item.note}
+                    </em>
+                  </div>
+                </button>
+              ),
+            )}
+          </div>
+        ) : (
+          <div className="candidate-cards">
+            {candidates.map(
+              (item, index) => (
+                <button
+                  key={item.id}
+                  type="button"
+                  className={`candidate-card candidate-card--${item.accent} ${
+                    selectedId === item.id
+                      ? 'is-selected'
+                      : ''
+                  }`}
+                  onClick={() =>
+                    select(item.id)
+                  }
+                >
+                  <header>
+                    <div>
+                      <h2>{item.name}</h2>
+                      <span>{item.code}</span>
+                    </div>
+
+                    {selectedId ===
+                      item.id && (
+                      <CheckCircle2 />
+                    )}
+                  </header>
+
+                  <ChemicalSketch
+                    variant={
+                      (index + 1) as
+                        | 1
+                        | 2
+                        | 3
+                    }
+                  />
+
+                  <div className="candidate-score">
+                    <span>
+                      Docking Score
+                    </span>
+
+                    <strong>
+                      {item.dockingScore}
+                      {' '}
+                      <small>
+                        kcal/mol
+                      </small>
+                    </strong>
+                  </div>
+
+                  <Rating
+                    value={
+                      item.stability
+                    }
+                    label="예측 결합 안정성"
+                  />
+
+                  <div className="candidate-details">
+                    <strong>
+                      주요 상호작용
+                    </strong>
+
+                    {item.interactions.map(
+                      (text) => (
+                        <p key={text}>
+                          • {text}
+                        </p>
+                      ),
+                    )}
+
+                    <em>
+                      {item.feature}
+                    </em>
+                  </div>
+                </button>
+              ),
+            )}
+          </div>
+        )}
+
+        <ComparisonTable
+          proteinId={proteinId}
+        />
       </section>
-      <div className="screen-actions"><Notice compact>점수가 더 낮다고 실제 약효가 더 좋다는 뜻은 아닙니다. 독성, 흡수, 대사와 실험 검증이 별도로 필요합니다.</Notice><NavButtons previous={previous} next={next} nextLabel="리포트 생성" /></div>
+
+      <div className="screen-actions">
+        <Notice compact>
+          {resultSet
+            ? '실제 사전 계산값이 검증되기 전에는 임의의 Vina 점수를 표시하지 않습니다.'
+            : '점수가 더 낮다고 실제 약효가 더 좋다는 뜻은 아닙니다.'}
+        </Notice>
+
+        <NavButtons
+          previous={previous}
+          next={next}
+          nextLabel="리포트 생성"
+        />
+      </div>
     </div>
   );
 }
 
 function ReportScreen({ session, diseaseName, selectedCandidate, updateName, updateRole, previous, print, reset }: { session: ResearchSession; diseaseName: string; selectedCandidate: (typeof candidates)[number]; updateName: (value: string) => void; updateRole: (value: string) => void; previous: () => void; print: (kind: 'report' | 'card') => void; reset: () => void }) {
+  const reportProtein =
+    proteinById(session.proteinId);
+
+  const reportResult =
+    dockingResultByProteinId(
+      session.proteinId,
+    );
+
+  const reportCandidate =
+    reportResult?.candidates.find(
+      (item) =>
+        item.id ===
+        session.selectedCandidateId,
+    );
+
+  const reportProteinLabel =
+    reportProtein
+      ? `${reportProtein.nameKo} · PDB ${reportProtein.pdbId}`
+      : 'EGFR';
+
+  const reportCandidateLabel =
+    reportCandidate?.name ??
+    selectedCandidate.name;
+
   return (
     <div className="screen screen--report">
       <div className="report-layout">
@@ -388,13 +637,13 @@ function ReportScreen({ session, diseaseName, selectedCandidate, updateName, upd
           <header className="section-header"><div><h1>개인 맞춤형 리포트 미리보기</h1><p>체험 과정에서 선택한 연구 내용을 바탕으로 교육용 결과물을 생성합니다.</p></div></header>
           <div className="personal-fields"><label><UserRound /> 연구원 이름<input value={session.researcherName} onChange={(event) => updateName(event.target.value)} placeholder="이름 또는 닉네임" maxLength={20} /></label><label><Award /> 희망 직업<input value={session.dreamRole} onChange={(event) => updateRole(event.target.value)} maxLength={24} /></label></div>
           <div className="preview-grid">
-            <div className="a4-thumbnail"><Brand compact /><strong>AI RESEARCH REPORT</strong><span>{session.researcherName || '미래 연구원'}</span><div className="thumb-ring">84</div><p>{diseaseName}</p><p>EGFR · {selectedCandidate.name}</p><small>교육용 연구 결과</small></div>
+            <div className="a4-thumbnail"><Brand compact /><strong>AI RESEARCH REPORT</strong><span>{session.researcherName || '미래 연구원'}</span><div className="thumb-ring">84</div><p>{diseaseName}</p><p>{reportProteinLabel} · {reportCandidateLabel}</p><small>교육용 연구 결과</small></div>
             <div className="card-thumbnails"><div className="mini-card"><Brand compact /><small>OFFICIAL AI RESEARCH CARD</small><strong>AI LEVEL 4</strong><span>{session.researcherName || '미래 연구원'}</span></div><div className="mini-card mini-card--back"><Brand compact /><QrPlaceholder /><span>{session.sessionId}</span></div></div>
           </div>
         </section>
         <aside className="report-side">
           <section className="panel print-ready"><CheckCircle2 /><div><h2>인쇄 준비 완료</h2><p>리포트와 연구원 카드가 생성되었습니다.</p></div><ul><li><Check /> A4 AI Research Report</li><li><Check /> AI Research Card Front</li><li><Check /> AI Research Card Back</li></ul><button type="button" className="button button--primary" onClick={() => print('report')}><Printer /> A4 리포트 출력</button><button type="button" className="button button--secondary" onClick={() => print('card')}><Printer /> 연구원 카드 출력</button></section>
-          <section className="panel generated-info"><h2>생성 정보</h2><dl><div><dt>Research ID</dt><dd>{session.sessionId}</dd></div><div><dt>Main Field</dt><dd>Cell-based Bio AI</dd></div><div><dt>AI LEVEL</dt><dd>Advanced (4/5)</dd></div><div><dt>선택 연구</dt><dd>{diseaseName}</dd></div><div><dt>후보 방향</dt><dd>{selectedCandidate.name}</dd></div></dl><QrPlaceholder /></section>
+          <section className="panel generated-info"><h2>생성 정보</h2><dl><div><dt>Research ID</dt><dd>{session.sessionId}</dd></div><div><dt>Main Field</dt><dd>Cell-based Bio AI</dd></div><div><dt>AI LEVEL</dt><dd>Advanced (4/5)</dd></div><div><dt>선택 연구</dt><dd>{diseaseName}</dd></div><div><dt>단백질</dt><dd>{reportProteinLabel}</dd></div><div><dt>후보 방향</dt><dd>{reportCandidateLabel}</dd></div></dl><QrPlaceholder /></section>
         </aside>
       </div>
       <div className="screen-actions"><Notice compact>출력물은 학습 경험을 기록하는 기념품이며 의학적 판단이나 연구 검증 결과가 아닙니다.</Notice><div className="nav-buttons"><button type="button" className="button button--ghost" onClick={previous}><ArrowLeft /> 이전</button><button type="button" className="button button--outline" onClick={reset}>새 연구 시작</button></div></div>
@@ -402,8 +651,139 @@ function ReportScreen({ session, diseaseName, selectedCandidate, updateName, upd
   );
 }
 
-function ComparisonTable() {
-  return <div className="comparison-table"><h2>후보물질 비교 요약 <small>(연구 참고용)</small></h2><div className="comparison-row comparison-row--head"><span>항목</span>{candidates.map((item) => <strong key={item.id}>{item.name}<small>{item.code}</small></strong>)}</div><div className="comparison-row"><span>Docking Score</span>{candidates.map((item) => <strong key={item.id}>{item.dockingScore}</strong>)}</div><div className="comparison-row"><span>결합 안정성</span>{candidates.map((item) => <Rating key={item.id} value={item.stability} compact />)}</div><div className="comparison-row"><span>선택성 참고 지표</span>{candidates.map((item) => <Rating key={item.id} value={item.selectivity} compact />)}</div><div className="comparison-row"><span>용해도 참고 지표</span>{candidates.map((item) => <Rating key={item.id} value={item.solubility} compact />)}</div></div>;
+function ComparisonTable({
+  proteinId,
+}: {
+  proteinId?: string;
+}) {
+  const resultSet =
+    proteinId
+      ? dockingResultByProteinId(
+          proteinId,
+        )
+      : undefined;
+
+  if (resultSet) {
+    return (
+      <div className="comparison-table">
+        <h2>
+          단백질별 후보 결과
+          <small>
+            {' '}
+            (사전 계산 데이터)
+          </small>
+        </h2>
+
+        <div className="comparison-row comparison-row--head">
+          <span>항목</span>
+
+          {resultSet.candidates.map(
+            (item) => (
+              <strong key={item.id}>
+                {item.name}
+
+                <small>
+                  {item.code}
+                </small>
+              </strong>
+            ),
+          )}
+        </div>
+
+        <div className="comparison-row">
+          <span>
+            Vina Score
+          </span>
+
+          {resultSet.candidates.map(
+            (item) => (
+              <strong key={item.id}>
+                {item.vinaScore ??
+                  '검증 대기'}
+              </strong>
+            ),
+          )}
+        </div>
+
+        <div className="comparison-row">
+          <span>
+            계산 엔진
+          </span>
+
+          {resultSet.candidates.map(
+            (item) => (
+              <strong key={item.id}>
+                {
+                  resultSet
+                    .calculation
+                    .engine
+                }
+              </strong>
+            ),
+          )}
+        </div>
+
+        <div className="comparison-row">
+          <span>
+            결과 상태
+          </span>
+
+          {resultSet.candidates.map(
+            (item) => (
+              <strong key={item.id}>
+                {item.status ===
+                'verified'
+                  ? '검증 완료'
+                  : '검증 대기'}
+              </strong>
+            ),
+          )}
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <div className="comparison-table">
+      <h2>
+        후보물질 비교 요약
+        <small>
+          {' '}
+          (연구 참고용)
+        </small>
+      </h2>
+
+      <div className="comparison-row comparison-row--head">
+        <span>항목</span>
+
+        {candidates.map(
+          (item) => (
+            <strong key={item.id}>
+              {item.name}
+
+              <small>
+                {item.code}
+              </small>
+            </strong>
+          ),
+        )}
+      </div>
+
+      <div className="comparison-row">
+        <span>
+          Docking Score
+        </span>
+
+        {candidates.map(
+          (item) => (
+            <strong key={item.id}>
+              {item.dockingScore}
+            </strong>
+          ),
+        )}
+      </div>
+    </div>
+  );
 }
 
 function Notice({ children, compact = false }: { children: ReactNode; compact?: boolean }) {

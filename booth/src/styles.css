@@ -1958,3 +1958,91 @@ button { -webkit-user-select: none; user-select: none; }
 
 
 
+
+
+/* =========================================================
+   BioDockLab real PDB viewer
+   ========================================================= */
+
+.protein-3d {
+  position: relative;
+  width: 100%;
+  min-height: 440px;
+  overflow: hidden;
+  border-radius: 22px;
+  background:
+    radial-gradient(
+      circle at 50% 40%,
+      rgba(27, 95, 160, 0.25),
+      rgba(7, 17, 31, 0.98) 62%
+    );
+}
+
+.protein-3d--compact {
+  min-height: 320px;
+}
+
+.protein-3d__canvas {
+  width: 100%;
+  height: 440px;
+  touch-action: none;
+}
+
+.protein-3d--compact
+.protein-3d__canvas {
+  height: 320px;
+}
+
+.protein-3d__overlay,
+.protein-3d__fallback {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  text-align: center;
+  pointer-events: none;
+}
+
+.protein-3d__overlay {
+  color: #e8f5ff;
+  background:
+    rgba(7, 17, 31, 0.72);
+  backdrop-filter: blur(8px);
+}
+
+.protein-3d__fallback {
+  color: #dcecff;
+  background:
+    linear-gradient(
+      135deg,
+      #07111f,
+      #102b48
+    );
+}
+
+.protein-3d__legend {
+  position: absolute;
+  left: 16px;
+  right: 16px;
+  bottom: 14px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  pointer-events: none;
+}
+
+.protein-3d__legend span {
+  padding: 6px 10px;
+  border: 1px solid
+    rgba(255, 255, 255, 0.14);
+  border-radius: 999px;
+  color: #e8f5ff;
+  background:
+    rgba(7, 17, 31, 0.78);
+  backdrop-filter: blur(8px);
+  font-size: 12px;
+  font-weight: 700;
+}

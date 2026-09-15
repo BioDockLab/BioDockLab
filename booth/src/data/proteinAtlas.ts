@@ -74,7 +74,7 @@ export const proteinAtlas: ProteinAtlasEntry[] = [
     sourceUrl: 'https://www.rcsb.org/structure/4L72',
     function: '사람 세포의 DPP4 수용체를 인식하는 단백질 영역입니다.',
     researchQuestion: 'SARS-CoV-2의 ACE2 결합 방식과 무엇이 다를까?',
-    readiness: 'deep-dive',
+    readiness: 'structure',
   },
   {
     id: 'mers-mpro',
@@ -85,7 +85,7 @@ export const proteinAtlas: ProteinAtlasEntry[] = [
     sourceUrl: 'https://www.rcsb.org/structure/4YLU',
     function: 'MERS-CoV 복제에 필요한 단백질 가공 효소입니다.',
     researchQuestion: '코로나바이러스 사이에 보존된 결합 포켓이 있을까?',
-    readiness: 'structure',
+    readiness: 'deep-dive',
   },
   {
     id: 'h1n1-neuraminidase',
