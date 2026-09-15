@@ -1,0 +1,199 @@
+/* =========================================================
+   V10 FINAL OPS — staff controls + final kiosk safeguards
+   ========================================================= */
+
+.lh10-staff-toggle {
+  margin-top: 12px;
+  align-self: flex-end;
+  border: 1px solid rgba(119, 225, 255, .28);
+  background: rgba(4, 18, 38, .56);
+  color: rgba(198, 238, 255, .68);
+  border-radius: 999px;
+  padding: 7px 12px;
+  font: 800 10px/1 system-ui, sans-serif;
+  letter-spacing: .16em;
+  cursor: pointer;
+}
+
+.lh10-staff-toggle:hover {
+  color: #fff;
+  border-color: rgba(119, 225, 255, .65);
+}
+
+.lh10-staff-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 20000;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+  background: rgba(1, 6, 16, .82);
+  backdrop-filter: blur(12px);
+}
+
+.lh10-staff-panel {
+  width: min(760px, 94vw);
+  max-height: min(760px, 90vh);
+  overflow: auto;
+  border: 1px solid rgba(86, 221, 255, .28);
+  border-radius: 24px;
+  padding: 24px;
+  background:
+    radial-gradient(circle at 85% 0%, rgba(56, 220, 255, .13), transparent 35%),
+    linear-gradient(160deg, #071a31 0%, #06101f 100%);
+  color: #eefaff;
+  box-shadow: 0 28px 90px rgba(0, 0, 0, .55);
+}
+
+.lh10-staff-panel header {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  align-items: flex-start;
+}
+
+.lh10-staff-panel header small {
+  color: #55e8ff;
+  font-weight: 900;
+  letter-spacing: .12em;
+}
+
+.lh10-staff-panel header h2 {
+  margin: 6px 0 4px;
+  font-size: clamp(28px, 4vw, 42px);
+  line-height: 1;
+}
+
+.lh10-staff-panel header p {
+  margin: 0;
+  color: rgba(229, 247, 255, .68);
+  font-size: 14px;
+}
+
+.lh10-staff-close {
+  width: 42px;
+  height: 42px;
+  flex: 0 0 42px;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, .18);
+  background: rgba(255, 255, 255, .06);
+  color: #fff;
+  font-size: 28px;
+  cursor: pointer;
+}
+
+.lh10-staff-status {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 10px;
+  margin: 22px 0 16px;
+}
+
+.lh10-staff-status span {
+  min-width: 0;
+  padding: 14px;
+  border: 1px solid rgba(95, 220, 255, .16);
+  border-radius: 14px;
+  background: rgba(12, 37, 64, .72);
+}
+
+.lh10-staff-status small,
+.lh10-staff-status b {
+  display: block;
+}
+
+.lh10-staff-status small {
+  color: rgba(197, 236, 255, .58);
+  font-size: 9px;
+  letter-spacing: .14em;
+}
+
+.lh10-staff-status b {
+  margin-top: 5px;
+  font-size: 17px;
+  color: #fff;
+}
+
+.lh10-staff-checklist {
+  display: grid;
+  gap: 8px;
+  padding: 16px 18px;
+  border-radius: 16px;
+  background: rgba(12, 39, 58, .64);
+  border-left: 3px solid #55eebb;
+}
+
+.lh10-staff-checklist strong {
+  color: #55eebb;
+  letter-spacing: .1em;
+  font-size: 11px;
+}
+
+.lh10-staff-checklist span {
+  color: rgba(239, 251, 255, .84);
+  font-size: 13px;
+  line-height: 1.35;
+}
+
+.lh10-staff-actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-top: 16px;
+}
+
+.lh10-staff-actions button {
+  min-height: 52px;
+  border: 1px solid rgba(112, 222, 255, .24);
+  border-radius: 13px;
+  background: rgba(20, 53, 82, .82);
+  color: #edfaff;
+  font-weight: 850;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.lh10-staff-actions button.primary {
+  background: linear-gradient(135deg, #0a7d9c, #08776a);
+  border-color: rgba(100, 255, 225, .48);
+}
+
+.lh10-staff-actions button.danger {
+  background: rgba(105, 25, 39, .78);
+  border-color: rgba(255, 90, 112, .34);
+}
+
+.lh10-staff-actions button.danger.ghost {
+  background: rgba(65, 18, 29, .55);
+}
+
+.lh10-staff-panel footer {
+  margin-top: 14px;
+  text-align: right;
+  color: rgba(214, 239, 250, .48);
+  font-size: 10px;
+}
+
+/* Final clipping guard for recruitment / reports / photo screen */
+.lh7-recruit-overlay,
+.lh8-career-report,
+.lh8-photo-mode {
+  box-sizing: border-box;
+}
+
+.lh7-recruit-main,
+.lh7-ranking-preview,
+.lh8-career-report {
+  min-height: 0;
+}
+
+@media (max-height: 820px) {
+  .lh10-staff-panel { padding: 18px; }
+  .lh10-staff-status { margin: 16px 0 12px; }
+  .lh10-staff-actions button { min-height: 46px; }
+}
+
+@media (max-width: 760px) {
+  .lh10-staff-status,
+  .lh10-staff-actions { grid-template-columns: 1fr 1fr; }
+}

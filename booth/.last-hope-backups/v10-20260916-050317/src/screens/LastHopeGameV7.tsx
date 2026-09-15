@@ -623,7 +623,6 @@ export default function LastHopeGameV7() {
   const [nickname, setNickname] = useState('');
   const [roleId, setRoleId] = useState<CareerRoleId | null>(null);
   const [leaderboard, setLeaderboard] = useState<LeaderboardEntry[]>(() => readLeaderboard());
-  const [staffOpen, setStaffOpen] = useState(false);
   const [personalRank, setPersonalRank] = useState<number | null>(null);
   const [routeOptions, setRouteOptions] = useState<EscapeRouteOption[]>([]);
   const [selectedRoute, setSelectedRoute] = useState<string | null>(null);
@@ -728,50 +727,6 @@ export default function LastHopeGameV7() {
 
     return () => window.clearInterval(timer);
   }, [stage]);
-
-  const clearLeaderboardData = () => {
-    if (!window.confirm('오늘의 연구원 랭킹을 모두 초기화할까요? 이 작업은 되돌릴 수 없습니다.')) return;
-    try {
-      window.localStorage.removeItem(LEADERBOARD_KEY);
-    } catch {
-      // keep kiosk usable even when storage is unavailable
-    }
-    setLeaderboard([]);
-    setPersonalRank(null);
-  };
-
-  const clearQuestionHistory = () => {
-    if (!window.confirm('최근 출제 기록을 초기화할까요? 다음 참가자부터 문제 조합이 새로 시작됩니다.')) return;
-    try {
-      window.localStorage.removeItem(RECENT_QUESTION_KEY);
-      window.localStorage.removeItem(RECENT_FAMILY_KEY);
-    } catch {
-      // no-op
-    }
-  };
-
-  const clearAllKioskData = () => {
-    if (!window.confirm('랭킹과 최근 문제 기록을 모두 초기화할까요?')) return;
-    try {
-      window.localStorage.removeItem(LEADERBOARD_KEY);
-      window.localStorage.removeItem(RECENT_QUESTION_KEY);
-      window.localStorage.removeItem(RECENT_FAMILY_KEY);
-    } catch {
-      // no-op
-    }
-    setLeaderboard([]);
-    setPersonalRank(null);
-  };
-
-  const enterKioskFullscreen = async () => {
-    try {
-      if (!document.fullscreenElement) {
-        await document.documentElement.requestFullscreen?.();
-      }
-    } catch {
-      // browser may block fullscreen when kiosk permissions are restricted
-    }
-  };
 
   useEffect(() => {
     if (stage !== 'success' || successSavedRef.current) return;
@@ -1203,7 +1158,6 @@ export default function LastHopeGameV7() {
                 )}
               </div>
               <div className="lh7-ranking-note">LOCAL KIOSK · TOP 30 SAVED</div>
-              <button type="button" className="lh10-staff-toggle" onClick={() => setStaffOpen(true)}>STAFF</button>
             </aside>
           </section>
         )}
@@ -1519,45 +1473,6 @@ export default function LastHopeGameV7() {
               <button onClick={resetMission}>NEXT RESEARCHER</button>
             </div>
           </>
-        )}
-
-        {staffOpen && (
-          <div className="lh10-staff-backdrop" onClick={() => setStaffOpen(false)}>
-            <section className="lh10-staff-panel" onClick={(event) => event.stopPropagation()}>
-              <header>
-                <div>
-                  <small>NEXUS × BioDockLab · STAFF CONTROL</small>
-                  <h2>행사 운영 관리</h2>
-                  <p>참가자에게 보여줄 필요 없는 현장 운영용 메뉴입니다.</p>
-                </div>
-                <button type="button" className="lh10-staff-close" onClick={() => setStaffOpen(false)}>×</button>
-              </header>
-
-              <div className="lh10-staff-status">
-                <span><small>MISSION</small><b>90 SEC</b></span>
-                <span><small>PASS</small><b>6 / 10</b></span>
-                <span><small>MEMORY</small><b>1 SEC</b></span>
-                <span><small>RANKING</small><b>{leaderboard.length} SAVED</b></span>
-              </div>
-
-              <div className="lh10-staff-checklist">
-                <strong>FINAL CHECK</strong>
-                <span>✓ 미래직업 선택 → 브리핑 → 게임 → Career Report</span>
-                <span>✓ REAL JOB 배지 · Photo Mode · 로컬 랭킹</span>
-                <span>✓ 문제는 브리핑 핵심 내용 중심 · 1,000개 변형 풀</span>
-                <span>✓ 성공/실패 후 NEXT RESEARCHER로 초기화</span>
-              </div>
-
-              <div className="lh10-staff-actions">
-                <button type="button" className="primary" onClick={enterKioskFullscreen}>⛶ KIOSK FULLSCREEN</button>
-                <button type="button" onClick={clearQuestionHistory}>최근 문제 기록 초기화</button>
-                <button type="button" className="danger" onClick={clearLeaderboardData}>오늘의 랭킹 초기화</button>
-                <button type="button" className="danger ghost" onClick={clearAllKioskData}>운영 데이터 전체 초기화</button>
-              </div>
-
-              <footer>※ 초기화 버튼은 확인창을 한 번 더 거쳐야 실행됩니다.</footer>
-            </section>
-          </div>
         )}
 
         {photoMode && (
