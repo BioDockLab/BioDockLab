@@ -17,9 +17,12 @@
   --shadow: 0 16px 40px rgba(13, 42, 88, 0.12);
 }
 * { box-sizing: border-box; }
+html, body, #root { overscroll-behavior: none; }
 body { margin: 0; min-width: 1180px; min-height: 100vh; background: var(--navy); }
 button, input { font: inherit; }
 button { cursor: pointer; }
+button, a, input { touch-action: manipulation; -webkit-tap-highlight-color: transparent; }
+button { -webkit-user-select: none; user-select: none; }
 .app-shell { display: grid; grid-template-columns: 252px 1fr; min-height: 100vh; background: #f2f6fc; }
 .sidebar { position: sticky; top: 0; height: 100vh; padding: 25px 18px 18px; color: white; background: radial-gradient(circle at 78% 38%, rgba(49, 103, 255, .24), transparent 28%), linear-gradient(180deg, #051633, #071c42); overflow: hidden; }
 .sidebar::after { content: ""; position: absolute; inset: 0; pointer-events: none; opacity: .18; background-image: linear-gradient(30deg, transparent 48%, #3b82f6 49%, transparent 50%), linear-gradient(150deg, transparent 48%, #3b82f6 49%, transparent 50%); background-size: 84px 48px; mask-image: linear-gradient(transparent 20%, #000 55%, transparent); }
@@ -318,6 +321,10 @@ button { cursor: pointer; }
   .hero-panel { grid-template-columns: minmax(0, 1fr) 200px; }
 .button--hero { min-width: 0; width: 100%; white-space: nowrap; }
 .theme-card .science-orb { transform: scale(.82); }
+}
+@media (pointer: coarse) {
+  button, a { min-height: 48px; }
+  .workspace__content { -webkit-overflow-scrolling: touch; }
 }
 @media print {
   @page { margin: 0; size: A4 portrait; }
@@ -1948,7 +1955,6 @@ button { cursor: pointer; }
     font-size: 16px;
   }
 }
-
 
 
 

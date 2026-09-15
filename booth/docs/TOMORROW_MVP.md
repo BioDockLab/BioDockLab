@@ -72,6 +72,29 @@ npm run dev
 
 브라우저 주소는 `http://localhost:5173/?cellscope=device`이다.
 
+## 스탠바이미 터치 운영
+
+HDMI는 화면과 음성을 전달하지만 일반적인 USB 터치 모니터의 HID 입력 경로를 대신하지 않는다. Raspberry Pi에서 아래 진단을 먼저 실행한다.
+
+```bash
+cd ~/BioDockLab/booth
+chmod +x scripts/diagnose-touch-pi.sh
+./scripts/diagnose-touch-pi.sh
+```
+
+`Touchscreen` 또는 이에 해당하는 HID 입력 장치가 전혀 없다면 브라우저나 React 문제가 아니다. 내일 부스에서는 다음 구성을 우선 사용한다.
+
+1. Pi와 스탠바이미를 같은 Wi-Fi에 연결한다.
+2. Pi에서 `hostname -I`로 IP를 확인한다.
+3. Pi에서 `./scripts/run-mac-demo.sh` 대신 `python3 mock-device/server.py`와 `npm run dev`를 실행한다.
+4. 스탠바이미 내장 웹 브라우저에서 `http://<Pi-IP>:5173/?cellscope=device`를 연다.
+
+앱은 네트워크 접속 시 현재 웹 서버의 IP에서 자동으로 `8765` 장비 API를 찾는다. 웹 서버와 장비 서버가 서로 다른 컴퓨터라면 다음처럼 명시한다.
+
+```text
+http://<Web-IP>:5173/?cellscope=device&cellscopeApi=http://<Pi-IP>:8765
+```
+
 ## Raspberry Pi 5 연결 계약
 
 프론트엔드는 `http://127.0.0.1:8765`에서 아래 API만 기대한다.

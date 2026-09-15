@@ -324,9 +324,18 @@ export const createCellScopeClient = () => {
       ? 'device'
       : 'demo';
 
+  // When the page is opened from StanbyME's built-in browser, localhost
+  // points to the display itself. Use the web server host by default so the
+  // browser can reach the Raspberry Pi service over the booth LAN.
+  const apiHost =
+    window.location.hostname === 'localhost'
+    || window.location.hostname === '127.0.0.1'
+      ? '127.0.0.1'
+      : window.location.hostname;
+
   const baseUrl =
     params.get('cellscopeApi') ??
-    'http://127.0.0.1:8765';
+    `http://${apiHost}:8765`;
 
   return new CellScopeClient(
     mode,

@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import json
+import os
 import time
 from datetime import datetime, timezone
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
@@ -8,12 +9,10 @@ from typing import Any
 from urllib.parse import urlparse
 
 
-HOST = "127.0.0.1"
-PORT = 8765
+HOST = os.environ.get("CELLSCOPE_HOST", "0.0.0.0")
+PORT = int(os.environ.get("CELLSCOPE_PORT", "8765"))
 
-BASE_URL = f"http://{HOST}:{PORT}"
 MOCK_IMAGE_PATH = "/api/cellscope/image/latest"
-MOCK_IMAGE_URL = f"{BASE_URL}{MOCK_IMAGE_PATH}"
 
 
 SAMPLE = {
@@ -23,7 +22,6 @@ SAMPLE = {
     "model": "brain-organoid",
     "disease": "glioblastoma",
     "imageLabel": "Mock Camera Module 3 이미지",
-    "imageUrl": MOCK_IMAGE_URL,
 }
 
 
@@ -288,6 +286,22 @@ class CellScopeMockHandler(BaseHTTPRequestHandler):
             "Content-Type, Accept",
         )
 
+    def _public_base_url(self) -> str:
+        forwarded_host = self.headers.get("X-Forwarded-Host")
+        request_host = forwarded_host or self.headers.get("Host")
+        if not request_host:
+            request_host = f"127.0.0.1:{PORT}"
+        return f"http://{request_host}"
+
+    def _image_url(self) -> str:
+        return f"{self._public_base_url()}{MOCK_IMAGE_PATH}"
+
+    def _sample(self) -> dict[str, Any]:
+        return {
+            **SAMPLE,
+            "imageUrl": self._image_url(),
+        }
+
     def _send_json(
         self,
         status_code: int,
@@ -396,7 +410,7 @@ class CellScopeMockHandler(BaseHTTPRequestHandler):
 
             self._send_json(
                 200,
-                SAMPLE,
+                self._sample(),
             )
             return
 
@@ -419,8 +433,8 @@ class CellScopeMockHandler(BaseHTTPRequestHandler):
                 {
                     "ok": True,
                     "device": device_state,
-                    "sample": SAMPLE,
-                    "imageUrl": MOCK_IMAGE_URL,
+                    "sample": self._sample(),
+                    "imageUrl": self._image_url(),
                     "timestamp": utc_now(),
                 },
             )
@@ -517,7 +531,7 @@ class CellScopeMockHandler(BaseHTTPRequestHandler):
                 {
                     "sampleId": sample_id,
                     "capturedAt": captured_at,
-                    "imageUrl": MOCK_IMAGE_URL,
+                    "imageUrl": self._image_url(),
                     "imageLabel": "Mock Camera Module 3 이미지",
                     "source": "CellScope Mock Camera Module 3",
                 },
@@ -570,7 +584,7 @@ class CellScopeMockHandler(BaseHTTPRequestHandler):
                     "nextStep":
                         "관련 표적 단백질의 구조를 확인해 "
                         "연구 질문을 이어갑니다.",
-                    "imageUrl": MOCK_IMAGE_URL,
+                    "imageUrl": self._image_url(),
                 },
             )
             return
@@ -603,10 +617,10 @@ def main() -> None:
     )
 
     print(
-        f" API   : {BASE_URL}"
+        f" API   : http://{HOST}:{PORT}"
     )
     print(
-        f" Image : {MOCK_IMAGE_URL}"
+        f" Image : http://<this-device-ip>:{PORT}{MOCK_IMAGE_PATH}"
     )
 
     print()
