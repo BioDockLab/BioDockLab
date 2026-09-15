@@ -1,0 +1,49 @@
+/* =========================================================
+   V10.1 CRITICAL FREEZE
+   기능/디자인 변경 금지: 클릭 안정성만 보강
+   ========================================================= */
+
+/* 장식 레이어가 버튼/입력 클릭을 가로채지 않게 합니다. */
+.lh4-reference,
+.lh4-bloodwash,
+.lh4-biohazard-glow,
+.lh6-route-svg,
+.lh6-route-shadow,
+.lh6-route-line,
+.lh6-map-red-zone,
+.lh6-map-safe-aura,
+.lh6-second-pulse,
+.lh6-siren,
+.lh6-barricade,
+.lh6-map-countdown,
+.lh6-map-overrun {
+  pointer-events: none !important;
+}
+
+/* 실제 조작 요소는 항상 클릭 가능하게 유지합니다. */
+.lh4-root button,
+.lh4-root input,
+.lh4-root form,
+.lh7-recruit-overlay,
+.lh4-briefing-overlay,
+.lh4-quiz-panel,
+.lh4-mini-panel,
+.lh4-candidate-panel,
+.lh7-route-panel,
+.lh8-career-report,
+.lh8-photo-mode,
+.lh10-staff-backdrop,
+.lh10-staff-panel {
+  pointer-events: auto;
+}
+
+.lh4-root button,
+.lh4-root input {
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* disabled 상태만 진짜 클릭 차단. */
+.lh4-root button:disabled {
+  pointer-events: none;
+}

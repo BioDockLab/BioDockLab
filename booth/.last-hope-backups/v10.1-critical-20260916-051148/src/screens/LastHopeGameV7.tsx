@@ -680,43 +680,21 @@ export default function LastHopeGameV7() {
   useEffect(() => {
     if (!running || startedAt === null) return;
 
-    let disposed = false;
-
-    const syncMissionClock = () => {
-      if (disposed) return;
-
-      const elapsed = Math.max(0, Math.floor((Date.now() - startedAt) / 1000));
-      const next = Math.max(0, TOTAL_SECONDS - elapsed - penalty);
-
-      setRemaining(next);
+    const timer = window.setInterval(() => {
+      const elapsed = Math.floor((Date.now() - startedAt) / 1000);
+      const next = TOTAL_SECONDS - elapsed - penalty;
 
       if (next <= 0) {
+        setRemaining(0);
         setFailReason('TIME OVER · LAB OVERRUN');
-        setLocked(false);
-        setStartedAt(null);
         setStage('fail');
+        return;
       }
-    };
 
-    // Date.now() 기반이라 브라우저가 잠시 throttling 되어도 복귀 즉시 실제 시간으로 동기화됩니다.
-    syncMissionClock();
-    const timer = window.setInterval(syncMissionClock, 200);
+      setRemaining(next);
+    }, 150);
 
-    const syncWhenVisible = () => {
-      if (document.visibilityState === 'visible') syncMissionClock();
-    };
-
-    window.addEventListener('focus', syncMissionClock);
-    window.addEventListener('pageshow', syncMissionClock);
-    document.addEventListener('visibilitychange', syncWhenVisible);
-
-    return () => {
-      disposed = true;
-      window.clearInterval(timer);
-      window.removeEventListener('focus', syncMissionClock);
-      window.removeEventListener('pageshow', syncMissionClock);
-      document.removeEventListener('visibilitychange', syncWhenVisible);
-    };
+    return () => window.clearInterval(timer);
   }, [running, startedAt, penalty]);
 
   useEffect(() => {
@@ -837,38 +815,26 @@ export default function LastHopeGameV7() {
 
   const resetMission = () => {
     clearTransition();
-
-    // 다음 참가자에게 이전 플레이 상태가 한 조각도 넘어가지 않도록 완전 초기화합니다.
-    setStartedAt(null);
     setStage('recruit');
     setBriefingPage('booth');
     setNickname('');
     setRoleId(null);
     setPersonalRank(null);
-    setStaffOpen(false);
     successSavedRef.current = false;
-
+    setStartedAt(null);
     setPenalty(0);
     setRemaining(TOTAL_SECONDS);
     setScore(0);
-    setTargetId('sars2-mpro');
-    setRounds([]);
     setQuestionIndex(0);
     setCorrectCount(0);
     setTypedAnswer('');
     setFeedback('');
     setLocked(false);
-
-    setMemoryVisible(true);
-    setMatchOrder(TARGET_IDS);
     setClassifyIndex(0);
     setClassifyDeck([]);
-    setSequenceDeck([]);
     setSequenceProgress([]);
     setPocketChoice(null);
     setCandidateIndex(null);
-    setFailReason('TIME OVER');
-
     setSelectedRoute(null);
     setRouteOptions([]);
     setEscapeProgress(0);

@@ -3,7 +3,6 @@ import './styles/last-hope-v7.css';
 import './styles/last-hope-v8-final.css';
 import './styles/last-hope-v9-easy-quiz.css';
 import './styles/last-hope-v10-final-ops.css';
-import './styles/last-hope-v10.1-critical-freeze.css';
 
 import LastHopeGameV7 from './screens/LastHopeGameV7';
 
