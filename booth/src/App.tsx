@@ -32,7 +32,7 @@ import { ChemicalSketch, ProteinArt, QrPlaceholder, ScienceOrb } from './compone
 import { Shell } from './components/Shell';
 import { PrintOutputs } from './components/PrintOutputs';
 import { CellScopeExperience } from './components/CellScopeExperience';
-import type { CellModelId, DiseaseId, ResearchSession, ThemeId } from './types';
+import type { CellModelId, DiseaseId, ExperienceTrack, ResearchSession, ThemeId } from './types';
 import { aiAnalysisByDisease } from './data/aiAnalysis';
 import { ProteinAtlas } from './components/ProteinAtlas';
 import { proteinById, type ProteinAtlasEntry } from './data/proteinAtlas';
@@ -58,6 +58,7 @@ const defaultSession = (): ResearchSession => ({
 
 function App() {
   const [step, setStep] = useState(1);
+  const [track, setTrack] = useState<ExperienceTrack>('viral');
   const [showProteinAtlas, setShowProteinAtlas] = useState(false);
   const [session, setSession] = useState<ResearchSession>(() => {
     try {
@@ -89,6 +90,7 @@ const onCellScopeReset = () => setCellScopeComplete(false);
     setSession(defaultSession());
     setStep(1);
     setShowProteinAtlas(false);
+    setTrack('viral');
   };
 
   const print = (kind: 'report' | 'card') => {
@@ -99,11 +101,12 @@ const onCellScopeReset = () => setCellScopeComplete(false);
 
   return (
     <>
-      <Shell step={step} onStep={setStep} onReset={reset} sessionId={session.sessionId}>
+      <Shell step={step} track={track} onStep={(value) => { setShowProteinAtlas(false); setStep(value); }} onReset={reset} sessionId={session.sessionId}>
         {showProteinAtlas && (
           <ProteinAtlas
             onBack={() => setShowProteinAtlas(false)}
             onSelect={(protein: ProteinAtlasEntry) => {
+              setTrack('viral');
               update('proteinId', protein.id);
               setShowProteinAtlas(false);
               setStep(3);
@@ -115,16 +118,16 @@ const onCellScopeReset = () => setCellScopeComplete(false);
   <HomeScreen
     session={session}
     updateTheme={(value) => update('themeId', value)}
-    next={() => setStep(2)}
+    next={() => { setTrack('cell'); setStep(2); }}
     onCellScopeComplete={onCellScopeComplete}
     onCellScopeReset={onCellScopeReset}
-    openProteinAtlas={() => setShowProteinAtlas(true)}
+    openProteinAtlas={() => { setTrack('viral'); setShowProteinAtlas(true); }}
   />
 )}
         {step === 2 && <OrganoidScreen session={session} updateDisease={(value) => update('diseaseId', value)} updateCellModel={(value) => update('cellModelId', value)} previous={() => setStep(1)} next={() => setStep(3)} />}
         {step === 3 && <ProteinScreen proteinId={session.proteinId} diseaseName={disease.title} previous={() => setStep(session.proteinId === 'egfr' ? 2 : 1)} next={() => setStep(4)} />}
         {step === 4 && <PredictionScreen session={session} diseaseName={disease.title} previous={() => setStep(3)} next={() => setStep(5)} />}
-        {step === 5 && <CandidateScreen selectedId={session.selectedCandidateId} select={(value) => update('selectedCandidateId', value)} previous={() => setStep(4)} next={() => setStep(6)} />}
+        {step === 5 && <CandidateScreen proteinId={session.proteinId} selectedId={session.selectedCandidateId} select={(value) => update('selectedCandidateId', value)} previous={() => setStep(4)} next={() => setStep(6)} />}
         {step === 6 && <ReportScreen session={session} diseaseName={disease.title} selectedCandidate={candidate} updateName={(value) => update('researcherName', value)} updateRole={(value) => update('dreamRole', value)} previous={() => setStep(5)} print={print} reset={reset} />}
         </>}
       </Shell>
@@ -154,10 +157,10 @@ function HomeScreen({
       <section className="hero-panel">
         <div className="hero-panel__content">
           <small>WELCOME TO BIODOCKLAB</small>
-          <h1>세포 기반 바이오 AI <span>연구 체험</span></h1>
-          <p>하나의 질환 연구 스토리를 따라 세포, 오가노이드, 단백질 구조, 후보물질 비교 과정을 탐색하고 나만의 연구 리포트를 완성합니다.</p>
+          <h1>감염병을 겪은 세대,<br /><span>이제 단백질을 직접 연구합니다.</span></h1>
+          <p>코로나19·메르스·신종플루의 공개 구조 데이터를 따라 단백질을 선택하고, 결합 가능성을 탐색해 나만의 연구 리포트를 완성합니다.</p>
           <div className="mini-flow">
-            {[['세포 선택', Microscope], ['오가노이드', Brain], ['단백질 구조', Atom], ['AI 구조 예측', Sparkles], ['후보물질 비교', Beaker], ['리포트 출력', FileText]].map(([label, Icon], index) => {
+            {[['감염병 선택', Microscope], ['단백질 선택', Atom], ['PDB 구조 확인', ShieldCheck], ['결합 탐색', Sparkles], ['후보 비교', Beaker], ['결과 전달', FileText]].map(([label, Icon], index) => {
               const IconComponent = Icon as typeof Brain;
               return <span key={String(label)}><IconComponent />{String(label)}{index < 5 && <ChevronRight />}</span>;
             })}
@@ -170,12 +173,6 @@ function HomeScreen({
           <small>약 3–4분 · 교육용 시뮬레이션</small>
         </div>
       </section>
-
-      <CellScopeExperience
-  themeId={session.themeId}
-  onComplete={onCellScopeComplete}
-  onReset={onCellScopeReset}
-/>
 
       <div className="home-grid">
         <section className="panel theme-panel">
@@ -197,6 +194,11 @@ function HomeScreen({
           <strong>QR 코드를 스캔하세요</strong>
         </aside>
       </div>
+      <CellScopeExperience
+        themeId={session.themeId}
+        onComplete={onCellScopeComplete}
+        onReset={onCellScopeReset}
+      />
       <Notice>본 체험의 모든 분석 결과는 교육용 시뮬레이션으로, 실제 의료 진단·치료·처방을 목적으로 하지 않습니다.</Notice>
     </div>
   );
@@ -275,7 +277,7 @@ function ProteinScreen({ proteinId, diseaseName, previous, next }: { proteinId: 
           <div className="info-stat"><strong>{atlasProtein ? `PDB ${atlasProtein.pdbId}` : 'PDB 구조'}</strong><span>{atlasProtein ? 'RCSB 공개 실험 구조 출처 확인됨' : '공개 실험 구조 자료 활용 예정'}</span></div>
           <div className="info-stat"><strong>{atlasProtein?.researchQuestion ?? diseaseName}</strong><span>{atlasProtein ? '오늘의 연구 질문' : '선택한 질환 연구 사례'}</span></div>
           <Notice compact>단백질 표적과 질환의 관계는 교수 자문 및 공신력 있는 공개 자료로 검증해야 합니다.</Notice>
-          <NavButtons previous={previous} next={next} nextLabel="AI 구조 예측 체험" />
+          <NavButtons previous={previous} next={next} nextLabel={atlasProtein ? '결합 가능성 탐색' : 'AI 구조 예측 체험'} />
         </aside>
       </div>
     </div>
@@ -284,18 +286,20 @@ function ProteinScreen({ proteinId, diseaseName, previous, next }: { proteinId: 
 
 function PredictionScreen({ session, diseaseName, previous, next }: { session: ResearchSession; diseaseName: string; previous: () => void; next: () => void }) {
   const aiAnalysis = aiAnalysisByDisease[session.diseaseId];
+  const atlasProtein = proteinById(session.proteinId);
+  const proteinTitle = atlasProtein?.nameKo ?? 'EGFR';
   return (
     <div className="screen screen--prediction">
       <div className="prediction-grid">
-        <section className="panel protein-viewer protein-viewer--compact"><div className="viewer-header"><div><small>선택 단백질</small><h1>EGFR</h1><span>UniProt ID: P00533</span></div></div><ProteinArt /><div className="confidence-legend"><span>낮은 신뢰도</span><i /><span>높은 신뢰도</span></div></section>
-        <section className="panel structure-card"><header><h2>실험 구조</h2><span>PDB: 예시 구조</span></header><ProteinArt /><Progress label="구조 커버리지" value={86} /><dl><div><dt>기반</dt><dd>실험 구조 자료</dd></div><div><dt>해석</dt><dd>관찰된 구조 범위 중심</dd></div></dl><p>실험 조건과 구조 해석 범위에 따라 확인되지 않는 영역이 있을 수 있습니다.</p></section>
-        <section className="panel structure-card structure-card--wide"><header><h2>AI 예측 구조 <small>(AlphaFold 개념 체험)</small></h2><span className="confidence-badge"><strong>92</strong>/100</span></header><ProteinArt uncertain /><Progress label="예측 구조 커버리지" value={98} /><dl><div><dt>기반</dt><dd>AI 기반 구조 예측 개념</dd></div><div><dt>낮은 신뢰도</dt><dd>유연한 말단·루프 영역</dd></div></dl><p>예측 구조는 실험 구조를 대체하는 정답이 아니며, 영역별 신뢰도를 함께 해석해야 합니다.</p></section>
+        <section className="panel protein-viewer protein-viewer--compact"><div className="viewer-header"><div><small>선택 단백질</small><h1>{proteinTitle}</h1><span>{atlasProtein ? `PDB ID: ${atlasProtein.pdbId}` : 'UniProt ID: P00533'}</span></div></div><ProteinArt /><div className="confidence-legend"><span>{atlasProtein ? '공개 실험 구조' : '낮은 신뢰도'}</span><i /><span>{atlasProtein ? '출처 검증 완료' : '높은 신뢰도'}</span></div></section>
+        <section className="panel structure-card"><header><h2>실험 구조</h2><span>{atlasProtein ? `PDB: ${atlasProtein.pdbId}` : 'PDB: 예시 구조'}</span></header><ProteinArt /><Progress label={atlasProtein ? '출처 검증 단계' : '구조 커버리지'} value={atlasProtein ? 100 : 86} /><dl><div><dt>기반</dt><dd>RCSB 실험 구조</dd></div><div><dt>해석</dt><dd>관찰된 구조 범위 중심</dd></div></dl><p>실험 조건과 구조 해석 범위에 따라 확인되지 않는 영역이 있을 수 있습니다.</p></section>
+        <section className="panel structure-card structure-card--wide"><header><h2>{atlasProtein ? 'AI 구조 보완 판단' : 'AI 예측 구조'} <small>{atlasProtein ? '(필요 시에만)' : '(AlphaFold 개념 체험)'}</small></h2><span className="confidence-badge"><strong>{atlasProtein ? 'PDB' : '92'}</strong>{atlasProtein ? '우선' : '/100'}</span></header><ProteinArt uncertain /><Progress label={atlasProtein ? '실험 구조 우선 적용' : '예측 구조 커버리지'} value={atlasProtein ? 100 : 98} /><dl><div><dt>원칙</dt><dd>{atlasProtein ? '실험 구조 우선' : 'AI 기반 구조 예측'}</dd></div><div><dt>AlphaFold</dt><dd>{atlasProtein ? '결손 영역에만 검토' : '영역별 신뢰도 확인'}</dd></div></dl><p>{atlasProtein ? 'PDB 구조가 있으므로 예측을 새로 수행한 것처럼 표시하지 않습니다.' : '예측 구조는 실험 구조를 대체하는 정답이 아닙니다.'}</p></section>
       </div>
       <section className="panel ai-analysis-result">
   <header className="section-header">
     <div>
       <h2>AI 분석 결과</h2>
-      <p>선택한 샘플과 분석 결과를 바탕으로 체험용 AI 분석 결과를 제공합니다.</p>
+      <p>{atlasProtein ? '구조 출처와 다음 계산 단계를 분리해 연구 판단 근거를 보여줍니다.' : '선택한 샘플과 분석 결과를 바탕으로 체험용 AI 분석 결과를 제공합니다.'}</p>
     </div>
   </header>
 
@@ -303,60 +307,61 @@ function PredictionScreen({ session, diseaseName, previous, next }: { session: R
   <div className="ai-metric">
     <div className="ai-metric-label">
   <ShieldCheck />
-  <span>위험도</span>
+  <span>{atlasProtein ? '출처 검증' : '위험도'}</span>
 </div> 
-    <strong>{aiAnalysis.riskLabel}</strong>
+    <strong>{atlasProtein ? '완료' : aiAnalysis.riskLabel}</strong>
 
     <div className="ai-progress">
-      <div className="ai-progress__bar" style={{ width: `${aiAnalysis.riskScore}%` }} />
+      <div className="ai-progress__bar" style={{ width: `${atlasProtein ? 100 : aiAnalysis.riskScore}%` }} />
     </div>
 
-    <small>AI 분석 기준 · {aiAnalysis.riskScore}%</small>
+    <small>{atlasProtein ? `RCSB PDB · ${atlasProtein.pdbId}` : `AI 분석 기준 · ${aiAnalysis.riskScore}%`}</small>
   </div>
 
     <div className="ai-metric ai-metric--priority">
   <div className="ai-metric-label">
   <Target />
-  <span>우선순위</span>
+  <span>{atlasProtein ? '구조 전략' : '우선순위'}</span>
 </div>
-  <strong>{aiAnalysis.priorityLabel}</strong>
+  <strong>{atlasProtein ? '실험 구조 우선' : aiAnalysis.priorityLabel}</strong>
 
   <div className="ai-progress">
-    <div className="ai-progress__bar" style={{ width: `${aiAnalysis.priorityScore}%` }} />
+    <div className="ai-progress__bar" style={{ width: `${atlasProtein ? 100 : aiAnalysis.priorityScore}%` }} />
   </div>
 
-  <small>추가 분석 권장 · {aiAnalysis.priorityScore}%</small>
+  <small>{atlasProtein ? 'AlphaFold는 결손 영역 보완용' : `추가 분석 권장 · ${aiAnalysis.priorityScore}%`}</small>
 </div>
 
     <div className="ai-metric ai-metric--research">
   <div className="ai-metric-label">
   <Beaker />
-  <span>추천 연구 분야</span>
+  <span>{atlasProtein ? '다음 단계' : '추천 연구 분야'}</span>
 </div>
-  <strong>{aiAnalysis.researchLabel}</strong>
+  <strong>{atlasProtein ? '결합 포켓 탐색' : aiAnalysis.researchLabel}</strong>
 
   <div className="ai-progress">
-    <div className="ai-progress__bar" style={{ width: `${aiAnalysis.researchScore}%` }} />
+    <div className="ai-progress__bar" style={{ width: `${atlasProtein ? 76 : aiAnalysis.researchScore}%` }} />
   </div>
 
-  <small>EGFR 기반 분석 · {aiAnalysis.researchScore}%</small>
+  <small>{atlasProtein ? '사전 계산된 도킹 결과로 이동' : `EGFR 기반 분석 · ${aiAnalysis.researchScore}%`}</small>
 </div>
   </div>
 </section>
       <div className="prediction-lower">
-        <section className="panel explainer"><h2>AI는 어떻게 단백질 구조를 예측할까요?</h2><p>아미노산 서열과 알려진 구조 패턴을 활용해 3차원 좌표와 영역별 신뢰도를 예측하는 개념을 체험합니다.</p><div className="concept-flow"><span><ScanLine />서열 입력</span><ArrowRight /><span><Network />패턴 학습</span><ArrowRight /><span><Atom />3D 좌표 예측</span><ArrowRight /><span><BarChart3 />신뢰도 확인</span></div></section>
-        <aside className="panel research-note"><h2>연구 메모</h2><p><Brain /> 선택 질환 <strong>{diseaseName}</strong></p><p><Microscope /> 샘플 종류 <strong>{session.cellModelId === '2d-cell' ? '2D 세포 모델' : '3D 오가노이드'}</strong></p><p><Target /> 단백질 표적 <strong>EGFR</strong></p><NavButtons previous={previous} next={next} nextLabel="후보물질 비교" /></aside>
+        <section className="panel explainer"><h2>{atlasProtein ? '실험 구조에서 결합 탐색까지' : 'AI는 어떻게 단백질 구조를 예측할까요?'}</h2><p>{atlasProtein ? '검증된 실험 구조의 출처를 확인한 뒤 결합 포켓과 사전 계산된 도킹 결과를 탐색합니다.' : '아미노산 서열과 알려진 구조 패턴을 활용해 3차원 좌표와 영역별 신뢰도를 예측하는 개념을 체험합니다.'}</p><div className="concept-flow">{atlasProtein ? <><span><ShieldCheck />PDB 확인</span><ArrowRight /><span><ScanLine />구조 전처리</span><ArrowRight /><span><Atom />결합 포켓</span><ArrowRight /><span><BarChart3 />도킹 결과</span></> : <><span><ScanLine />서열 입력</span><ArrowRight /><span><Network />패턴 학습</span><ArrowRight /><span><Atom />3D 좌표 예측</span><ArrowRight /><span><BarChart3 />신뢰도 확인</span></>}</div></section>
+        <aside className="panel research-note"><h2>연구 메모</h2><p><Brain /> 연구 대상 <strong>{atlasProtein?.virus ?? diseaseName}</strong></p><p><Microscope /> 데이터 기반 <strong>{atlasProtein ? `RCSB PDB ${atlasProtein.pdbId}` : session.cellModelId === '2d-cell' ? '2D 세포 모델' : '3D 오가노이드'}</strong></p><p><Target /> 단백질 표적 <strong>{proteinTitle}</strong></p><NavButtons previous={previous} next={next} nextLabel="후보물질 비교" /></aside>
       </div>
-      <Notice>본 화면은 AlphaFold의 구조 예측 개념을 이해하기 위한 교육용 인터페이스입니다. 실제 예측 계산이나 진단 기능이 아닙니다.</Notice>
+      <Notice>{atlasProtein ? '공개 실험 구조와 사전 계산된 교육용 결과를 사용합니다. 현장에서 새 AlphaFold·AutoDock 계산이 완료됐다는 뜻이 아닙니다.' : '본 화면은 AlphaFold의 구조 예측 개념을 이해하기 위한 교육용 인터페이스입니다. 실제 예측 계산이나 진단 기능이 아닙니다.'}</Notice>
     </div>
   );
 }
 
-function CandidateScreen({ selectedId, select, previous, next }: { selectedId: ResearchSession['selectedCandidateId']; select: (id: ResearchSession['selectedCandidateId']) => void; previous: () => void; next: () => void }) {
+function CandidateScreen({ proteinId, selectedId, select, previous, next }: { proteinId: string; selectedId: ResearchSession['selectedCandidateId']; select: (id: ResearchSession['selectedCandidateId']) => void; previous: () => void; next: () => void }) {
+  const atlasProtein = proteinById(proteinId);
   return (
     <div className="screen screen--candidate">
       <section className="panel candidate-workspace">
-        <header className="section-header"><div><h1>후보물질 비교</h1><p>후보 구조의 계산상 상호작용과 참고 지표를 비교하고, 더 탐색하고 싶은 연구 방향을 선택하세요.</p></div><span className="educational-chip">연구 참고용 비교</span></header>
+        <header className="section-header"><div><h1>{atlasProtein ? `${atlasProtein.nameKo} 결합 후보 비교` : '후보물질 비교'}</h1><p>후보 구조의 계산상 상호작용과 참고 지표를 비교하고, 더 탐색하고 싶은 연구 방향을 선택하세요.</p></div><span className="educational-chip">사전 계산 · 교육용</span></header>
         <div className="candidate-cards">
           {candidates.map((item, index) => (
             <button key={item.id} type="button" className={`candidate-card candidate-card--${item.accent} ${selectedId === item.id ? 'is-selected' : ''}`} onClick={() => select(item.id)}>

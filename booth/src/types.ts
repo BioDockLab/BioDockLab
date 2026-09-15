@@ -12,6 +12,8 @@ export type CellModelId =
   | '2d-cell'
   | '3d-organoid';
 
+export type ExperienceTrack = 'viral' | 'cell';
+
 export type CandidateId =
   | 'candidate-a'
   | 'candidate-b'

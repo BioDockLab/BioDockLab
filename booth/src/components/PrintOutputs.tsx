@@ -19,6 +19,7 @@ import type {
   ResearchSession,
 } from '../types';
 import './PrintOutputs.css';
+import { proteinById } from '../data/proteinAtlas';
 
 type PrintProps = {
   session: ResearchSession;
@@ -118,6 +119,12 @@ export function PrintOutputs({
     '3d-organoid'
       ? '3D Brain Organoid'
       : '2D Cell Model';
+  const atlasProtein = proteinById(session.proteinId);
+  const researchQuestion = atlasProtein?.researchQuestion ?? disease.title;
+  const researchModel = atlasProtein ? 'Public experimental structure' : modelName;
+  const proteinLabel = atlasProtein
+    ? `${atlasProtein.nameKo} (PDB ${atlasProtein.pdbId})`
+    : 'EGFR (P00533)';
 
   const issuedDate =
     new Date().toLocaleDateString(
@@ -199,17 +206,17 @@ export function PrintOutputs({
 
               <div>
                 <dt>연구 질문</dt>
-                <dd>{disease.title}</dd>
+                <dd>{researchQuestion}</dd>
               </div>
 
               <div>
                 <dt>연구 모델</dt>
-                <dd>{modelName}</dd>
+                <dd>{researchModel}</dd>
               </div>
 
               <div>
                 <dt>단백질 탐색</dt>
-                <dd>EGFR (P00533)</dd>
+                <dd>{proteinLabel}</dd>
               </div>
 
               <div>

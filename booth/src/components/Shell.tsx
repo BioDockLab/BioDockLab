@@ -9,6 +9,7 @@ import {
 } from 'lucide-react';
 import type { ReactNode } from 'react';
 import { Brand } from './Brand';
+import type { ExperienceTrack } from '../types';
 
 type ShellProps = {
   step: number;
@@ -16,6 +17,7 @@ type ShellProps = {
   onReset: () => void;
   children: ReactNode;
   sessionId: string;
+  track: ExperienceTrack;
 };
 
 type KioskStep = {
@@ -25,7 +27,7 @@ type KioskStep = {
   icon: typeof Microscope;
 };
 
-const kioskSteps: KioskStep[] = [
+const cellSteps: KioskStep[] = [
   {
     label: '샘플 관찰',
     description: 'CellScope',
@@ -58,7 +60,22 @@ const kioskSteps: KioskStep[] = [
   },
 ];
 
-const getExperienceStep = (appStep: number) => {
+const viralSteps: KioskStep[] = [
+  { label: '단백질 선택', description: '감염병 아틀라스', targetStep: 1, icon: Atom },
+  { label: '구조 확인', description: 'RCSB PDB', targetStep: 3, icon: Microscope },
+  { label: '결합 탐색', description: 'Docking Cache', targetStep: 4, icon: Sparkles },
+  { label: '후보 비교', description: 'Research Choice', targetStep: 5, icon: Brain },
+  { label: '결과 전달', description: 'Report · QR', targetStep: 6, icon: FileText },
+];
+
+const getExperienceStep = (appStep: number, track: ExperienceTrack) => {
+  if (track === 'viral') {
+    if (appStep <= 1) return 1;
+    if (appStep === 3) return 2;
+    if (appStep === 4) return 3;
+    if (appStep === 5) return 4;
+    return 5;
+  }
   if (appStep <= 1) {
     return 1;
   }
@@ -84,8 +101,10 @@ export function Shell({
   onReset,
   children,
   sessionId,
+  track,
 }: ShellProps) {
-  const experienceStep = getExperienceStep(step);
+  const kioskSteps = track === 'viral' ? viralSteps : cellSteps;
+  const experienceStep = getExperienceStep(step, track);
 
   const now = new Date();
 
@@ -174,7 +193,7 @@ export function Shell({
 
           <p>
             <kbd>Esc</kbd>
-            CellScope 초기화
+            {track === 'viral' ? '처음으로' : 'CellScope 초기화'}
           </p>
 
           <button
@@ -301,7 +320,7 @@ export function Shell({
           </span>
 
           <span>
-            교육용 Bio AI 연구 체험
+            {track === 'viral' ? '감염병 단백질 연구 체험' : '세포 기반 Bio AI 연구 체험'}
           </span>
 
           <span>
