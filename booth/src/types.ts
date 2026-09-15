@@ -26,7 +26,7 @@ export type ResearchSession = {
   diseaseId: DiseaseId;
   cellModelId: CellModelId;
 
-  proteinId: 'egfr';
+  proteinId: string;
 
   selectedCandidateId: CandidateId;
 

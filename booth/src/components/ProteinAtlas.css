@@ -1,0 +1,58 @@
+.protein-atlas { gap: 16px; }
+.protein-atlas__hero { display: grid; grid-template-columns: 120px minmax(0, 1fr) auto; gap: 24px; align-items: center; min-height: 210px; padding: 28px; color: #fff; border-radius: 18px; background: radial-gradient(circle at 78% 12%, rgba(34,211,238,.24), transparent 25%), linear-gradient(120deg, #04142f, #092b66 64%, #172554); box-shadow: var(--shadow); }
+.protein-atlas__back { align-self: start; display: inline-flex; align-items: center; gap: 7px; min-height: 48px; padding: 0 14px; color: #dbeafe; border: 1px solid rgba(255,255,255,.25); border-radius: 12px; background: rgba(255,255,255,.08); }
+.protein-atlas__back svg { width: 18px; }
+.protein-atlas__hero > div > span { display: flex; align-items: center; gap: 7px; color: #67e8f9; font-size: 11px; font-weight: 900; letter-spacing: 1.4px; }
+.protein-atlas__hero h1 { margin: 10px 0 6px; font-size: clamp(34px, 4vw, 54px); letter-spacing: -2px; }
+.protein-atlas__hero p { max-width: 740px; margin: 0; color: #cbdaf2; line-height: 1.65; }
+.protein-atlas__hero dl { display: grid; grid-template-columns: repeat(3, 112px); margin: 0; }
+.protein-atlas__hero dl div { padding: 10px 18px; border-left: 1px solid rgba(255,255,255,.17); }
+.protein-atlas__hero dt { color: #9fb5d6; font-size: 10px; }
+.protein-atlas__hero dd { margin: 5px 0 0; font-size: 29px; font-weight: 900; }
+.protein-atlas__hero dd small { display: block; color: #67e8f9; font-size: 9px; text-transform: uppercase; }
+.protein-atlas__workspace { padding: 22px; }
+.protein-atlas__workspace > header { display: flex; align-items: end; justify-content: space-between; gap: 20px; }
+.protein-atlas__workspace h2 { margin: 6px 0 0; font-size: 22px; }
+.protein-atlas__workspace label { display: flex; align-items: center; gap: 8px; width: 330px; min-height: 50px; padding: 0 14px; border: 1px solid var(--line); border-radius: 12px; background: #f7faff; }
+.protein-atlas__workspace label svg { width: 19px; color: #4771b7; }
+.protein-atlas__workspace input { width: 100%; border: 0; outline: 0; background: transparent; }
+.protein-atlas__filters { display: flex; flex-wrap: wrap; gap: 8px; margin: 18px 0; }
+.protein-atlas__filters button { min-height: 44px; padding: 0 15px; color: #536987; border: 1px solid var(--line); border-radius: 999px; background: #fff; font-size: 12px; font-weight: 800; }
+.protein-atlas__filters button.is-active { color: #fff; border-color: #2563eb; background: #2563eb; }
+.protein-atlas__grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
+.protein-card { display: grid; grid-template-rows: auto auto auto 1fr auto; gap: 13px; min-height: 335px; padding: 16px; border: 1px solid var(--line); border-radius: 14px; background: linear-gradient(145deg, #fff, #f8fbff); }
+.protein-card--deep-dive { border-color: #6b9bff; box-shadow: 0 10px 24px rgba(37,99,235,.11); }
+.protein-card > header, .protein-card > footer { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+.protein-card > header span { color: #345d9b; font-size: 11px; font-weight: 900; }
+.protein-card > header em { padding: 5px 8px; color: #667795; border-radius: 999px; background: #eaf0f8; font-size: 9px; font-style: normal; font-weight: 800; }
+.protein-card--deep-dive > header em { color: #075985; background: #cffafe; }
+.protein-card__title { display: flex; align-items: center; gap: 12px; }
+.protein-card__title > span { display: grid; place-items: center; width: 50px; height: 50px; color: #fff; border-radius: 14px; background: linear-gradient(145deg, #2563eb, #7c3aed); }
+.protein-card__title svg { width: 25px; }
+.protein-card__title small { color: #2563eb; font-size: 10px; font-weight: 900; }
+.protein-card h3 { margin: 3px 0 0; color: var(--ink); font-size: 16px; }
+.protein-card__title p, .protein-card > p { margin: 3px 0 0; color: var(--muted); font-size: 10px; line-height: 1.55; }
+.protein-card blockquote { margin: 0; padding: 11px; color: #274a83; border-left: 3px solid #4f7fe9; border-radius: 0 9px 9px 0; background: #edf4ff; font-size: 11px; line-height: 1.5; }
+.protein-card footer a, .protein-card footer button { display: inline-flex; align-items: center; gap: 5px; min-height: 44px; padding: 0 10px; border-radius: 9px; font-size: 10px; font-weight: 900; text-decoration: none; }
+.protein-card footer a { color: #3a5e98; border: 1px solid var(--line); }
+.protein-card footer button { color: #fff; border: 0; background: linear-gradient(120deg, #2563eb, #7c3aed); }
+.protein-card footer svg { width: 14px; }
+.protein-card footer > span { color: #8a98ac; font-size: 9px; }
+.protein-atlas__empty, .protein-atlas__disclaimer { margin: 0; color: #64748b; text-align: center; font-size: 11px; }
+.protein-atlas__empty { padding: 50px; }
+.protein-atlas__sources { padding: 20px; }
+.protein-atlas__sources header { display: flex; align-items: center; gap: 18px; }
+.protein-atlas__sources h2 { margin: 0; font-size: 17px; }
+.protein-atlas__sources > div { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 8px; margin-top: 14px; }
+.protein-atlas__sources a { position: relative; display: grid; gap: 5px; min-height: 105px; padding: 12px; color: var(--ink); border: 1px solid var(--line); border-radius: 11px; text-decoration: none; }
+.protein-atlas__sources a:hover { border-color: #5b86eb; background: #f5f8ff; }
+.protein-atlas__sources a > span { color: #4771b7; font-size: 8px; font-weight: 900; }
+.protein-atlas__sources a > strong { font-size: 12px; }
+.protein-atlas__sources a > small { color: var(--muted); font-size: 9px; }
+.protein-atlas__sources a > svg { position: absolute; right: 10px; bottom: 10px; width: 14px; color: #6680aa; }
+@media (max-width: 1300px) {
+  .protein-atlas__hero { grid-template-columns: 105px 1fr; }
+  .protein-atlas__hero dl { grid-column: 2; }
+  .protein-atlas__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .protein-atlas__sources > div { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}

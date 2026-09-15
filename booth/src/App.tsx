@@ -34,6 +34,8 @@ import { PrintOutputs } from './components/PrintOutputs';
 import { CellScopeExperience } from './components/CellScopeExperience';
 import type { CellModelId, DiseaseId, ResearchSession, ThemeId } from './types';
 import { aiAnalysisByDisease } from './data/aiAnalysis';
+import { ProteinAtlas } from './components/ProteinAtlas';
+import { proteinById, type ProteinAtlasEntry } from './data/proteinAtlas';
 
 const createSessionId = () => {
   const now = new Date();
@@ -56,6 +58,7 @@ const defaultSession = (): ResearchSession => ({
 
 function App() {
   const [step, setStep] = useState(1);
+  const [showProteinAtlas, setShowProteinAtlas] = useState(false);
   const [session, setSession] = useState<ResearchSession>(() => {
     try {
       const cached = localStorage.getItem('biodocklab-session');
@@ -85,6 +88,7 @@ const onCellScopeReset = () => setCellScopeComplete(false);
     localStorage.removeItem('biodocklab-session');
     setSession(defaultSession());
     setStep(1);
+    setShowProteinAtlas(false);
   };
 
   const print = (kind: 'report' | 'card') => {
@@ -96,6 +100,17 @@ const onCellScopeReset = () => setCellScopeComplete(false);
   return (
     <>
       <Shell step={step} onStep={setStep} onReset={reset} sessionId={session.sessionId}>
+        {showProteinAtlas && (
+          <ProteinAtlas
+            onBack={() => setShowProteinAtlas(false)}
+            onSelect={(protein: ProteinAtlasEntry) => {
+              update('proteinId', protein.id);
+              setShowProteinAtlas(false);
+              setStep(3);
+            }}
+          />
+        )}
+        {!showProteinAtlas && <>
         {step === 1 && (
   <HomeScreen
     session={session}
@@ -103,13 +118,15 @@ const onCellScopeReset = () => setCellScopeComplete(false);
     next={() => setStep(2)}
     onCellScopeComplete={onCellScopeComplete}
     onCellScopeReset={onCellScopeReset}
+    openProteinAtlas={() => setShowProteinAtlas(true)}
   />
 )}
         {step === 2 && <OrganoidScreen session={session} updateDisease={(value) => update('diseaseId', value)} updateCellModel={(value) => update('cellModelId', value)} previous={() => setStep(1)} next={() => setStep(3)} />}
-        {step === 3 && <ProteinScreen diseaseName={disease.title} previous={() => setStep(2)} next={() => setStep(4)} />}
+        {step === 3 && <ProteinScreen proteinId={session.proteinId} diseaseName={disease.title} previous={() => setStep(session.proteinId === 'egfr' ? 2 : 1)} next={() => setStep(4)} />}
         {step === 4 && <PredictionScreen session={session} diseaseName={disease.title} previous={() => setStep(3)} next={() => setStep(5)} />}
         {step === 5 && <CandidateScreen selectedId={session.selectedCandidateId} select={(value) => update('selectedCandidateId', value)} previous={() => setStep(4)} next={() => setStep(6)} />}
         {step === 6 && <ReportScreen session={session} diseaseName={disease.title} selectedCandidate={candidate} updateName={(value) => update('researcherName', value)} updateRole={(value) => update('dreamRole', value)} previous={() => setStep(5)} print={print} reset={reset} />}
+        </>}
       </Shell>
       <PrintOutputs session={session} disease={disease} candidate={candidate} />
       <span className="print-kind-state" data-kind={printKind} />
@@ -123,12 +140,14 @@ function HomeScreen({
   next,
   onCellScopeComplete,
   onCellScopeReset,
+  openProteinAtlas,
 }: {
   session: ResearchSession;
   updateTheme: (id: ThemeId) => void;
   next: () => void;
   onCellScopeComplete: () => void;
   onCellScopeReset: () => void;
+  openProteinAtlas: () => void;
 }) {
   return (
     <div className="screen screen--home">
@@ -146,7 +165,8 @@ function HomeScreen({
         </div>
         <div className="hero-panel__action">
           <div className="dna-hero"><Dna /></div>
-          <button type="button" className="button button--hero" onClick={next}>연구 시작하기 <ArrowRight /></button>
+          <button type="button" className="button button--hero" onClick={openProteinAtlas}>바이러스 단백질 연구 <Atom /></button>
+          <button type="button" className="button button--hero-secondary" onClick={next}>세포·오가노이드 연구 <ArrowRight /></button>
           <small>약 3–4분 · 교육용 시뮬레이션</small>
         </div>
       </section>
@@ -235,21 +255,25 @@ function OrganoidScreen({ session, updateDisease, updateCellModel, previous, nex
   );
 }
 
-function ProteinScreen({ diseaseName, previous, next }: { diseaseName: string; previous: () => void; next: () => void }) {
+function ProteinScreen({ proteinId, diseaseName, previous, next }: { proteinId: string; diseaseName: string; previous: () => void; next: () => void }) {
+  const atlasProtein = proteinById(proteinId);
+  const title = atlasProtein?.nameKo ?? 'EGFR';
+  const subtitle = atlasProtein?.name ?? 'Epidermal Growth Factor Receptor';
+  const sourceId = atlasProtein ? `PDB ID: ${atlasProtein.pdbId}` : 'UniProt ID: P00533';
   return (
     <div className="screen screen--protein">
       <div className="content-with-summary">
         <section className="panel protein-viewer">
-          <div className="viewer-header"><div><small>선택 단백질</small><h1>EGFR</h1><p>Epidermal Growth Factor Receptor</p><span>UniProt ID: P00533</span></div><button type="button">뷰 옵션⌄</button></div>
+          <div className="viewer-header"><div><small>선택 단백질</small><h1>{title}</h1><p>{subtitle}</p><span>{sourceId}</span></div><button type="button">뷰 옵션⌄</button></div>
           <ProteinArt />
           <div className="viewer-toolbar"><span>↻ 회전</span><span>＋ 줌</span><span>✣ 이동</span><span>⌖ 측정</span><span>○ 리셋</span></div>
         </section>
         <aside className="panel structure-info">
           <span className="eyebrow"><Atom /> 단백질 구조 확인</span><h1>왜 단백질 구조를 살펴볼까요?</h1>
           <p>단백질의 3차원 형태는 후보물질이 어느 위치에서 어떻게 상호작용할 수 있는지 탐색하는 출발점이 됩니다.</p>
-          <div className="info-stat"><strong>EGFR</strong><span>연구 사례용 대표 표적 단백질</span></div>
-          <div className="info-stat"><strong>PDB 구조</strong><span>공개 실험 구조 자료 활용 예정</span></div>
-          <div className="info-stat"><strong>{diseaseName}</strong><span>선택한 질환 연구 사례</span></div>
+          <div className="info-stat"><strong>{title}</strong><span>{atlasProtein?.virus ?? '연구 사례용 대표 표적 단백질'}</span></div>
+          <div className="info-stat"><strong>{atlasProtein ? `PDB ${atlasProtein.pdbId}` : 'PDB 구조'}</strong><span>{atlasProtein ? 'RCSB 공개 실험 구조 출처 확인됨' : '공개 실험 구조 자료 활용 예정'}</span></div>
+          <div className="info-stat"><strong>{atlasProtein?.researchQuestion ?? diseaseName}</strong><span>{atlasProtein ? '오늘의 연구 질문' : '선택한 질환 연구 사례'}</span></div>
           <Notice compact>단백질 표적과 질환의 관계는 교수 자문 및 공신력 있는 공개 자료로 검증해야 합니다.</Notice>
           <NavButtons previous={previous} next={next} nextLabel="AI 구조 예측 체험" />
         </aside>

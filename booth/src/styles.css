@@ -85,6 +85,7 @@ button { cursor: pointer; }
 .button { display: inline-flex; align-items: center; justify-content: center; gap: 9px; min-height: 44px; padding: 10px 18px; border-radius: 10px; font-weight: 800; border: 1px solid transparent; }
 .button svg { width: 18px; }
 .button--hero { min-width: 282px; min-height: 72px; color: white; border-radius: 999px; border: 1px solid rgba(255,255,255,.65); background: var(--gradient); font-size: 23px; box-shadow: 0 15px 40px rgba(81, 84, 244, .32); }
+.button--hero-secondary { min-width: 282px; min-height: 50px; color: #dbeafe; border-color: rgba(255,255,255,.28); border-radius: 999px; background: rgba(255,255,255,.08); font-size: 14px; }
 .button--primary { color: white; background: var(--gradient); box-shadow: 0 8px 20px rgba(64, 79, 234, .2); }
 .button--secondary { color: #1e55ba; border-color: #9ab9f0; background: #f2f7ff; }
 .button--ghost { color: var(--ink); border-color: var(--line); background: white; }
@@ -1947,7 +1948,6 @@ button { cursor: pointer; }
     font-size: 16px;
   }
 }
-
 
 
 
