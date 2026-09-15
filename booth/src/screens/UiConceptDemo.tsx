@@ -313,7 +313,15 @@ function StructureScreen({
   );
 }
 
-function BindingScreen({ next }: { next: () => void }) {
+function BindingScreen({
+  proteinId,
+  next,
+}: {
+  proteinId: DeepDiveProteinId;
+  next: () => void;
+}) {
+  const dockingTarget = dockingTargetByProteinId(proteinId);
+
   return (
     <div className="bd-main">
       <div className="bd-card pad-lg">
@@ -344,7 +352,7 @@ function BindingScreen({ next }: { next: () => void }) {
             <div className="bd-mini-item"><strong>해상도</strong><span>2.16 Å</span></div>
             <div className="bd-mini-item"><strong>실험 방법</strong><span>X-ray Crystallography</span></div>
             <div className="bd-mini-item"><strong>사슬 길이</strong><span>306 aa</span></div>
-            <div className="bd-mini-item"><strong>리간드</strong><span>N3 (공동결정)</span></div>
+            <div className="bd-mini-item"><strong>리간드</strong><span>{dockingTarget?.referenceLigand.name ?? '-'} (공동결정)</span></div>
           </div>
         </div>
 
@@ -385,7 +393,7 @@ function BindingScreen({ next }: { next: () => void }) {
           <div className="bd-task">
             <strong>4. 연구 메모</strong>
             <p className="bd-subtitle" style={{ fontSize: 14, marginBottom: 0 }}>
-              PDB 6LU7 구조를 기준으로 후속 도킹 계산을 준비합니다.
+              PDB {dockingTarget?.pdbId ?? '-'} 구조를 기준으로 후속 도킹 계산을 준비합니다.
             </p>
           </div>
         </div>
@@ -497,7 +505,21 @@ function CompareScreen({
   );
 }
 
-function ReportScreen({ next }: { next: () => void }) {
+function ReportScreen({
+  proteinId,
+  next,
+}: {
+  proteinId: DeepDiveProteinId;
+  next: () => void;
+}) {
+  const dockingTarget = dockingTargetByProteinId(proteinId);
+  const dockingResult = dockingResultByProteinId(proteinId);
+
+  const selectedCandidate =
+    dockingResult?.candidates?.[1] ??
+    dockingResult?.candidates?.[0] ??
+    null;
+
   return (
     <div className="bd-main">
       <div className="bd-card pad-lg">
@@ -578,7 +600,21 @@ function ReportScreen({ next }: { next: () => void }) {
   );
 }
 
-function DoneScreen({ home }: { home: () => void }) {
+function DoneScreen({
+  proteinId,
+  home,
+}: {
+  proteinId: DeepDiveProteinId;
+  home: () => void;
+}) {
+  const dockingTarget = dockingTargetByProteinId(proteinId);
+  const dockingResult = dockingResultByProteinId(proteinId);
+
+  const selectedCandidate =
+    dockingResult?.candidates?.[1] ??
+    dockingResult?.candidates?.[0] ??
+    null;
+
   return (
     <div className="bd-main">
       <div className="bd-card pad-lg">
@@ -721,7 +757,10 @@ export default function UiConceptDemo() {
       )}
 
       {screen === 'binding' && (
-        <BindingScreen next={() => setScreen('compare')} />
+        <BindingScreen
+          proteinId={selectedProteinId}
+          next={() => setScreen('compare')}
+        />
       )}
 
       {screen === 'compare' && (
@@ -730,8 +769,19 @@ export default function UiConceptDemo() {
           next={() => setScreen('report')}
         />
       )}
-      {screen === 'report' && <ReportScreen next={() => setScreen('done')} />}
-      {screen === 'done' && <DoneScreen home={() => setScreen('home')} />}
+      {screen === 'report' && (
+        <ReportScreen
+          proteinId={selectedProteinId}
+          next={() => setScreen('done')}
+        />
+      )}
+
+      {screen === 'done' && (
+        <DoneScreen
+          proteinId={selectedProteinId}
+          home={() => setScreen('home')}
+        />
+      )}
     </KioskShell>
   );
 }
