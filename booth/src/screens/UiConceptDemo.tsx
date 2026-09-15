@@ -16,6 +16,45 @@ type Screen =
   | 'report'
   | 'done';
 
+const CANDIDATE_INDEX_KEY =
+  'biodocklab-selected-candidate-index';
+
+function readSelectedCandidateIndex(): number {
+  try {
+    const raw = localStorage.getItem(
+      CANDIDATE_INDEX_KEY,
+    );
+
+    const value = Number(raw);
+
+    if (
+      Number.isInteger(value) &&
+      value >= 0 &&
+      value <= 2
+    ) {
+      return value;
+    }
+  } catch {
+    // continue with default
+  }
+
+  return 1;
+}
+
+function saveSelectedCandidateIndex(
+  index: number,
+) {
+  try {
+    localStorage.setItem(
+      CANDIDATE_INDEX_KEY,
+      String(index),
+    );
+  } catch {
+    // kiosk remains usable without storage
+  }
+}
+
+
 const diseaseCards = [
   {
     label: 'COVID-19',
@@ -418,6 +457,16 @@ function CompareScreen({
 
   const candidates = dockingResult?.candidates ?? [];
 
+  const [
+    selectedCandidateIndex,
+    setSelectedCandidateIndex,
+  ] = useState(() => readSelectedCandidateIndex());
+
+  const selectCandidate = (index: number) => {
+    setSelectedCandidateIndex(index);
+    saveSelectedCandidateIndex(index);
+  };
+
   return (
     <div className="bd-main">
       <div className="bd-card pad-lg">
@@ -433,7 +482,8 @@ function CompareScreen({
             {candidates.map((card, index) => (
               <div
                 key={card.code}
-                className={['bd-candidate', index === 1 ? 'selected' : ''].join(' ')}
+                className={['bd-candidate', index === selectedCandidateIndex ? 'selected' : ''].join(' ')}
+                onClick={() => selectCandidate(index)}
               >
                 <div className="bd-candidate-top">
                   <div>
@@ -441,7 +491,7 @@ function CompareScreen({
                     <h3 style={{ margin: '10px 0 4px' }}>{card.name}</h3>
                     <div>{card.code}</div>
                   </div>
-                  {index === 1 && <div className="bd-pill">다음 연구 방향 선택</div>}
+                  {index === selectedCandidateIndex && <div className="bd-pill">다음 연구 방향 선택</div>}
                 </div>
 
                 <div className="bd-candidate-molecule" />
@@ -472,10 +522,10 @@ function CompareScreen({
                 </div>
 
                 <button
-                  className={index === 1 ? 'bd-btn secondary' : 'bd-btn ghost'}
+                  className={index === selectedCandidateIndex ? 'bd-btn secondary' : 'bd-btn ghost'}
                   onClick={next}
                 >
-                  {index === 1 ? '이 후보물질을 선택하기' : '이 후보물질 보기'}
+                  {index === selectedCandidateIndex ? '선택됨' : '이 후보물질 선택'}
                 </button>
               </div>
             ))}
@@ -516,7 +566,7 @@ function ReportScreen({
   const dockingResult = dockingResultByProteinId(proteinId);
 
   const selectedCandidate =
-    dockingResult?.candidates?.[1] ??
+    dockingResult?.candidates?.[readSelectedCandidateIndex()] ??
     dockingResult?.candidates?.[0] ??
     null;
 
@@ -611,7 +661,7 @@ function DoneScreen({
   const dockingResult = dockingResultByProteinId(proteinId);
 
   const selectedCandidate =
-    dockingResult?.candidates?.[1] ??
+    dockingResult?.candidates?.[readSelectedCandidateIndex()] ??
     dockingResult?.candidates?.[0] ??
     null;
 
