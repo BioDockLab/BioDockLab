@@ -1,0 +1,6 @@
+import './styles/biodocklab-theme.css';
+import VirusEscapeLab from './screens/VirusEscapeLab';
+
+export default function App() {
+  return <VirusEscapeLab />;
+}

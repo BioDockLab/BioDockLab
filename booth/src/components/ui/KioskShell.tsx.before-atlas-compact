@@ -33,14 +33,16 @@ export function KioskShell({
               AI로 여는 생명의 <strong>무한한 가능성</strong>
             </p>
             <p className="bd-brand-sub">
-              From Cells to Cures
+              From Cells to Cures, AI Bridges Biology and Tomorrow
             </p>
           </div>
 
           <div className="bd-deco">
             <div className="bd-deco-note">
-              AI 신약개발 미션
-              <small>90-Second Research Experience</small>
+              작은 세포가
+              <br />
+              더 큰 내일을 만든다.
+              <small>Small Cells, Big Tomorrow.</small>
             </div>
 
             <div className="bd-deco-molecules">

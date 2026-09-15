@@ -1,0 +1,135 @@
+
+/* =========================================================
+   90-second mission compact kiosk overrides
+   ========================================================= */
+
+.bd-top {
+  min-height: 190px !important;
+  padding-top: 22px !important;
+  padding-bottom: 18px !important;
+}
+
+.bd-brand-logo {
+  font-size: clamp(48px, 5vw, 76px) !important;
+  line-height: 0.95 !important;
+}
+
+.bd-brand-tagline {
+  margin-top: 10px !important;
+  margin-bottom: 4px !important;
+}
+
+.bd-brand-sub {
+  margin-top: 0 !important;
+  margin-bottom: 0 !important;
+}
+
+.bd-deco {
+  min-height: 150px !important;
+}
+
+.bd-steps {
+  margin-top: 4px !important;
+  margin-bottom: 12px !important;
+  gap: 8px !important;
+}
+
+.bd-step {
+  min-height: 58px !important;
+  padding: 8px 12px !important;
+}
+
+.bd-step-copy span {
+  display: none !important;
+}
+
+.bd-dev-nav {
+  margin-top: 6px !important;
+  margin-bottom: 12px !important;
+}
+
+.bd-main {
+  gap: 14px !important;
+}
+
+.bd-atlas-compact .bd-disease-grid {
+  gap: 14px !important;
+}
+
+.bd-atlas-compact .bd-disease-card {
+  padding: 16px !important;
+  min-height: 0 !important;
+}
+
+.bd-atlas-compact .virus {
+  height: 88px !important;
+  margin-bottom: 10px !important;
+}
+
+.bd-atlas-compact .bd-protein-preview {
+  display: none !important;
+}
+
+.bd-atlas-summary {
+  display: grid !important;
+  grid-template-columns: repeat(3, 1fr) !important;
+  gap: 12px !important;
+}
+
+.bd-atlas-summary > div {
+  border: 1px solid rgba(45, 105, 220, 0.12);
+  border-radius: 14px;
+  padding: 12px 14px;
+  background: rgba(247, 251, 255, 0.9);
+}
+
+.bd-atlas-summary strong,
+.bd-atlas-summary span {
+  display: block;
+}
+
+.bd-atlas-summary strong {
+  margin-bottom: 4px;
+}
+
+.bd-atlas-summary span {
+  font-size: 14px;
+  color: #60749b;
+}
+
+.bd-career-panel {
+  background:
+    linear-gradient(
+      145deg,
+      rgba(235, 252, 249, 1),
+      rgba(245, 252, 255, 1)
+    ) !important;
+  border: 1px solid rgba(31, 183, 159, 0.18) !important;
+  cursor: default !important;
+}
+
+.bd-career-panel::after {
+  display: none !important;
+}
+
+.bd-career-list {
+  display: grid;
+  gap: 10px;
+  margin: 20px 0;
+}
+
+.bd-career-list > div {
+  padding: 10px 12px;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.78);
+  border: 1px solid rgba(24, 144, 185, 0.12);
+  font-weight: 800;
+  color: #143f80;
+}
+
+@media (max-width: 1100px) {
+  .bd-atlas-summary {
+    grid-template-columns: 1fr !important;
+  }
+}
+

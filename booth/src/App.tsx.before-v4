@@ -1,0 +1,8 @@
+import './styles/biodocklab-theme.css';
+import './styles/last-hope-v3.css';
+
+import LastHopeGameV3 from './screens/LastHopeGameV3';
+
+export default function App() {
+  return <LastHopeGameV3 />;
+}
