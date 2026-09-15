@@ -1,5 +1,7 @@
 import { useState } from 'react';
 import { KioskShell } from '../components/ui/KioskShell';
+import { Protein3DViewer } from '../components/Protein3DViewer';
+import { dockingTargetByProteinId } from '../data/dockingTargets';
 
 type Screen =
   | 'home'
@@ -229,6 +231,8 @@ function AtlasScreen({ next }: { next: () => void }) {
 }
 
 function StructureScreen({ next }: { next: () => void }) {
+  const dockingTarget = dockingTargetByProteinId('sars2-mpro');
+
   return (
     <div className="bd-main">
       <div className="bd-grid structure">
@@ -251,10 +255,14 @@ function StructureScreen({ next }: { next: () => void }) {
               </div>
             </div>
 
-            <div className="bd-dark-protein">
-              <div className="bd-pocket" />
-              <div className="bd-ligand" />
-            </div>
+            {dockingTarget ? (
+              <Protein3DViewer target={dockingTarget} />
+            ) : (
+              <div className="bd-dark-protein">
+                <div className="bd-pocket" />
+                <div className="bd-ligand" />
+              </div>
+            )}
 
             <div className="bd-controls">
               <div className="bd-control"><strong>회전하기</strong><br />드래그로 구조를 돌려보세요.</div>
