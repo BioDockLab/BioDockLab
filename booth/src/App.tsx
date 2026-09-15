@@ -35,7 +35,9 @@ import { CellScopeExperience } from './components/CellScopeExperience';
 import type { CellModelId, DiseaseId, ExperienceTrack, ResearchSession, ThemeId } from './types';
 import { aiAnalysisByDisease } from './data/aiAnalysis';
 import { ProteinAtlas } from './components/ProteinAtlas';
+import { Protein3DViewer } from './components/Protein3DViewer';
 import { proteinById, type ProteinAtlasEntry } from './data/proteinAtlas';
+import { dockingTargetByProteinId } from './data/dockingTargets';
 
 const createSessionId = () => {
   const now = new Date();
@@ -259,6 +261,7 @@ function OrganoidScreen({ session, updateDisease, updateCellModel, previous, nex
 
 function ProteinScreen({ proteinId, diseaseName, previous, next }: { proteinId: string; diseaseName: string; previous: () => void; next: () => void }) {
   const atlasProtein = proteinById(proteinId);
+  const dockingTarget = dockingTargetByProteinId(proteinId);
   const title = atlasProtein?.nameKo ?? 'EGFR';
   const subtitle = atlasProtein?.name ?? 'Epidermal Growth Factor Receptor';
   const sourceId = atlasProtein ? `PDB ID: ${atlasProtein.pdbId}` : 'UniProt ID: P00533';
@@ -267,8 +270,17 @@ function ProteinScreen({ proteinId, diseaseName, previous, next }: { proteinId: 
       <div className="content-with-summary">
         <section className="panel protein-viewer">
           <div className="viewer-header"><div><small>선택 단백질</small><h1>{title}</h1><p>{subtitle}</p><span>{sourceId}</span></div><button type="button">뷰 옵션⌄</button></div>
-          <ProteinArt />
-          <div className="viewer-toolbar"><span>↻ 회전</span><span>＋ 줌</span><span>✣ 이동</span><span>⌖ 측정</span><span>○ 리셋</span></div>
+          {dockingTarget ? (
+            <Protein3DViewer target={dockingTarget} />
+          ) : (
+            <ProteinArt />
+          )}
+          <div className="viewer-toolbar">
+            <span>↻ 드래그 회전</span>
+            <span>＋ 핀치/스크롤 줌</span>
+            <span>● 기준 리간드 강조</span>
+            <span>○ 로컬 PDB</span>
+          </div>
         </section>
         <aside className="panel structure-info">
           <span className="eyebrow"><Atom /> 단백질 구조 확인</span><h1>왜 단백질 구조를 살펴볼까요?</h1>
